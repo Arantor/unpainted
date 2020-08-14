@@ -723,6 +723,10 @@ Class Gui
 		Local N:Gui = New Gui_MenuItem(Text, Parent, Tickbox, Value)
 		Return N
 	End Function
+	Function CreateMenuSeparator:Gui(Parent:Gui)
+		Local N:Gui = New Gui_MenuSeparator(Parent)
+		Return N
+	End Function
 	Function CreateListbox:Gui(X,Y,W,H, Parent:Gui)
 		Local N:Gui = New Gui_Listbox(X, Y, W, H, Parent)
 		Return N

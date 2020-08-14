@@ -328,3 +328,39 @@ Class Gui_MenuItem Extends Gui
 	End Method
 	
 End Class
+
+Class Gui_MenuSeparator Extends Gui
+	Method New(Parent:Gui)
+		Self.Type = "MenuSeperator"
+		Self.Parent = Parent
+		Self.Parent.Children.AddLast(Self)
+		Self.Children = New List<Gui>
+		Self.H = NormalFont.GetTxtHeight("Test123") + 4
+		Self.Parent.ChildMaxHeight = Self.H
+
+		Self.RealVisible = 1
+		ZOrder(Self.Parent)
+		Self.W = Parent.ChildMaxWidth
+		Self.SeperatedCanvas = 1
+		Self.GuiCanvas = New Gui_Canvas(Self)
+		Self.Minimised = 1
+		
+	End Method
+
+	Method Draw2()
+		Local AtlasX = 510
+		Local AtlasY = 20
+		Local AtlasYSeparator = 140
+		
+		'Box
+		Gui.Draw3x3(RealX, RealY, W, H, AtlasX + 3, AtlasY + 3, 24, 24, 5)
+
+		' Separator
+		Gui.Draw3x3(RealX, RealY, W, H, AtlasX + 3, AtlasYSeparator + 3, 24, 24, 5)
+		
+	End Method
+
+	Method Update2()
+
+	End Method
+End Class
