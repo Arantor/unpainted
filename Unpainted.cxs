@@ -1,0 +1,79 @@
+#GLFW_APP_ICON="Unpainted.ico"
+#GLFW_WINDOW_TITLE="Unpainted"
+#GLFW_APP_LABEL="Unpainted"
+#GLFW_APP_PUBLISHER="Daunt By Name, Dauntless By Nature"
+
+Import mojo
+Import guiBasic
+Import UMenu
+
+Global Unpainted: UnpaintedApp
+
+Function Main()
+	Unpainted = New UnpaintedApp()
+End Function
+
+Class UnpaintedApp Extends App
+	Field Screen: Gui
+	Field Menu: UnpaintedMenu
+	Field PaintMode: PaintingMode
+	Field Edited: Bool
+
+	Method OnCreate()
+		SetUpdateRate(60)
+		
+		Self.Screen = Gui.CreateScreen()
+
+		Self.PaintMode = New PaintingMode
+		Self.PaintMode.Set(PaintingMode.Color)
+		
+		Self.Menu = New UnpaintedMenu(Screen)
+		
+		Self.Edited = False
+
+	End Method
+	
+	Method OnUpdate()
+		Menu.Update()
+		Gui.Update()
+	End Method
+
+	Method OnRender()
+		Cls(0, 0, 0)
+		SetColor(255, 255, 255)
+		Gui.Draw()
+	End Method
+End Class
+
+Class PaintingMode
+	Field PaintMode: Int
+
+	Const Matte: Int = 1
+	Const Color: Int = 2
+	Const Replace: Int = 3
+	Const Smear: Int = 4
+	Const Shade: Int = 5
+	Const Blend: Int = 6
+	Const Cycle: Int = 7
+	Const Smooth: Int = 8
+	Const Mix: Int = 9
+	Const HBrite: Int = 10
+	Const RubThru: Int = 11
+	
+	Method Get: Int ()
+		Return PaintMode
+	End Method
+
+	Method Set: Void (newmode: Int)
+		Select newmode
+			Case Matte, Color, Replace, Smear, Shade, Blend, Cycle, Smooth, Mix, HBrite, RubThru
+				PaintMode = newmode
+			Default
+				Throw New InvalidPaintModeException
+		End Select
+	End Method
+End Class
+
+Class InvalidPaintModeException Extends Throwable
+
+End Class

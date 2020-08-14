@@ -1,0 +1,76 @@
+Import guiBasic
+
+Const IsTickable : Int = 1
+Const IsTicked : Int = 1
+
+Class AnimMenu
+	Field Anim: Gui
+	Field Anim_AnimBrush: Gui
+	Field Anim_AnimBrush_Load: Gui
+	Field Anim_AnimBrush_Save: Gui
+	Field Anim_AnimBrush_PickUp: Gui
+	Field Anim_AnimBrush_Settings: Gui
+	Field Anim_AnimBrush_Use: Gui
+	Field Anim_Load: Gui
+	Field Anim_Save: Gui
+	Field Anim_Move: Gui
+	Field Anim_CameraMove: Gui
+	Field Anim_Frames: Gui
+	Field Anim_Frames_SetNumber: Gui
+	Field Anim_Frames_AddFrames: Gui
+	Field Anim_Frames_CopyFrames: Gui
+	Field Anim_Frames_DeleteFrames: Gui
+	Field Anim_Frames_SetFrameRate: Gui
+	Field Anim_Frames_SetFramePalette: Gui
+	Field Anim_Frames_FramePaletteInfo: Gui
+	Field Anim_Control: Gui
+	Field Anim_Control_ShowPanel: Gui
+	Field Anim_Control_SetRate: Gui
+	Field Anim_Control_SetRange: Gui
+	Field Anim_Control_Previous: Gui
+	Field Anim_Control_Next: Gui
+	Field Anim_Control_GoTo: Gui
+	Field Anim_Control_Play: Gui
+	Field Anim_Control_PlayOnce: Gui
+	Field Anim_Control_PingPong: Gui
+	
+	Method New(destination: Gui)
+		Anim = Gui.CreateMenu("Anim", destination)
+
+		Anim_AnimBrush = Gui.CreateMenuItemInactive("AnimBrush", Anim)
+		Anim_AnimBrush_Load = Gui.CreateMenuItemInactive("Load...", Anim_AnimBrush)
+		Anim_AnimBrush_Save = Gui.CreateMenuItemInactive("Save...", Anim_AnimBrush)
+		Anim_AnimBrush_PickUp = Gui.CreateMenuItemInactive("Pick up...", Anim_AnimBrush)
+		Anim_AnimBrush_Settings = Gui.CreateMenuItemInactive("Settings...", Anim_AnimBrush)
+		Anim_AnimBrush_Use = Gui.CreateMenuItemInactive("Use", Anim_AnimBrush)
+
+		Anim_Load = Gui.CreateMenuItemInactive("Load...", Anim)
+		Anim_Save = Gui.CreateMenuItemInactive("Save...", Anim)
+		Anim_Move = Gui.CreateMenuItemInactive("Move...", Anim) ' M
+		Anim_CameraMove = Gui.CreateMenuItemInactive("Camera Move...", Anim) ' N
+
+		Anim_Frames = Gui.CreateMenuItemInactive("Frames", Anim)
+		Anim_Frames_SetNumber = Gui.CreateMenuItemInactive("Set #...", Anim_Frames)
+		Anim_Frames_AddFrames = Gui.CreateMenuItemInactive("Add frames...", Anim_Frames)
+		Anim_Frames_CopyFrames = Gui.CreateMenuItemInactive("Copy frames...", Anim_Frames) ' Ctrl-f
+		Anim_Frames_DeleteFrames = Gui.CreateMenuItemInactive("Delete frames...", Anim_Frames)
+		Anim_Frames_SetFrameRate = Gui.CreateMenuItemInactive("Set frame rate...", Anim_Frames) ' Amiga-R
+		Anim_Frames_SetFramePalette = Gui.CreateMenuItemInactive("Set frame palette", Anim_Frames)
+		Anim_Frames_FramePaletteInfo = Gui.CreateMenuItemInactive("Frame palette info", Anim_Frames)
+
+		Anim_Control = Gui.CreateMenuItemInactive("Control", Anim)
+		Anim_Control_ShowPanel = Gui.CreateMenuItemInactive("Show Panel", Anim_Control, IsTickable)
+		Anim_Control_SetRate = Gui.CreateMenuItemInactive("Set Rate...", Anim_Control)
+		Anim_Control_SetRange = Gui.CreateMenuItemInactive("Set Range...", Anim_Control)
+		Anim_Control_Previous = Gui.CreateMenuItemInactive("Previous", Anim_Control) ' 1
+		Anim_Control_Next = Gui.CreateMenuItemInactive("Next", Anim_Control) ' 2
+		Anim_Control_GoTo = Gui.CreateMenuItemInactive("Go to...", Anim_Control) ' 3
+		Anim_Control_Play = Gui.CreateMenuItemInactive("Play", Anim_Control) ' 4
+		Anim_Control_PlayOnce = Gui.CreateMenuItemInactive("Play once", Anim_Control) ' 5
+		Anim_Control_PingPong = Gui.CreateMenuItemInactive("Ping pong", Anim_Control) ' 6
+	End Method
+
+	Method Update()
+	
+	End Method
+End Class

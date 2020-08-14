@@ -1,0 +1,53 @@
+Import guiBasic
+Import Unpainted
+
+Const IsTickable : Int = 1
+Const IsTicked : Int = 1
+
+Class ModeMenu
+	Field SelectedMode: Int
+
+	Field Mode: Gui
+	Field Mode_Matte: Gui
+	Field Mode_Color: Gui
+	Field Mode_Replace: Gui
+	Field Mode_Smear: Gui
+	Field Mode_Shade: Gui
+	Field Mode_Blend: Gui
+	Field Mode_Cycle: Gui
+	Field Mode_Smooth: Gui
+	Field Mode_Mix: Gui
+	Field Mode_HBrite: Gui
+	Field Mode_RubThru: Gui
+	
+	Method New(destination: Gui)
+		Mode = Gui.CreateMenu("Mode", destination)
+		
+		Mode_Matte = Gui.CreateMenuItemInactive("Matte", Mode, IsTickable) ' F1
+		Mode_Color = Gui.CreateMenuItem("Color", Mode, IsTickable) ' F2
+		Mode_Replace  = Gui.CreateMenuItemInactive("Replace", Mode, IsTickable)' F3
+		Mode_Smear = Gui.CreateMenuItemInactive("Smear", Mode, IsTickable) ' F4
+		Mode_Shade = Gui.CreateMenuItemInactive("Shade", Mode, IsTickable) ' F5
+		Mode_Blend = Gui.CreateMenuItemInactive("Blend", Mode, IsTickable) ' F6
+		Mode_Cycle = Gui.CreateMenuItemInactive("Cycle", Mode, IsTickable) ' F7
+		Mode_Smooth = Gui.CreateMenuItemInactive("Smooth", Mode, IsTickable) ' F8
+		Mode_Mix = Gui.CreateMenuItemInactive("Mix", Mode, IsTickable)
+		Mode_HBrite = Gui.CreateMenuItemInactive("HBrite", Mode, IsTickable)
+		Mode_RubThru = Gui.CreateMenuItemInactive("RubThru", Mode, IsTickable)
+		
+		Local paintmode: Int = Unpainted.Unpainted.PaintMode.Get()
+		
+		Select paintmode
+			Case PaintingMode.Matte
+				Mode_Matte.Value = 1
+			Case PaintingMode.Color
+				Mode_Color.Value = 1
+			Case PaintingMode.Replace
+				Mode_Replace.Value = 1
+		End Select
+	End Method
+
+	Method Update()
+	
+	End Method
+End Class

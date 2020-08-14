@@ -1,0 +1,51 @@
+Import guiBasic
+
+Const IsTickable : Int = 1
+Const IsTicked : Int = 1
+
+Class PrefsMenu
+	Field Prefs: Gui
+	Field Prefs_Coords: Gui
+	Field Prefs_Coords_OnOff: Gui
+	Field Prefs_Coords_OriginTopLeft: Gui
+	Field Prefs_MultiCycle: Gui
+	Field Prefs_BeSquare: Gui
+	Field Prefs_ExclBrush: Gui
+	Field Prefs_AutoTransp: Gui
+	Field Prefs_AutoGrid: Gui
+	Field Prefs_MouseTrack: Gui
+	Field Prefs_Toolbox: Gui
+	Field Prefs_Toolbox_Fill: Gui
+	Field Prefs_Toolbox_Spacing: Gui
+	Field Prefs_Toolbox_Fonts: Gui
+	Field Prefs_Toolbox_Airbrush: Gui
+	Field Prefs_Toolbox_Grid: Gui
+	Field Prefs_Toolbox_Symmetry: Gui
+	
+	Method New(destination: Gui)
+		Prefs = Gui.CreateMenu("Prefs", destination)
+
+		Prefs_Coords = Gui.CreateMenuItemInactive("Coords", Prefs)
+		Prefs_Coords_OnOff = Gui.CreateMenuItemInactive("On/Off", Prefs_Coords, IsTickable) ' |
+		Prefs_Coords_OriginTopLeft = Gui.CreateMenuItemInactive("Origin from Top Left", Prefs_Coords, IsTickable)
+
+		Prefs_MultiCycle = Gui.CreateMenuItemInactive("MultiCycle", Prefs, IsTickable)
+		Prefs_BeSquare = Gui.CreateMenuItemInactive("Be Square", Prefs, IsTickable)
+		Prefs_ExclBrush = Gui.CreateMenuItemInactive("ExclBrush", Prefs, IsTickable)
+		Prefs_AutoTransp = Gui.CreateMenuItemInactive("AutoTransp", Prefs, IsTickable)
+		Prefs_AutoGrid = Gui.CreateMenuItemInactive("AutoGrid", Prefs, IsTickable)
+		Prefs_MouseTrack = Gui.CreateMenuItemInactive("MouseTrack", Prefs, IsTickable)
+
+		Prefs_Toolbox = Gui.CreateMenuItemInactive("Toolbox", Prefs)
+		Prefs_Toolbox_Fill = Gui.CreateMenuItemInactive("Fill...", Prefs_Toolbox) ' F
+		Prefs_Toolbox_Spacing = Gui.CreateMenuItemInactive("Spacing...", Prefs_Toolbox) ' V
+		Prefs_Toolbox_Fonts = Gui.CreateMenuItemInactive("Fonts...", Prefs_Toolbox) ' T
+		Prefs_Toolbox_Airbrush = Gui.CreateMenuItemInactive("Airbrush...", Prefs_Toolbox) ' Alt-A
+		Prefs_Toolbox_Grid = Gui.CreateMenuItemInactive("Grid...", Prefs_Toolbox)
+		Prefs_Toolbox_Symmetry = Gui.CreateMenuItemInactive("Symmetry...", Prefs_Toolbox)
+	End Method
+
+	Method Update()
+	
+	End Method
+End Class

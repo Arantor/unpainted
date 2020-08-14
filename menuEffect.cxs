@@ -1,0 +1,128 @@
+Import guiBasic
+
+Const IsTickable : Int = 1
+Const IsTicked : Int = 1
+
+Class EffectMenu
+	Field Effect: Gui
+	Field Effect_Stencil: Gui
+	Field Effect_Stencil_Show: Gui
+	Field Effect_Stencil_Make: Gui
+	Field Effect_Stencil_Remake: Gui
+	Field Effect_Stencil_Paint: Gui
+	Field Effect_Stencil_Reverse: Gui
+	Field Effect_Stencil_OnOff: Gui
+	Field Effect_Stencil_Load: Gui
+	Field Effect_Stencil_Save: Gui
+	Field Effect_LightTable: Gui
+	Field Effect_LightTable_OnOff: Gui
+	Field Effect_LightTable_Merge: Gui
+	Field Effect_LightTable_Dim: Gui
+	Field Effect_LightTable_Layer1: Gui
+	Field Effect_LightTable_Layer2: Gui
+	Field Effect_LightTable_Layer3: Gui
+	Field Effect_LightTable_Layer4: Gui
+	Field Effect_LightTable_Settings: Gui
+	Field Effect_Background: Gui
+	Field Effect_Background_Fix: Gui
+	Field Effect_Background_Free: Gui
+	Field Effect_Background_LockForeground: Gui
+	Field Effect_AntiAlias: Gui
+	Field Effect_AntiAlias_Off: Gui
+	Field Effect_AntiAlias_Low: Gui
+	Field Effect_AntiAlias_High: Gui
+	Field Effect_Process: Gui
+	Field Effect_Process_OnOff: Gui
+	Field Effect_Process_Tint: Gui
+	Field Effect_Process_Hue: Gui
+	Field Effect_Process_Value: Gui
+	Field Effect_Translucency: Gui
+	Field Effect_Translucency_OnOff: Gui
+	Field Effect_Translucency_Settings: Gui
+	Field Effect_Perspective: Gui
+	Field Effect_Perspective_OnOff: Gui
+	Field Effect_Perspective_FillScreen: Gui
+	Field Effect_Perspective_Reset: Gui
+	Field Effect_Perspective_Centre: Gui
+	Field Effect_Perspective_Settings: Gui
+	Field Effect_Pressure: Gui
+	Field Effect_Pressure_OnOff: Gui
+	Field Effect_Pressure_Settings: Gui
+	Field Effect_Media: Gui
+	Field Effect_Media_Open: Gui
+	Field Effect_Media_Close: Gui
+	Field Effect_Texture: Gui
+	Field Effect_Texture_OnOff: Gui
+	Field Effect_Texture_Load: Gui
+	Field Effect_Texture_Invert: Gui
+	Field Effect_Texture_Free: Gui
+	
+	Method New(destination: Gui)
+		Effect = Gui.CreateMenu("Effect", destination)
+
+		Effect_Stencil = Gui.CreateMenuItemInactive("Stencil", Effect)
+		Effect_Stencil_Show = Gui.CreateMenuItemInactive("Show", Effect_Stencil)
+		Effect_Stencil_Make = Gui.CreateMenuItemInactive("Make...", Effect_Stencil) ' ~
+		Effect_Stencil_Remake = Gui.CreateMenuItemInactive("Remake", Effect_Stencil)
+		Effect_Stencil_Paint = Gui.CreateMenuItemInactive("Paint", Effect_Stencil, IsTickable)
+		Effect_Stencil_Reverse = Gui.CreateMenuItemInactive("Reverse", Effect_Stencil)
+		Effect_Stencil_OnOff = Gui.CreateMenuItemInactive("On/Off", Effect_Stencil, IsTickable) ' `
+		Effect_Stencil_Load = Gui.CreateMenuItemInactive("Load...", Effect_Stencil)
+		Effect_Stencil_Save = Gui.CreateMenuItemInactive("Save...", Effect_Stencil)
+
+		Effect_LightTable = Gui.CreateMenuItemInactive("LightTable", Effect)
+		Effect_LightTable_OnOff = Gui.CreateMenuItemInactive("On/Off", Effect_LightTable, IsTickable) ' I
+		Effect_LightTable_Merge = Gui.CreateMenuItemInactive("Merge", Effect_LightTable)
+		Effect_LightTable_Dim = Gui.CreateMenuItemInactive("Dim", Effect_LightTable, IsTickable) ' Alt-I
+		Effect_LightTable_Layer1 = Gui.CreateMenuItemInactive("Layer 1", Effect_LightTable, IsTickable) ' Ctrl-1
+		Effect_LightTable_Layer2 = Gui.CreateMenuItemInactive("Layer 2", Effect_LightTable, IsTickable) ' Ctrl-2
+		Effect_LightTable_Layer3 = Gui.CreateMenuItemInactive("Layer 3", Effect_LightTable, IsTickable) ' Ctrl-3
+		Effect_LightTable_Layer4 = Gui.CreateMenuItemInactive("Layer 4", Effect_LightTable, IsTickable) ' Ctrl-4
+		Effect_LightTable_Settings = Gui.CreateMenuItemInactive("Settings...", Effect_LightTable)
+
+		Effect_Background = Gui.CreateMenuItemInactive("Background", Effect)
+		Effect_Background_Fix = Gui.CreateMenuItemInactive("Fix", Effect_Background)
+		Effect_Background_Free = Gui.CreateMenuItemInactive("Free", Effect_Background)
+		Effect_Background_LockForeground = Gui.CreateMenuItemInactive("Lock FG", Effect_Background)
+
+		Effect_AntiAlias = Gui.CreateMenuItemInactive("AntiAlias", Effect)
+		Effect_AntiAlias_Off = Gui.CreateMenuItemInactive("Off", Effect_AntiAlias, IsTickable, IsTicked)
+		Effect_AntiAlias_Low = Gui.CreateMenuItemInactive("Low", Effect_AntiAlias, IsTickable)
+		Effect_AntiAlias_High = Gui.CreateMenuItemInactive("High", Effect_AntiAlias, IsTickable)
+
+		Effect_Process = Gui.CreateMenuItemInactive("Process", Effect) ' Alt-p
+		Effect_Process_OnOff = Gui.CreateMenuItemInactive("On/Off", Effect_Process, IsTickable)
+		Effect_Process_Tint = Gui.CreateMenuItemInactive("Tint", Effect_Process, IsTickable)
+		Effect_Process_Hue = Gui.CreateMenuItemInactive("Hue", Effect_Process, IsTickable)
+		Effect_Process_Value = Gui.CreateMenuItemInactive("Value", Effect_Process, IsTickable)
+
+		Effect_Translucency = Gui.CreateMenuItemInactive("Translucency", Effect)
+		Effect_Translucency_OnOff = Gui.CreateMenuItemInactive("On/Off", Effect_Translucency, IsTickable) ' Alt-t
+		Effect_Translucency_Settings = Gui.CreateMenuItemInactive("Settings...", Effect_Translucency)
+
+		Effect_Perspective = Gui.CreateMenuItemInactive("Perspective", Effect)
+		Effect_Perspective_OnOff = Gui.CreateMenuItemInactive("On/Off", Effect_Perspective, IsTickable)
+		Effect_Perspective_FillScreen = Gui.CreateMenuItemInactive("Fill Screen", Effect_Perspective)
+		Effect_Perspective_Reset = Gui.CreateMenuItemInactive("Reset", Effect_Perspective)
+		Effect_Perspective_Centre = Gui.CreateMenuItemInactive("Centre", Effect_Perspective)
+		Effect_Perspective_Settings = Gui.CreateMenuItemInactive("Settings...", Effect_Perspective)
+
+		Effect_Pressure = Gui.CreateMenuItemInactive("Pressure", Effect)
+		Effect_Pressure_OnOff = Gui.CreateMenuItemInactive("On/Off", Effect_Pressure, IsTickable)
+		Effect_Pressure_Settings = Gui.CreateMenuItemInactive("Settings...", Effect_Pressure)
+
+		Effect_Media = Gui.CreateMenuItemInactive("Media", Effect)
+		Effect_Media_Open = Gui.CreateMenuItemInactive("Open...", Effect_Media)
+		Effect_Media_Close = Gui.CreateMenuItemInactive("Close", Effect_Media)
+
+		Effect_Texture = Gui.CreateMenuItemInactive("Texture", Effect)
+		Effect_Texture_OnOff = Gui.CreateMenuItemInactive("On/Off", Effect_Texture, IsTickable) ' Amiga-T
+		Effect_Texture_Load = Gui.CreateMenuItemInactive("Load...", Effect_Texture)
+		Effect_Texture_Invert = Gui.CreateMenuItemInactive("Invert", Effect_Texture) ' Amiga-I
+		Effect_Texture_Free = Gui.CreateMenuItemInactive("Free", Effect_Texture)
+	End Method
+
+	Method Update()
+	
+	End Method
+End Class

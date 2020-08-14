@@ -1,0 +1,63 @@
+Import guiBasic
+
+Const IsTickable : Int = 1
+Const IsTicked : Int = 1
+
+Class ColorMenu
+	Field Color: Gui
+	Field Color_Ranges: Gui
+	Field Color_Cycle: Gui
+	Field Color_Palette: Gui
+	Field Color_Palette_Mixer: Gui
+	Field Color_Palette_Arranger: Gui
+	Field Color_Palette_UseBrushPalette: Gui
+	Field Color_Palette_RestorePalette: Gui
+	Field Color_Palette_DefaultPalette: Gui
+	Field Color_Palette_Load: Gui
+	Field Color_Palette_Save: Gui
+	Field Color_ColorSet: Gui
+	Field Color_ColorSet_Load: Gui
+	Field Color_ColorSet_Save: Gui
+	Field Color_BackgroundToForeground: Gui
+	Field Color_BackgroundToFromForeground: Gui
+	Field Color_Remap: Gui
+	Field Color_Brush: Gui
+	Field Color_Brush_BackgroundToForeground: Gui
+	Field Color_Brush_BackgroundToFromForeground: Gui
+	Field Color_Brush_Remap: Gui
+	Field Color_Brush_ChangeTransparency: Gui
+	
+	Method New(destination: Gui)
+		Color = Gui.CreateMenu("Color", destination)
+
+		Color_Ranges = Gui.CreateMenuItemInactive("Ranges...", Color)
+		Color_Cycle = Gui.CreateMenuItemInactive("Cycle", Color) ' Tab
+
+		Color_Palette = Gui.CreateMenuItemInactive("Palette", Color)
+		Color_Palette_Mixer = Gui.CreateMenuItemInactive("Mixer", Color_Palette, IsTickable)
+		Color_Palette_Arranger = Gui.CreateMenuItemInactive("Arranger", Color_Palette, IsTickable)
+		Color_Palette_UseBrushPalette = Gui.CreateMenuItemInactive("Use Brush Palette", Color_Palette)
+		Color_Palette_RestorePalette = Gui.CreateMenuItemInactive("Restore Palette", Color_Palette)
+		Color_Palette_DefaultPalette = Gui.CreateMenuItemInactive("Default Palette", Color_Palette)
+		Color_Palette_Load = Gui.CreateMenuItemInactive("Load...", Color_Palette)
+		Color_Palette_Save = Gui.CreateMenuItemInactive("Save...", Color_Palette)
+
+		Color_ColorSet = Gui.CreateMenuItemInactive("Color Set", Color)
+		Color_ColorSet_Load = Gui.CreateMenuItemInactive("Load...", Color_ColorSet)
+		Color_ColorSet_Save = Gui.CreateMenuItemInactive("Save...", Color_ColorSet)
+
+		Color_BackgroundToForeground = Gui.CreateMenuItemInactive("BG->FG", Color)
+		Color_BackgroundToFromForeground = Gui.CreateMenuItemInactive("BG<->FG", Color)
+		Color_Remap = Gui.CreateMenuItemInactive("Remap", Color)
+
+		Color_Brush = Gui.CreateMenuItemInactive("Brush", Color)
+		Color_Brush_BackgroundToForeground = Gui.CreateMenuItemInactive("BG->FG", Color_Brush)
+		Color_Brush_BackgroundToFromForeground = Gui.CreateMenuItemInactive("BG<->FG", Color_Brush)
+		Color_Brush_Remap = Gui.CreateMenuItemInactive("Remap", Color_Brush)
+		Color_Brush_ChangeTransparency = Gui.CreateMenuItemInactive("Change Transparency", Color)
+	End Method
+
+	Method Update()
+	
+	End Method
+End Class

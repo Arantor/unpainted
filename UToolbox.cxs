@@ -1,0 +1,42 @@
+Import Unpainted
+Import mojo
+Import guiBasic
+
+Class UnpaintedToolbox
+
+End Class
+
+	' Brushes: 1px, 3px +, 4px circle, 5px circle
+	' Brushes: 5px square, 4px square, 3px square, 2px square
+	' Brushes: 3px cluster, 5px cluster
+	' Tools:
+	'  Row 1:
+	'   Left: Dotted draw / no alt (no right click)
+	'   Right: Continuous draw / Continuous draw filled (right click: fill type requester)
+	'  Row 2:
+	'   Left: Straight line (right click: spacing requester)
+	'   Right: Curve tool / no alt (right click: spacing requester)
+	'  Row 3:
+	'   Left: Flood fill / no alt (right click: fill type requester)
+	'   Right: Airbrush / Blended Airbrush (right click: resize airbrush tool)
+	'  Row 4:
+	'   Left: Unfilled rectangle / filled rectangle (right click: fill type requester)
+	'   Right: Unfilled circle / filled circle (right click: fill type requester)
+	'  Row 5:
+	'   Left: Unfilled ellipse / filled ellipse (right click: fill type requester)
+	'   Right: Unfilled polygon / filled polygon (right click: fill type requester)
+	'  Row 6:
+	'   Left: Brush selector / no alt (right click: Brush Restore)
+	'   Right: Text / no alt (right click: font face/size requester)
+	'  Row 7:
+	'   Left: Grid / no alt (right click: grid spacing requester)
+	'   Right: Symmetry / no alt (right click: symmetry requester)
+	'  Row 8:
+	'   Left: Magnify / no alt (no right click)
+	'   Right: Zoom in / no alt (right click: zoom out)
+	'  Row 9:
+	'   Left: Undo + redo / no alt (no right click)
+	'   Right: Clear / no alt (right click: clear with no undo)
+	'  Row 10: (DP2E only)
+	'   Left: Apply gradient to operation
+	'   Right: Apply pattern to draw ops (

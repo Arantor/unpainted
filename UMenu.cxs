@@ -1,0 +1,41 @@
+Import Unpainted
+Import mojo
+Import guiBasic
+
+Import menuPicture
+Import menuBrush
+Import menuMode
+Import menuAnim
+Import menuColor
+Import menuEffect
+Import menuPrefs
+
+Class UnpaintedMenu
+	Field PictureMenu: PictureMenu
+	Field BrushMenu: BrushMenu
+	Field ModeMenu: ModeMenu
+	Field AnimMenu: AnimMenu
+	Field ColorMenu: ColorMenu
+	Field EffectMenu: EffectMenu
+	Field PrefsMenu: PrefsMenu
+
+	Method New (destination: Gui)
+		PictureMenu = New PictureMenu(destination)
+		BrushMenu = New BrushMenu(destination)
+		ModeMenu = New ModeMenu(destination)
+		AnimMenu = New AnimMenu(destination)
+		ColorMenu = New ColorMenu(destination)
+		EffectMenu = New EffectMenu(destination)
+		PrefsMenu = New PrefsMenu(destination)
+	End Method
+
+	Method Update()
+		PictureMenu.Update()
+		BrushMenu.Update()
+		ModeMenu.Update()
+		AnimMenu.Update()
+		ColorMenu.Update()
+		EffectMenu.Update()
+		PrefsMenu.Update()
+	End Method
+End Class

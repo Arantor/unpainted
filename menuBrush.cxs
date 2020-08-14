@@ -1,0 +1,91 @@
+Import guiBasic
+
+Const IsTickable : Int = 1
+Const IsTicked : Int = 1
+
+Class BrushMenu
+	Field Brush: Gui
+	Field Brush_Load: Gui
+	Field Brush_Save: Gui
+	Field Brush_Copy: Gui
+	Field Brush_Paste: Gui
+	Field Brush_Restore: Gui
+	Field Brush_Spare: Gui
+	Field Brush_Spare_BrushToSpare: Gui
+	Field Brush_Spare_BrushToFromSpare: Gui
+	Field Brush_Spare_MorphToSpare: Gui
+	Field Brush_Size: Gui
+	Field Brush_Size_Stretch: Gui
+	Field Brush_Size_Halve: Gui
+	Field Brush_Size_Double: Gui
+	Field Brush_Size_DoubleHoriz: Gui
+	Field Brush_Size_DoubleVert: Gui
+	Field Brush_Flip: Gui
+	Field Brush_Flip_Horiz: Gui
+	Field Brush_Flip_Vert: Gui
+	Field Brush_Edge: Gui
+	Field Brush_Edge_Outline: Gui
+	Field Brush_Edge_Trim: Gui
+	Field Brush_Rotate: Gui
+	Field Brush_Rotate_90Deg: Gui
+	Field Brush_Rotate_AnyAngle: Gui
+	Field Brush_Rotate_Shear: Gui
+	Field Brush_Bend: Gui
+	Field Brush_Bend_Horiz: Gui
+	Field Brush_Bend_Vert: Gui
+	Field Brush_Handle: Gui
+	Field Brush_Handle_Rotate: Gui
+	Field Brush_Handle_Place: Gui
+	Field Brush_SolidBody: Gui
+	Field Brush_FrameOnly: Gui
+	
+	Method New(destination: Gui)
+		Brush = Gui.CreateMenu("Brush", destination)
+		
+		Brush_Load = Gui.CreateMenuItemInactive("Load...", Brush)
+		Brush_Save = Gui.CreateMenuItemInactive("Save...", Brush)
+		Brush_Copy = Gui.CreateMenuItemInactive("Copy", Brush) ' Amiga-C
+		Brush_Paste = Gui.CreateMenuItemInactive("Paste", Brush) ' Amiga-V
+		Brush_Restore = Gui.CreateMenuItemInactive("Restore", Brush) ' B
+
+		Brush_Spare = Gui.CreateMenuItemInactive("Spare", Brush)
+		Brush_Spare_BrushToSpare = Gui.CreateMenuItemInactive("Brush->Spare", Brush_Spare) ' Alt-n
+		Brush_Spare_BrushToFromSpare = Gui.CreateMenuItemInactive("Brush<->Spare", Brush_Spare) ' Alt-b
+		Brush_Spare_MorphToSpare = Gui.CreateMenuItemInactive("Morph->Spare...", Brush_Spare) ' Alt-m
+
+		Brush_Size = Gui.CreateMenuItemInactive("Size", Brush)
+		Brush_Size_Stretch = Gui.CreateMenuItemInactive("Stretch", Brush_Size) ' Z
+		Brush_Size_Halve = Gui.CreateMenuItemInactive("Halve", Brush_Size) ' h
+		Brush_Size_Double = Gui.CreateMenuItemInactive("Double", Brush_Size) ' H
+		Brush_Size_DoubleHoriz = Gui.CreateMenuItemInactive("Double Horiz", Brush_Size) ' X
+		Brush_Size_DoubleVert = Gui.CreateMenuItemInactive("Double Vert", Brush_Size) ' Y
+
+		Brush_Flip = Gui.CreateMenuItem("Flip", Brush)
+		Brush_Flip_Horiz = Gui.CreateMenuItem("Horiz", Brush_Flip) ' x
+		Brush_Flip_Vert = Gui.CreateMenuItem("Vert", Brush_Flip) ' y
+
+		Brush_Edge = Gui.CreateMenuItem("Edge", Brush)
+		Brush_Edge_Outline = Gui.CreateMenuItem("Outline", Brush_Edge) ' o
+		Brush_Edge_Trim = Gui.CreateMenuItem("Trim", Brush_Edge) ' O
+
+		Brush_Rotate = Gui.CreateMenuItem("Rotate", Brush)
+		Brush_Rotate_90Deg = Gui.CreateMenuItem("90 Degrees", Brush_Rotate) ' z
+		Brush_Rotate_AnyAngle = Gui.CreateMenuItem("Any Angle", Brush_Rotate)
+		Brush_Rotate_Shear = Gui.CreateMenuItem("Shear", Brush_Rotate)
+
+		Brush_Bend = Gui.CreateMenuItem("Bend", Brush)
+		Brush_Bend_Horiz = Gui.CreateMenuItem("Horiz", Brush_Bend)
+		Brush_Bend_Vert = Gui.CreateMenuItem("Vert", Brush_Bend)
+
+		Brush_Handle = Gui.CreateMenuItem("Handle", Brush)
+		Brush_Handle_Rotate = Gui.CreateMenuItem("Rotate", Brush_Handle) ' Alt-x
+		Brush_Handle_Place = Gui.CreateMenuItem("Load...", Brush_Handle) ' Alt-z
+
+		Brush_SolidBody = Gui.CreateMenuItem("Solid Body", Brush, IsTickable)
+		Brush_FrameOnly = Gui.CreateMenuItem("Frame Only", Brush, IsTickable) ' Alt-f
+	End Method
+
+	Method Update()
+	
+	End Method
+End Class

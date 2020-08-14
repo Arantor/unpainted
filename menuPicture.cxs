@@ -1,0 +1,66 @@
+Import guiBasic
+Import Unpainted
+
+Class PictureMenu
+	Field Picture: Gui
+	Field Picture_Load: Gui
+	Field Picture_Save: Gui
+	Field Picture_Delete: Gui
+	Field Picture_Print: Gui
+	Field Picture_Flip: Gui
+	Field Picture_Flip_Horiz: Gui
+	Field Picture_Flip_Vert: Gui
+	Field Picture_Spare: Gui
+	Field Picture_Spare_Swap: Gui
+	Field Picture_Spare_CopyToSpare: Gui
+	Field Picture_Spare_MergeInFront: Gui
+	Field Picture_Spare_MergeInBack: Gui
+	Field Picture_Spare_DeleteThisPage: Gui
+	Field Picture_PageSize: Gui
+	Field Picture_ShowPage: Gui
+	Field Picture_ScreenFormat: Gui
+	Field Picture_About: Gui
+	Field Picture_Quit: Gui
+
+	Method New(destination: Gui)
+		Picture = Gui.CreateMenu("Picture", destination)
+		
+		Picture_Load = Gui.CreateMenuItemInactive("Load...", Picture) ' Amiga-L
+		Picture_Save = Gui.CreateMenuItemInactive("Save...", Picture) ' Amiga-S
+		Picture_Delete = Gui.CreateMenuItemInactive("Delete...", Picture) ' Amiga-D
+		Picture_Print = Gui.CreateMenuItemInactive("Print...", Picture) ' Amiga-P
+		
+		Gui.CreateMenuSeparator(Picture)
+
+		Picture_Flip = Gui.CreateMenuItemInactive("Flip", Picture)
+		Picture_Flip_Horiz = Gui.CreateMenuItemInactive("Horiz", Picture_Flip)
+		Picture_Flip_Vert = Gui.CreateMenuItemInactive("Vert", Picture_Flip)
+		
+		Gui.CreateMenuSeparator(Picture)
+
+		Picture_Spare = Gui.CreateMenuItemInactive("Spare", Picture)
+		Picture_Spare_Swap = Gui.CreateMenuItemInactive("Swap", Picture_Spare) ' J
+		Picture_Spare_CopyToSpare = Gui.CreateMenuItemInactive("Copy to Spare", Picture_Spare)
+		Picture_Spare_MergeInFront = Gui.CreateMenuItemInactive("Merge in Front", Picture_Spare)
+		Picture_Spare_MergeInBack = Gui.CreateMenuItemInactive("Merge in Back", Picture_Spare)
+		Picture_Spare_DeleteThisPage = Gui.CreateMenuItemInactive("Delete this Page", Picture_Spare)
+		
+		Gui.CreateMenuSeparator(Picture)
+
+		Picture_PageSize = Gui.CreateMenuItemInactive("Page Size...", Picture)
+		Picture_ShowPage = Gui.CreateMenuItemInactive("Show Page", Picture) ' S
+		Picture_ScreenFormat = Gui.CreateMenuItemInactive("Screen Format...", Picture)
+		Picture_About = Gui.CreateMenuItem("About", Picture) ' ?
+		Picture_Quit = Gui.CreateMenuItem("Quit", Picture) ' Amiga-Q
+	End Method
+
+	Method Update()
+		
+		If Picture_About.IsClicked
+			Gui.MsgBox("About Unpainted", "Inspired by Deluxe Paint.~nWritten in Cerberus X~n~nUses guiBasic and FontMachine.",1)
+		End If
+		If Picture_Quit.IsClicked And Not Unpainted.Unpainted.Edited
+			EndApp
+		End If
+	End Method
+End Class
