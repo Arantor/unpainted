@@ -727,6 +727,11 @@ Class Gui
 		Local N:Gui = New Gui_MenuSeparator(Parent)
 		Return N
 	End Function
+	Function CreateMenuItemInactive:Gui(Text:String, Parent:Gui, Tickbox = 0, Value = 0)
+		Local N:Gui = New Gui_MenuItem(Text, Parent, Tickbox, Value)
+		N.Active = 0
+		Return N
+	End Function
 	Function CreateListbox:Gui(X,Y,W,H, Parent:Gui)
 		Local N:Gui = New Gui_Listbox(X, Y, W, H, Parent)
 		Return N
