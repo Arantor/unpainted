@@ -1,3 +1,5 @@
+Strict
+
 Import guiBasic
 Import Unpainted
 
@@ -47,7 +49,7 @@ Class ModeMenu
 		End Select
 	End Method
 
-	Method Update()
+	Method Update: Void ()
 	
 	End Method
 End Class

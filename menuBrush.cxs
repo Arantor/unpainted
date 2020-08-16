@@ -1,3 +1,5 @@
+Strict
+
 Import guiBasic
 
 Const IsTickable : Int = 1
@@ -85,7 +87,7 @@ Class BrushMenu
 		Brush_FrameOnly = Gui.CreateMenuItemInactive("Frame Only", Brush, IsTickable) ' Alt-f
 	End Method
 
-	Method Update()
+	Method Update: Void ()
 	
 	End Method
 End Class

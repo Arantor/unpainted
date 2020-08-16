@@ -1,3 +1,5 @@
+Strict
+
 Import guiBasic
 Import Unpainted
 
@@ -27,7 +29,7 @@ Class SpacingMode
 	Field Button_OK: Gui
 	Field Button_Cancel: Gui
 
-	Method New(destination: Gui)
+	Method New (destination: Gui)
 		Self.CurrentMode = Mode_Continuous
 
 		Self.Dialog = Gui.CreateWindow(32, 32, 220, 230, "Spacing", destination, 2, 0, 0, 0, 0, 1, 0)
@@ -56,7 +58,7 @@ Class SpacingMode
 		Button_Cancel = Gui.CreateButton(118, 150, 60, 25, "Cancel", Self.Dialog, 0)
 	End Method
 
-	Method ShowDialog()
+	Method ShowDialog: Void ()
 		Self.Dialog.Visible = 1
 
 		' Reset all the textboxes from the values we know.
@@ -67,11 +69,11 @@ Class SpacingMode
 		Self.Update()
 	End Method
 
-	Method HideDialog()
+	Method HideDialog: Void ()
 		Self.Dialog.Visible = 0
 	End Method
 
-	Method Update()
+	Method Update: Void ()
 		' If we're not showing the dialog, there's no work to do.
 		If Not Self.Dialog.Visible Then Return
 

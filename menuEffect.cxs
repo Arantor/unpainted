@@ -1,3 +1,5 @@
+Strict
+
 Import guiBasic
 
 Const IsTickable : Int = 1
@@ -122,7 +124,7 @@ Class EffectMenu
 		Effect_Texture_Free = Gui.CreateMenuItemInactive("Free", Effect_Texture)
 	End Method
 
-	Method Update()
+	Method Update: Void ()
 	
 	End Method
 End Class

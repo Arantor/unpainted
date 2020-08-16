@@ -3,6 +3,8 @@
 #GLFW_APP_LABEL="Unpainted"
 #GLFW_APP_PUBLISHER="Daunt By Name, Dauntless By Nature"
 
+Strict
+
 Import mojo
 Import guiBasic
 
@@ -13,8 +15,9 @@ Import USpacing
 
 Global Unpainted: UnpaintedApp
 
-Function Main()
+Function Main: Int()
 	Unpainted = New UnpaintedApp()
+	Return 0
 End Function
 
 Class UnpaintedApp Extends App
@@ -24,7 +27,7 @@ Class UnpaintedApp Extends App
 	Field SpacingMode: SpacingMode
 	Field Edited: Bool
 
-	Method OnCreate()
+	Method OnCreate: Int ()
 		SetUpdateRate(60)
 		
 		Self.Screen = Gui.CreateScreen()
@@ -38,20 +41,25 @@ Class UnpaintedApp Extends App
 		
 		Self.Edited = False
 
+		Return 0
 	End Method
 	
-	Method OnUpdate()
+	Method OnUpdate: Int ()
 		Self.Menu.Update()
 		
 		Self.SpacingMode.Update();
 
 		Gui.Update()
+		
+		Return 0
 	End Method
 
-	Method OnRender()
+	Method OnRender: Int ()
 		Cls(0, 0, 0)
 		SetColor(255, 255, 255)
 		Gui.Draw()
+		
+		Return 0
 	End Method
 End Class
 

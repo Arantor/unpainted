@@ -1,3 +1,5 @@
+Strict
+
 Import guiBasic
 
 Const IsTickable : Int = 1
@@ -57,7 +59,7 @@ Class ColorMenu
 		Color_Brush_ChangeTransparency = Gui.CreateMenuItemInactive("Change Transparency", Color)
 	End Method
 
-	Method Update()
+	Method Update: Void ()
 	
 	End Method
 End Class

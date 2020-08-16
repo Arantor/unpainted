@@ -1,3 +1,5 @@
+Strict
+
 Import guiBasic
 
 Const IsTickable : Int = 1
@@ -70,7 +72,7 @@ Class AnimMenu
 		Anim_Control_PingPong = Gui.CreateMenuItemInactive("Ping pong", Anim_Control) ' 6
 	End Method
 
-	Method Update()
+	Method Update: Void ()
 	
 	End Method
 End Class

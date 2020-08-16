@@ -1,3 +1,5 @@
+Strict
+
 Import Unpainted
 Import mojo
 Import guiBasic
@@ -29,7 +31,7 @@ Class UnpaintedMenu
 		PrefsMenu = New PrefsMenu(destination)
 	End Method
 
-	Method Update()
+	Method Update: Void ()
 		PictureMenu.Update()
 		BrushMenu.Update()
 		ModeMenu.Update()

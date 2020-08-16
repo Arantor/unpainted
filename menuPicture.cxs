@@ -1,3 +1,5 @@
+Strict
+
 Import guiBasic
 Import Unpainted
 
@@ -54,7 +56,7 @@ Class PictureMenu
 		Picture_Quit = Gui.CreateMenuItem("Quit", Picture) ' Amiga-Q
 	End Method
 
-	Method Update()
+	Method Update: Void ()
 		
 		If Picture_About.IsClicked
 			Gui.MsgBox("About Unpainted", "Inspired by Deluxe Paint.~nWritten in Cerberus X~n~nUses guiBasic and FontMachine.",1)
