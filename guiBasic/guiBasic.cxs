@@ -748,6 +748,10 @@ Class Gui
 		Local N:Gui = New Gui_Label(X, Y, Text, Parent, Align, Boarder)
 		Return N
 	End Function
+	Function CreateTitleLabel:Gui(X, Y, Text:String, Parent:Gui, Align = 0, Boarder = 0)
+		Local N:Gui = New Gui_TitleLabel(X, Y, Text, Parent, Align, Boarder)
+		Return N
+	End Function
 	Function CreateTextField:Gui(X, Y, W, H, Parent:Gui, Text:String, AllowNumbers = 1, AllowLetters = 1, AllowSymbols = 1, MaxLength = 0)
 		Local N:Gui = New Gui_TextField(X, Y, W, H, Parent, Text, AllowNumbers, AllowLetters, AllowSymbols, MaxLength)
 		Return N
