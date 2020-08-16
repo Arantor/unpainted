@@ -1,0 +1,138 @@
+Import guiBasic
+Import Unpainted
+
+
+Class SpacingMode
+	Const Mode_Continuous: Int = 1
+	Const Mode_NTotal: Int = 2
+	Const Mode_EveryN: Int = 3
+	Const Mode_Airbrush: Int = 4
+
+	Field CurrentMode: Int
+
+	Field NTotal_Spacing: Int = 20
+	Field EveryN_Spacing: Int = 8
+	Field Airbrush_Spacing: Int = 16
+
+	Field Dialog: Gui
+	Field Title: Gui
+	Field Radio_Continuous: Gui
+	Field Radio_NTotal: Gui
+	Field Radio_EveryN: Gui
+	Field Radio_Airbrush: Gui
+	Field Text_NTotal: Gui
+	Field Text_EveryN: Gui
+	Field Text_Airbrush: Gui
+
+	Field Button_OK: Gui
+	Field Button_Cancel: Gui
+
+	Method New(destination: Gui)
+		Self.CurrentMode = Mode_Continuous
+
+		Self.Dialog = Gui.CreateWindow(32, 32, 220, 230, "Spacing", destination, 2, 0, 0, 0, 0, 1, 0)
+		Self.HideDialog()
+
+		Self.Dialog.MaximiseButton.Visible = 0
+		Self.Dialog.MinimiseButton.Visible = 0
+		Self.Dialog.CloseButton.Visible = 0
+
+		Radio_Continuous = Gui.CreateRadio(15, 20, 17, "Continuous", Self.Dialog, 1, 0)
+		Radio_Continuous.Tooltip = "Draw lines continuously~nfrom the start to the end."
+
+		Radio_NTotal = Gui.CreateRadio(15, 50, 17, "N Total", Self.Dialog, 1, 0)
+		Text_NTotal = Gui.CreateTextField(150, 48, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+		Radio_NTotal.Tooltip = "Draw lines of a total of N dots,~nincluding the start and end."
+
+		Radio_EveryN = Gui.CreateRadio(15, 80, 17, "Every Nth Dot", Self.Dialog, 1, 0)
+		Text_EveryN = Gui.CreateTextField(150, 78, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+		Radio_EveryN.Tooltip = "Draw lines with dots (of your brush)~nevery N pixels between the start and end."
+
+		Radio_Airbrush = Gui.CreateRadio(15, 110, 17, "Airbrush", Self.Dialog, 1, 0)
+		Text_Airbrush = Gui.CreateTextField(150, 108, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+		Radio_Airbrush.Tooltip = "Draw lines using the airbrush,~nusing this size of airbrush (pixels)"
+
+		Button_OK = Gui.CreateButton(30, 150, 60, 25, "OK", Self.Dialog, 1)
+		Button_Cancel = Gui.CreateButton(118, 150, 60, 25, "Cancel", Self.Dialog, 0)
+	End Method
+
+	Method ShowDialog()
+		Self.Dialog.Visible = 1
+
+		' Reset all the textboxes from the values we know.
+		Text_NTotal.Text = NTotal_Spacing
+		Text_EveryN.Text = EveryN_Spacing
+		Text_Airbrush.Text = Airbrush_Spacing
+
+		Self.Update()
+	End Method
+
+	Method HideDialog()
+		Self.Dialog.Visible = 0
+	End Method
+
+	Method Update()
+		' If we're not showing the dialog, there's no work to do.
+		If Not Self.Dialog.Visible Then Return
+
+		' Did we click any of the radio buttons to switch mode? Let's go with that first.
+		If Radio_Continuous.IsClicked
+			Self.CurrentMode = Mode_Continuous
+		End If
+		If Radio_NTotal.IsClicked
+			Self.CurrentMode = Mode_NTotal
+		End If
+		If Radio_EveryN.IsClicked
+			Self.CurrentMode = Mode_EveryN
+		End If
+		If Radio_Airbrush.IsClicked
+			Self.CurrentMode = Mode_Airbrush
+		End If
+
+		' Disable all the textboxes. We'll re-enable them in a minute.
+		Text_NTotal.Active = 0
+		Text_EveryN.Active = 0
+		Text_Airbrush.Active = 0
+
+		' Reset all the radio buttons.
+		Radio_Continuous.IsSelected = 0
+		Radio_NTotal.IsSelected = 0
+		Radio_EveryN.IsSelected = 0
+		Radio_Airbrush.IsSelected = 0
+
+		' Update the active states of all the buttons.
+		If Self.CurrentMode = Mode_Continuous
+			Radio_Continuous.IsSelected = 1
+		End If
+
+		If Self.CurrentMode = Mode_NTotal
+			Radio_NTotal.IsSelected = 1
+			Text_NTotal.Active = 1
+			Gui.OnFocus = Text_NTotal
+			Gui.CursorLocation = Text_NTotal.Text.Length
+		End If
+
+		If Self.CurrentMode = Mode_EveryN
+			Radio_EveryN.IsSelected = 1
+			Text_EveryN.Active = 1
+			Gui.OnFocus = Text_EveryN
+			Gui.CursorLocation = Text_EveryN.Text.Length
+		End If
+
+		If Self.CurrentMode = Mode_Airbrush
+			Radio_Airbrush.IsSelected = 1
+			Text_Airbrush.Active = 1
+			Gui.OnFocus = Text_Airbrush
+			Gui.CursorLocation = Text_Airbrush.Text.Length
+		End If
+
+		If Button_Cancel.IsClicked
+			Self.HideDialog()
+		End If
+
+		If Button_OK.IsClicked
+			Self.HideDialog()
+		End If
+	End Method
+
+End Class

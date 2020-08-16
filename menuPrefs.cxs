@@ -1,5 +1,7 @@
 Import guiBasic
 
+Import Unpainted
+
 Const IsTickable : Int = 1
 Const IsTicked : Int = 1
 
@@ -36,9 +38,9 @@ Class PrefsMenu
 		Prefs_AutoGrid = Gui.CreateMenuItemInactive("AutoGrid", Prefs, IsTickable)
 		Prefs_MouseTrack = Gui.CreateMenuItemInactive("MouseTrack", Prefs, IsTickable)
 
-		Prefs_Toolbox = Gui.CreateMenuItemInactive("Toolbox", Prefs)
+		Prefs_Toolbox = Gui.CreateMenuItem("Toolbox", Prefs)
 		Prefs_Toolbox_Fill = Gui.CreateMenuItemInactive("Fill...", Prefs_Toolbox) ' F
-		Prefs_Toolbox_Spacing = Gui.CreateMenuItemInactive("Spacing...", Prefs_Toolbox) ' V
+		Prefs_Toolbox_Spacing = Gui.CreateMenuItem("Spacing...", Prefs_Toolbox) ' V
 		Prefs_Toolbox_Fonts = Gui.CreateMenuItemInactive("Fonts...", Prefs_Toolbox) ' T
 		Prefs_Toolbox_Airbrush = Gui.CreateMenuItemInactive("Airbrush...", Prefs_Toolbox) ' Alt-A
 		Prefs_Toolbox_Grid = Gui.CreateMenuItemInactive("Grid...", Prefs_Toolbox)
@@ -46,6 +48,9 @@ Class PrefsMenu
 	End Method
 
 	Method Update()
-	
+		
+		If Prefs_Toolbox_Spacing.IsClicked
+			Unpainted.Unpainted.SpacingMode.ShowDialog()
+		End If
 	End Method
 End Class

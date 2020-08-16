@@ -9,6 +9,7 @@ Import guiBasic
 Import "data/Atlas.png"
 
 Import UMenu
+Import USpacing
 
 Global Unpainted: UnpaintedApp
 
@@ -20,6 +21,7 @@ Class UnpaintedApp Extends App
 	Field Screen: Gui
 	Field Menu: UnpaintedMenu
 	Field PaintMode: PaintingMode
+	Field SpacingMode: SpacingMode
 	Field Edited: Bool
 
 	Method OnCreate()
@@ -30,6 +32,8 @@ Class UnpaintedApp Extends App
 		Self.PaintMode = New PaintingMode
 		Self.PaintMode.Set(PaintingMode.Color)
 		
+		Self.SpacingMode = New SpacingMode(Screen)
+		
 		Self.Menu = New UnpaintedMenu(Screen)
 		
 		Self.Edited = False
@@ -37,7 +41,10 @@ Class UnpaintedApp Extends App
 	End Method
 	
 	Method OnUpdate()
-		Menu.Update()
+		Self.Menu.Update()
+		
+		Self.SpacingMode.Update();
+
 		Gui.Update()
 	End Method
 
