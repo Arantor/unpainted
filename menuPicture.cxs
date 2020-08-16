@@ -58,6 +58,7 @@ Class PictureMenu
 		
 		If Picture_About.IsClicked
 			Gui.MsgBox("About Unpainted", "Inspired by Deluxe Paint.~nWritten in Cerberus X~n~nUses guiBasic and FontMachine.",1)
+			Gui.GuiMessageBox.Window.AddIcon(Gui.Atlas, 20, 320, 20, 20)
 		End If
 		If Picture_Quit.IsClicked And Not Unpainted.Unpainted.Edited
 			EndApp
