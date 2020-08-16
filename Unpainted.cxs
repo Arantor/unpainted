@@ -5,6 +5,9 @@
 
 Import mojo
 Import guiBasic
+
+Import "data/Atlas.png"
+
 Import UMenu
 
 Global Unpainted: UnpaintedApp
