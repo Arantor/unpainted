@@ -10,6 +10,7 @@ Import guiBasic
 
 Import "data/Atlas.png"
 
+Import UAbout
 Import UMenu
 Import USpacing
 
@@ -63,6 +64,8 @@ Class UnpaintedApp Extends App
 		
 		Self.Menu = New UnpaintedMenu(Screen)
 		
+		Self.AboutDialog = New AboutDialog(Screen)
+		
 		Self.Edited = False
 
 		Return 0
@@ -77,6 +80,8 @@ Class UnpaintedApp Extends App
 			Select Dialog
 				Case SpacingMode.SpacingDialog
 					Self.SpacingMode.Update()
+				Case AboutDialog.AboutPopup
+					Self.AboutDialog.Update()
 			End
 		Next
 

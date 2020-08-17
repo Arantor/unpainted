@@ -1,0 +1,57 @@
+Strict
+
+Import guiBasic
+Import Unpainted
+
+Class AboutDialog
+	Const AboutPopup: String = "About"
+
+	Field Dialog: Gui
+	Const Width: Int = 250
+	Const Height: Int = 210
+	Const ButtonWidth: Int = 60
+	Const ButtonHeight: Int = 25
+
+	Field Button_OK: Gui
+
+	Method New (destination: Gui)
+		Local X: Int = (DeviceWidth() - Self.Width) / 2
+		Local Y: Int = (DeviceHeight() - Self.Height) / 2
+		Local LogoWidth: Int = 32
+		Local LogoHeight: Int = 32
+		Local Padding: Int = 10
+
+		Self.Dialog = Gui.CreateWindow(X, Y, Self.Width, Self.Height, "", destination, 2, 0, 0, 0, 0, 1, 0)
+		Self.HideDialog()
+
+		Gui.CreateImgButton(Padding, Padding, LogoWidth, LogoHeight, Gui.Atlas, Self.Dialog, 600, 300, LogoWidth, LogoHeight)
+
+		Local TextWidth: Int = Gui.TitleFont.GetTxtWidth("Unpainted")
+		Local TextHeight: Int = Gui.TitleFont.GetTxtHeight("Unpainted")
+		Gui.CreateTitleLabel(((Width - LogoWidth - TextWidth) / 2) + LogoWidth, ((LogoHeight - TextHeight) / 2) + Padding, "Unpainted", Self.Dialog)
+		Local Label: Gui = Gui.CreateLabel(10, 60, "Inspired by Deluxe Paint.~nWritten in Cerberus X.~n~nUses guiBasic and FontMachine.", Self.Dialog, 1)
+		Label.X = (Self.Width - Label.W) / 2
+
+		Self.Button_OK = Gui.CreateButton((Self.Width - Self.ButtonWidth) / 2, Self.Height - Self.ButtonHeight - 25, Self.ButtonWidth, Self.ButtonHeight, "OK", Self.Dialog, 1)
+	End Method
+
+	Method ShowDialog: Void ()
+		Self.Dialog.Visible = 1
+
+		' Notify someone that we're opening a dialog.
+		Unpainted.Unpainted.ShowDialog(AboutDialog.AboutPopup)
+	End Method
+
+	Method HideDialog: Void ()
+		Self.Dialog.Visible = 0
+
+		' Notify someone that we're closing a dialog.
+		Unpainted.Unpainted.HideDialog(AboutDialog.AboutPopup)
+	End Method
+
+	Method Update: Void ()
+		If Self.Button_OK.IsClicked
+			Self.HideDialog()
+		End If
+	End Method
+End Class

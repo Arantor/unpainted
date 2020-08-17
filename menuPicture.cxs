@@ -58,10 +58,12 @@ Class PictureMenu
 
 	Method Update: Void ()
 		
+		If Unpainted.Unpainted.DialogsShown()
+			Return
+		End If
+
 		If Picture_About.IsClicked
-			Gui.MsgBox("About Unpainted", "Inspired by Deluxe Paint.~nWritten in Cerberus X~n~nUses guiBasic and FontMachine.",1)
-			Gui.GuiMessageBox.Window.AddIcon(Gui.Atlas, 20, 320, 20, 20)
-			Gui.GuiMessageBox.Button1.Text = "OK"
+			Unpainted.Unpainted.AboutDialog.ShowDialog()
 		End If
 		If Picture_Quit.IsClicked And Not Unpainted.Unpainted.Edited
 			EndApp
