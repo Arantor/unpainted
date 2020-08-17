@@ -50,6 +50,9 @@ Class PrefsMenu
 	End Method
 
 	Method Update: Void ()
+		If Unpainted.Unpainted.DialogsShown()
+			Return
+		End If
 		
 		If Prefs_Toolbox_Spacing.IsClicked
 			Unpainted.Unpainted.SpacingMode.ShowDialog()

@@ -5,6 +5,8 @@ Import Unpainted
 
 
 Class SpacingMode
+	Const SpacingDialog: String = "Spacing"
+
 	Const Mode_Continuous: Int = 1
 	Const Mode_NTotal: Int = 2
 	Const Mode_EveryN: Int = 3
@@ -61,6 +63,9 @@ Class SpacingMode
 	Method ShowDialog: Void ()
 		Self.Dialog.Visible = 1
 
+		' Notify someone that we're opening a dialog.
+		Unpainted.Unpainted.ShowDialog(SpacingMode.SpacingDialog)
+
 		' Reset all the textboxes from the values we know.
 		Text_NTotal.Text = NTotal_Spacing
 		Text_EveryN.Text = EveryN_Spacing
@@ -71,6 +76,9 @@ Class SpacingMode
 
 	Method HideDialog: Void ()
 		Self.Dialog.Visible = 0
+
+		' Notify someone that we're closing a dialog.
+		Unpainted.Unpainted.HideDialog(SpacingMode.SpacingDialog)
 	End Method
 
 	Method Update: Void ()

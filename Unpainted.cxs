@@ -26,9 +26,33 @@ Class UnpaintedApp Extends App
 	Field PaintMode: PaintingMode
 	Field SpacingMode: SpacingMode
 	Field Edited: Bool
+	
+	Field AboutDialog: AboutDialog
+	
+	Field Dialogs: StringMap<Int>
+	
+	Method ShowDialog: Void (DialogName: String)
+		Self.Dialogs.Add(DialogName, 1)
+	End Method
+
+	Method HideDialog: Void (DialogName: String)
+		If Self.Dialogs.Contains(DialogName)
+			Self.Dialogs.Remove(DialogName)
+		End If
+	End Method
+	
+	Method DialogShown: Bool (DialogName: String)
+		Return Self.Dialogs.Contains(DialogName)
+	End Method
+
+	Method DialogsShown: Bool ()
+		Return Self.Dialogs.Count() > 0
+	End Method
 
 	Method OnCreate: Int ()
 		SetUpdateRate(60)
+		
+		Self.Dialogs = New StringMap<Int>
 		
 		Self.Screen = Gui.CreateScreen()
 
@@ -45,10 +69,18 @@ Class UnpaintedApp Extends App
 	End Method
 	
 	Method OnUpdate: Int ()
+		' Always process the menu for updates.
 		Self.Menu.Update()
-		
-		Self.SpacingMode.Update();
 
+		' Dispatch to each thing that might be open for updates.
+		For Local Dialog:String = EachIn Self.Dialogs.Keys()
+			Select Dialog
+				Case SpacingMode.SpacingDialog
+					Self.SpacingMode.Update()
+			End
+		Next
+
+		' Update the main GUI.
 		Gui.Update()
 		
 		Return 0
