@@ -1,0 +1,170 @@
+Import Unpainted
+Import mojo
+Import guiBasic
+
+' A prototype for multiestate buttons that all the formats should inherit from.
+Class Gui_MultiStateButton Extends Gui
+	Field ResetOnSelect: List<Gui_MultiStateButton>
+
+	Method AddResetOnSelect: Void (reset: Gui_MultiStateButton)
+		Self.ResetOnSelect.AddLast(reset)
+	End Method
+
+	Method PerformResetOnActiveState: Void ()
+		For Local btn: Gui_MultiStateButton = EachIn Self.ResetOnSelect
+			btn.Unpressed()
+		Next
+	End Method
+
+	Method Unpressed: Void ()
+		Self.Value = 0
+	End Method
+
+	Method Draw2()
+		DrawImageRect(ButtonImg, RealX, RealY, ButtonImgX, ButtonImgY, ButtonImgW, ButtonImgH, 0, (W / (ButtonImgW * 1.0)), (H / (ButtonImgH * 1.0)))
+	End Method
+End Class
+
+' The main toolbox type: the selected + on/off button.
+Class Gui_2StateButton Extends Gui_MultiStateButton
+	Field ButtonImgX_State1: Int
+	Field ButtonImgY_State1: Int
+	Field ButtonImgX_State2: Int
+	Field ButtonImgY_State2: Int
+	Field IsToggle: Bool
+	
+	Method New (X: Int, Y: Int, W: Int, H: Int, Img: Image, Parent: Gui, ImgX_State1: Int = 0, ImgY_State1: Int = 0, ImgX_State2: Int = 0, ImgY_State2: Int = 0, ImgW: Int = 0, ImgH: Int = 0, IsToggle: Bool = False)
+		Self.Type = "ImgButton"
+		Self.X = X
+		Self.Y = Y
+		Self.W = W
+		Self.H = H
+		Self.ButtonImg = Img
+		Self.IsToggle = IsToggle
+
+		Self.ButtonImgX_State1 = ImgX_State1
+		Self.ButtonImgY_State1 = ImgY_State1
+		Self.ButtonImgX_State2 = ImgX_State2
+		Self.ButtonImgY_State2 = ImgY_State2
+		
+		Self.ButtonImgW = ImgW
+		Self.ButtonImgH = ImgH
+
+		' Set the initial state to 0.
+		Self.Unpressed()
+
+		Self.Parent = Parent
+		Self.Parent.Children.AddLast(Self)
+		Self.Children = New List<Gui>
+
+		Self.ResetOnSelect = New List<Gui_MultiStateButton>
+		
+		ZOrder(Self.Parent)
+	End Method
+
+	Method Pressed_ActiveState: Void ()
+		Self.Value = 1
+		Self.ButtonImgX = Self.ButtonImgX_State2
+		Self.ButtonImgY = Self.ButtonImgY_State2
+
+		Self.PerformResetOnActiveState()
+	End Method
+
+	Method Unpressed: Void ()
+		Self.Value = 0
+		Self.ButtonImgX = Self.ButtonImgX_State1
+		Self.ButtonImgY = Self.ButtonImgY_State1
+	End Method
+
+	Method Update2()
+		If Gui.Clicked = Self
+			If Self.IsToggle
+				If Self.Value = 0
+					Self.Pressed_ActiveState()
+				Else
+					Self.Unpressed()
+				End If
+			Else
+				Self.Pressed_ActiveState()
+			End If
+		End If
+	End Method
+End Class
+
+' A hybrid GUI type: has an unset state, a set state and an alternate state, driven by which half (TL/BR) of the button is clicked.
+Class Gui_3StateButton Extends Gui_MultiStateButton
+	Field ButtonImgX_State1: Int
+	Field ButtonImgY_State1: Int
+	Field ButtonImgX_State2: Int
+	Field ButtonImgY_State2: Int
+	Field ButtonImgX_State3: Int
+	Field ButtonImgY_State3: Int
+	
+	Method New (X: Int, Y: Int, W: Int, H: Int, Img: Image, Parent: Gui, ImgX_State1: Int = 0, ImgY_State1: Int = 0, ImgX_State2: Int = 0, ImgY_State2: Int = 0, ImgX_State3: Int = 0, ImgY_State3: Int = 0, ImgW: Int = 0, ImgH: Int = 0)
+		Self.Type = "ImgButton"
+		Self.X = X
+		Self.Y = Y
+		Self.W = W
+		Self.H = H
+		Self.ButtonImg = Img
+
+		Self.ButtonImgX_State1 = ImgX_State1
+		Self.ButtonImgY_State1 = ImgY_State1
+		Self.ButtonImgX_State2 = ImgX_State2
+		Self.ButtonImgY_State2 = ImgY_State2
+		Self.ButtonImgX_State3 = ImgX_State3
+		Self.ButtonImgY_State3 = ImgY_State3
+		
+		Self.ButtonImgW = ImgW
+		Self.ButtonImgH = ImgH
+
+		' Set the initial state to 0.
+		Self.Unpressed()
+
+		Self.Parent = Parent
+		Self.Parent.Children.AddLast(Self)
+		Self.Children = New List<Gui>
+
+		Self.ResetOnSelect = New List<Gui_MultiStateButton>
+		
+		ZOrder(Self.Parent)
+	End Method
+
+	Method Pressed_ActiveState: Void ()
+		Self.Value = 1
+		Self.ButtonImgX = Self.ButtonImgX_State2
+		Self.ButtonImgY = Self.ButtonImgY_State2
+
+		Self.PerformResetOnActiveState()
+	End Method
+
+	Method Pressed_AltState: Void ()
+		Self.Value = 2
+		Self.ButtonImgX = Self.ButtonImgX_State3
+		Self.ButtonImgY = Self.ButtonImgY_State3
+
+		Self.PerformResetOnActiveState()
+	End Method
+
+	Method Unpressed: Void ()
+		Self.Value = 0
+		Self.ButtonImgX = Self.ButtonImgX_State1
+		Self.ButtonImgY = Self.ButtonImgY_State1
+	End Method
+
+	Method Update2()
+		Local ClickedX
+		Local ClickedY
+
+		If Gui.Clicked = Self
+			ClickedX = TouchX() - RealX
+			ClickedY = TouchY() - RealY
+
+			If (ClickedX + ClickedY >= (W + H) / 2)
+				Self.Pressed_AltState()
+			Else
+				Self.Pressed_ActiveState()
+			End If
+		End If
+	End Method
+End Class

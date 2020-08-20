@@ -1,9 +1,262 @@
+Strict
+
 Import Unpainted
 Import mojo
 Import guiBasic
+Import UToolboxButtons
 
-Class UnpaintedToolbox
+Class Toolbox
 
+	Field BaseX: Int
+	Field BaseY: Int
+	Field DrawTarget: Gui
+
+	Field DottedFreehand: Gui_2StateButton
+	Field ContinuousFreehand: Gui_3StateButton
+	Field LineTool: Gui_2StateButton
+	Field CurveTool: Gui_2StateButton
+	Field FloodFill: Gui_2StateButton
+	Field AirbrushTool: Gui_2StateButton
+	Field RectangleTool: Gui_3StateButton
+	Field CircleTool: Gui_3StateButton
+	Field EllipseTool: Gui_3StateButton
+	Field PolygonTool: Gui_3StateButton
+	Field BrushSelector: Gui_2StateButton
+	Field TextTool: Gui_2StateButton
+	Field GridTool: Gui_2StateButton
+	Field SymmetryTool: Gui_2StateButton
+	Field MagnifyTool: Gui_2StateButton
+
+	Method New (destination: Gui, BaseX: Int, BaseY: Int)
+		Self.BaseX = BaseX
+		Self.BaseY = BaseY
+		Self.DrawTarget = destination
+
+		DottedFreehand = Self.ToolbarButton2(0, 0, 760, 20)
+		DottedFreehand.Tooltip = "Dotted Freehand"
+
+		ContinuousFreehand = Self.ToolbarButton3(1, 0, 760, 50)
+		ContinuousFreehand.Tooltip = "Top left: Continuous Freehand~nBottom right: Filled Freehand"
+
+		LineTool = Self.ToolbarButton2(0, 1, 760, 80)
+		LineTool.Tooltip = "Straight Line"
+
+		CurveTool = Self.ToolbarButton2(1, 1, 760, 110)
+		CurveTool.Tooltip = "Curve Line"
+
+		FloodFill = Self.ToolbarButton2(0, 2, 760, 140)
+		FloodFill.Tooltip = "Flood Fill"
+
+		AirbrushTool = Self.ToolbarButton2(1, 2, 760, 170)
+		AirbrushTool.Tooltip = "Airbrush"
+
+		RectangleTool = Self.ToolbarButton3(0, 3, 760, 200)
+		RectangleTool.Tooltip = "Top left: Unfilled Rectangle~nBottom right: Filled Rectangle"
+
+		CircleTool = Self.ToolbarButton3(1, 3, 760, 230)
+		CircleTool.Tooltip = "Top left: Unfilled Circle~nBottom right: Filled Circle"
+
+		EllipseTool = Self.ToolbarButton3(0, 4, 760, 260)
+		EllipseTool.Tooltip = "Top left: Unfilled Ellipse~nBottom right: Filled Ellipse"
+
+		PolygonTool = Self.ToolbarButton3(1, 4, 760, 290)
+		PolygonTool.Tooltip = "Top left: Unfilled Polygon~nBottom right: Filled Polygon"
+
+		BrushSelector = Self.ToolbarButton2(0, 5, 865, 20)
+		BrushSelector.Tooltip = "Brush Selector"
+
+		TextTool = Self.ToolbarButton2(1, 5, 865, 50)
+		TextTool.Tooltip = "Text Tool"
+
+		GridTool = Self.ToolbarButton2Toggle(0, 6, 865, 80)
+		GridTool.Tooltip = "Grid Tool"
+
+		SymmetryTool = Self.ToolbarButton2Toggle(1, 6, 865, 110)
+		SymmetryTool.Tooltip = "Symmetry Tool"
+
+		' And tie up which buttons reset other buttons.
+		' You might ask why we're doing this by hand - answer is that some buttons aren't reset by others.
+		' E.g. the drawing tools do get reset by each other, but symmetry etc. do not.
+		DottedFreehand.AddResetOnSelect(ContinuousFreehand)
+		DottedFreehand.AddResetOnSelect(LineTool)
+		DottedFreehand.AddResetOnSelect(CurveTool)
+		DottedFreehand.AddResetOnSelect(FloodFill)
+		DottedFreehand.AddResetOnSelect(AirbrushTool)
+		DottedFreehand.AddResetOnSelect(RectangleTool)
+		DottedFreehand.AddResetOnSelect(CircleTool)
+		DottedFreehand.AddResetOnSelect(EllipseTool)
+		DottedFreehand.AddResetOnSelect(PolygonTool)
+		DottedFreehand.AddResetOnSelect(BrushSelector)
+		DottedFreehand.AddResetOnSelect(TextTool)
+
+		ContinuousFreehand.AddResetOnSelect(DottedFreehand)
+		ContinuousFreehand.AddResetOnSelect(LineTool)
+		ContinuousFreehand.AddResetOnSelect(CurveTool)
+		ContinuousFreehand.AddResetOnSelect(FloodFill)
+		ContinuousFreehand.AddResetOnSelect(AirbrushTool)
+		ContinuousFreehand.AddResetOnSelect(RectangleTool)
+		ContinuousFreehand.AddResetOnSelect(CircleTool)
+		ContinuousFreehand.AddResetOnSelect(EllipseTool)
+		ContinuousFreehand.AddResetOnSelect(PolygonTool)
+		ContinuousFreehand.AddResetOnSelect(BrushSelector)
+		ContinuousFreehand.AddResetOnSelect(TextTool)
+
+		LineTool.AddResetOnSelect(DottedFreehand)
+		LineTool.AddResetOnSelect(ContinuousFreehand)
+		LineTool.AddResetOnSelect(CurveTool)
+		LineTool.AddResetOnSelect(FloodFill)
+		LineTool.AddResetOnSelect(AirbrushTool)
+		LineTool.AddResetOnSelect(RectangleTool)
+		LineTool.AddResetOnSelect(CircleTool)
+		LineTool.AddResetOnSelect(EllipseTool)
+		LineTool.AddResetOnSelect(PolygonTool)
+		LineTool.AddResetOnSelect(BrushSelector)
+		LineTool.AddResetOnSelect(TextTool)
+
+		CurveTool.AddResetOnSelect(DottedFreehand)
+		CurveTool.AddResetOnSelect(ContinuousFreehand)
+		CurveTool.AddResetOnSelect(LineTool)
+		CurveTool.AddResetOnSelect(FloodFill)
+		CurveTool.AddResetOnSelect(AirbrushTool)
+		CurveTool.AddResetOnSelect(RectangleTool)
+		CurveTool.AddResetOnSelect(CircleTool)
+		CurveTool.AddResetOnSelect(EllipseTool)
+		CurveTool.AddResetOnSelect(PolygonTool)
+		CurveTool.AddResetOnSelect(BrushSelector)
+		CurveTool.AddResetOnSelect(TextTool)
+
+		FloodFill.AddResetOnSelect(DottedFreehand)
+		FloodFill.AddResetOnSelect(ContinuousFreehand)
+		FloodFill.AddResetOnSelect(LineTool)
+		FloodFill.AddResetOnSelect(CurveTool)
+		FloodFill.AddResetOnSelect(AirbrushTool)
+		FloodFill.AddResetOnSelect(RectangleTool)
+		FloodFill.AddResetOnSelect(CircleTool)
+		FloodFill.AddResetOnSelect(EllipseTool)
+		FloodFill.AddResetOnSelect(PolygonTool)
+		FloodFill.AddResetOnSelect(BrushSelector)
+		FloodFill.AddResetOnSelect(TextTool)
+
+		AirbrushTool.AddResetOnSelect(DottedFreehand)
+		AirbrushTool.AddResetOnSelect(ContinuousFreehand)
+		AirbrushTool.AddResetOnSelect(LineTool)
+		AirbrushTool.AddResetOnSelect(CurveTool)
+		AirbrushTool.AddResetOnSelect(FloodFill)
+		AirbrushTool.AddResetOnSelect(RectangleTool)
+		AirbrushTool.AddResetOnSelect(CircleTool)
+		AirbrushTool.AddResetOnSelect(EllipseTool)
+		AirbrushTool.AddResetOnSelect(PolygonTool)
+		AirbrushTool.AddResetOnSelect(BrushSelector)
+		AirbrushTool.AddResetOnSelect(TextTool)
+
+		RectangleTool.AddResetOnSelect(DottedFreehand)
+		RectangleTool.AddResetOnSelect(ContinuousFreehand)
+		RectangleTool.AddResetOnSelect(LineTool)
+		RectangleTool.AddResetOnSelect(CurveTool)
+		RectangleTool.AddResetOnSelect(FloodFill)
+		RectangleTool.AddResetOnSelect(AirbrushTool)
+		RectangleTool.AddResetOnSelect(CircleTool)
+		RectangleTool.AddResetOnSelect(EllipseTool)
+		RectangleTool.AddResetOnSelect(PolygonTool)
+		RectangleTool.AddResetOnSelect(BrushSelector)
+		RectangleTool.AddResetOnSelect(TextTool)
+
+		CircleTool.AddResetOnSelect(DottedFreehand)
+		CircleTool.AddResetOnSelect(ContinuousFreehand)
+		CircleTool.AddResetOnSelect(LineTool)
+		CircleTool.AddResetOnSelect(CurveTool)
+		CircleTool.AddResetOnSelect(FloodFill)
+		CircleTool.AddResetOnSelect(AirbrushTool)
+		CircleTool.AddResetOnSelect(RectangleTool)
+		CircleTool.AddResetOnSelect(EllipseTool)
+		CircleTool.AddResetOnSelect(PolygonTool)
+		CircleTool.AddResetOnSelect(BrushSelector)
+		CircleTool.AddResetOnSelect(TextTool)
+
+		EllipseTool.AddResetOnSelect(DottedFreehand)
+		EllipseTool.AddResetOnSelect(ContinuousFreehand)
+		EllipseTool.AddResetOnSelect(LineTool)
+		EllipseTool.AddResetOnSelect(CurveTool)
+		EllipseTool.AddResetOnSelect(FloodFill)
+		EllipseTool.AddResetOnSelect(AirbrushTool)
+		EllipseTool.AddResetOnSelect(RectangleTool)
+		EllipseTool.AddResetOnSelect(CircleTool)
+		EllipseTool.AddResetOnSelect(PolygonTool)
+		EllipseTool.AddResetOnSelect(BrushSelector)
+		EllipseTool.AddResetOnSelect(TextTool)
+
+		PolygonTool.AddResetOnSelect(DottedFreehand)
+		PolygonTool.AddResetOnSelect(ContinuousFreehand)
+		PolygonTool.AddResetOnSelect(LineTool)
+		PolygonTool.AddResetOnSelect(CurveTool)
+		PolygonTool.AddResetOnSelect(FloodFill)
+		PolygonTool.AddResetOnSelect(AirbrushTool)
+		PolygonTool.AddResetOnSelect(RectangleTool)
+		PolygonTool.AddResetOnSelect(CircleTool)
+		PolygonTool.AddResetOnSelect(EllipseTool)
+		PolygonTool.AddResetOnSelect(BrushSelector)
+		PolygonTool.AddResetOnSelect(TextTool)
+
+		BrushSelector.AddResetOnSelect(DottedFreehand)
+		BrushSelector.AddResetOnSelect(ContinuousFreehand)
+		BrushSelector.AddResetOnSelect(LineTool)
+		BrushSelector.AddResetOnSelect(CurveTool)
+		BrushSelector.AddResetOnSelect(FloodFill)
+		BrushSelector.AddResetOnSelect(AirbrushTool)
+		BrushSelector.AddResetOnSelect(RectangleTool)
+		BrushSelector.AddResetOnSelect(CircleTool)
+		BrushSelector.AddResetOnSelect(EllipseTool)
+		BrushSelector.AddResetOnSelect(PolygonTool)
+		BrushSelector.AddResetOnSelect(TextTool)
+
+		TextTool.AddResetOnSelect(DottedFreehand)
+		TextTool.AddResetOnSelect(ContinuousFreehand)
+		TextTool.AddResetOnSelect(LineTool)
+		TextTool.AddResetOnSelect(CurveTool)
+		TextTool.AddResetOnSelect(FloodFill)
+		TextTool.AddResetOnSelect(AirbrushTool)
+		TextTool.AddResetOnSelect(RectangleTool)
+		TextTool.AddResetOnSelect(CircleTool)
+		TextTool.AddResetOnSelect(EllipseTool)
+		TextTool.AddResetOnSelect(PolygonTool)
+		TextTool.AddResetOnSelect(BrushSelector)
+
+		' And a default state: hit the dotted freehand.
+		DottedFreehand.Pressed_ActiveState()
+	End Method
+
+	Method ToolX: Int (XPos: Int)
+		Return Self.BaseX + XPos * 32
+	End Method
+
+	Method ToolY: Int (YPos: Int)
+		Return Self.BaseY + YPos * 32
+	End Method
+
+	' Simple case: a basic non-toggle button where the toggle state is next to it.
+	Method ToolbarButton2: Gui_2StateButton(XCoord: Int, YCoord: Int, XBase: Int, YBase: Int)
+		Local Width: Int = 30
+		Local Height: Int = 30
+		Return New Gui_2StateButton(ToolX(XCoord), ToolY(YCoord), Width, Height, Gui.Atlas, Self.DrawTarget, XBase, YBase, XBase + Width, YBase, Width, Height)
+	End Method
+
+	' Slight edge case: a 2-state toggle button.
+	Method ToolbarButton2Toggle: Gui_2StateButton(XCoord: Int, YCoord: Int, XBase: Int, YBase: Int)
+		Local Width: Int = 30
+		Local Height: Int = 30
+		Return New Gui_2StateButton(ToolX(XCoord), ToolY(YCoord), Width, Height, Gui.Atlas, Self.DrawTarget, XBase, YBase, XBase + Width, YBase, Width, Height, True)
+	End Method
+
+	' Return the standard 3-button widdget.
+	Method ToolbarButton3: Gui_3StateButton(XCoord: Int, YCoord: Int, XBase: Int, YBase: Int)
+		Local Width: Int = 30
+		Local Height: Int = 30
+		Return New Gui_3StateButton(ToolX(XCoord), ToolY(YCoord), Width, Height, Gui.Atlas, Self.DrawTarget, XBase, YBase, XBase + Width, YBase, XBase + Width + Width, YBase, Width, Height)
+	End Method
+
+	Method Update: Void()
+
+	End Method
 End Class
 
 	' Brushes: 1px, 3px +, 4px circle, 5px circle

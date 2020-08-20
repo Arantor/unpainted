@@ -13,6 +13,7 @@ Import "data/Atlas.png"
 Import UAbout
 Import UMenu
 Import USpacing
+Import UToolbox
 
 Global Unpainted: UnpaintedApp
 
@@ -24,6 +25,7 @@ End Function
 Class UnpaintedApp Extends App
 	Field Screen: Gui
 	Field Menu: UnpaintedMenu
+	Field Toolbox: Toolbox
 	Field PaintMode: PaintingMode
 	Field SpacingMode: SpacingMode
 	Field Edited: Bool
@@ -56,6 +58,8 @@ Class UnpaintedApp Extends App
 		Self.Dialogs = New StringMap<Int>
 		
 		Self.Screen = Gui.CreateScreen()
+		
+		Self.Toolbox = New Toolbox(Screen, 576, 32)
 
 		Self.PaintMode = New PaintingMode
 		Self.PaintMode.Set(PaintingMode.Color)
@@ -74,6 +78,9 @@ Class UnpaintedApp Extends App
 	Method OnUpdate: Int ()
 		' Always process the menu for updates.
 		Self.Menu.Update()
+		
+		' Always process the toolbox for updates.
+		Self.Toolbox.Update()
 
 		' Dispatch to each thing that might be open for updates.
 		For Local Dialog:String = EachIn Self.Dialogs.Keys()
