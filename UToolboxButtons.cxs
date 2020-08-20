@@ -77,6 +77,11 @@ Class Gui_2StateButton Extends Gui_MultiStateButton
 	End Method
 
 	Method Update2()
+		' Don't process if we have a dialog open.
+		If Unpainted.Unpainted.DialogsShown()
+			Return
+		End If
+
 		If Gui.Clicked = Self
 			If Self.IsToggle
 				If Self.Value = 0
@@ -153,6 +158,11 @@ Class Gui_3StateButton Extends Gui_MultiStateButton
 	End Method
 
 	Method Update2()
+		' Don't process if we have a dialog open.
+		If Unpainted.Unpainted.DialogsShown()
+			Return
+		End If
+
 		Local ClickedX
 		Local ClickedY
 

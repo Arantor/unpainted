@@ -255,7 +255,10 @@ Class Toolbox
 	End Method
 
 	Method Update: Void()
-
+		' Don't process if we have a dialog open.
+		If Unpainted.Unpainted.DialogsShown()
+			Return
+		End If
 	End Method
 End Class
 
