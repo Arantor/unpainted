@@ -12,6 +12,7 @@ Import "data/Atlas.png"
 
 Import UAbout
 Import UMenu
+Import UPalette
 Import USpacing
 Import UToolbox
 
@@ -26,6 +27,7 @@ Class UnpaintedApp Extends App
 	Field Screen: Gui
 	Field Menu: UnpaintedMenu
 	Field Toolbox: Toolbox
+	Field Palette: Palette
 	Field PaintMode: PaintingMode
 	Field SpacingMode: SpacingMode
 	Field Edited: Bool
@@ -60,6 +62,8 @@ Class UnpaintedApp Extends App
 		Self.Screen = Gui.CreateScreen()
 		
 		Self.Toolbox = New Toolbox(Screen, 576, 0)
+		
+		Self.Palette = New Palette(576, 320)
 
 		Self.PaintMode = New PaintingMode
 		Self.PaintMode.Set(PaintingMode.Color)
@@ -81,6 +85,9 @@ Class UnpaintedApp Extends App
 		
 		' Always process the toolbox for updates.
 		Self.Toolbox.Update()
+		
+		' Always process the palette for updates.
+		Self.Palette.Update()
 
 		' Dispatch to each thing that might be open for updates.
 		For Local Dialog:String = EachIn Self.Dialogs.Keys()
@@ -102,6 +109,8 @@ Class UnpaintedApp Extends App
 		Cls(0, 0, 0)
 		SetColor(255, 255, 255)
 		Gui.Draw()
+		
+		Self.Palette.Draw()
 		
 		Return 0
 	End Method

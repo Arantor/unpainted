@@ -1,0 +1,367 @@
+Strict
+
+Import Unpainted
+Import mojo
+Import guiBasic
+
+Class Palette
+
+	Field Palette: Colour[]
+	Field FGColour: Int
+	Field BGColour: Int
+	Field BaseX: Int
+	Field BaseY: Int
+
+	Field CurrentBank: Int
+
+	Field ColourWidth: Int = 15
+	Field ColourHeight: Int = 13
+
+	Method New (BaseX: Int, BaseY: Int)
+		Self.Palette = Self.DefaultPalette()
+
+		Self.BGColour = 0
+		Self.FGColour = 1
+
+		Self.CurrentBank = 0
+
+		Self.BaseX = BaseX
+		Self.BaseY = BaseY
+
+	End Method
+
+	Method DefaultPalette: Colour[] ()
+		Local Palette: Colour[] = []
+		Palette = Palette.Resize(256)
+
+		Palette[0] =   New Colour(  0,   0,   0)
+		Palette[1] =   New Colour(160, 160, 160)
+		Palette[2] =   New Colour(255, 255, 255)
+		Palette[3] =   New Colour(255, 251,   0)
+		Palette[4] =   New Colour(128, 255,   0)
+		Palette[5] =   New Colour(  2, 255,   0)
+		Palette[6] =   New Colour(  0, 255, 124)
+		Palette[7] =   New Colour(  0, 255, 255)
+		Palette[8] =   New Colour(  0, 129, 255)
+		Palette[9] =   New Colour(  0,   0, 255)
+		Palette[10] =  New Colour(122,   0, 255)
+		Palette[11] =  New Colour(205,   0, 255)
+		Palette[12] =  New Colour(255,   0, 205)
+		Palette[13] =  New Colour(255,   0, 131)
+		Palette[14] =  New Colour(255,   0,   0)
+		Palette[15] =  New Colour(255, 126,   0)
+		Palette[16] =  New Colour(202, 152,  68)
+		Palette[17] =  New Colour(150,  63,  25)
+		Palette[18] =  New Colour( 99,   0,   0)
+		Palette[19] =  New Colour(255, 247, 128)
+		Palette[20] =  New Colour(194, 255, 128)
+		Palette[21] =  New Colour(128, 255, 128)
+		Palette[22] =  New Colour(128, 255, 189)
+		Palette[23] =  New Colour(128, 255, 255)
+		Palette[24] =  New Colour(128, 192, 255)
+		Palette[25] =  New Colour(128, 129, 255)
+		Palette[26] =  New Colour(167, 128, 255)
+		Palette[27] =  New Colour(206, 128, 255)
+		Palette[28] =  New Colour(248, 128, 255)
+		Palette[29] =  New Colour(255, 128, 193)
+		Palette[30] =  New Colour(255, 128, 128)
+		Palette[31] =  New Colour(255, 157, 128)
+		Palette[32] =  New Colour(128,   0,   0)
+		Palette[33] =  New Colour(128,  30,   0)
+		Palette[34] =  New Colour(128,  63,   0)
+		Palette[35] =  New Colour(128,  81,   0)
+		Palette[36] =  New Colour(128, 102,   0)
+		Palette[37] =  New Colour(128, 123,   0)
+		Palette[38] =  New Colour( 67, 128,   0)
+		Palette[39] =  New Colour(  1, 128,   0)
+		Palette[40] =  New Colour(  0, 128,  62)
+		Palette[41] =  New Colour(  0, 128, 128)
+		Palette[42] =  New Colour(  0,  65, 128)
+		Palette[43] =  New Colour(  0,   2, 128)
+		Palette[44] =  New Colour( 40,   0, 128)
+		Palette[45] =  New Colour( 79,   0, 128)
+		Palette[46] =  New Colour(121,   0, 128)
+		Palette[47] =  New Colour(128,   0,  66)
+		Palette[48] =  New Colour(  0,   0,   0)
+		Palette[49] =  New Colour( 17,  17,  17)
+		Palette[50] =  New Colour( 34,  34,  34)
+		Palette[51] =  New Colour( 51,  51,  51)
+		Palette[52] =  New Colour( 68,  68,  68)
+		Palette[53] =  New Colour( 85,  85,  85)
+		Palette[54] =  New Colour(102, 102, 102)
+		Palette[55] =  New Colour(119, 119, 119)
+		Palette[56] =  New Colour(135, 135, 135)
+		Palette[57] =  New Colour(152, 152, 152)
+		Palette[58] =  New Colour(169, 169, 169)
+		Palette[59] =  New Colour(186, 186, 186)
+		Palette[60] =  New Colour(203, 203, 203)
+		Palette[61] =  New Colour(220, 220, 220)
+		Palette[62] =  New Colour(237, 237, 237)
+		Palette[63] =  New Colour(255, 255, 255)
+		Palette[64] =  New Colour( 77,  0,    0)
+		Palette[65] =  New Colour( 88,  0,    0)
+		Palette[66] =  New Colour(112,  0,    0)
+		Palette[67] =  New Colour(135,  0,    0)
+		Palette[68] =  New Colour(158,  0,    0)
+		Palette[69] =  New Colour(182,  0,    0)
+		Palette[70] =  New Colour(206,  0,    0)
+		Palette[71] =  New Colour(230,  0,    0)
+		Palette[72] =  New Colour(255,  0,    0)
+		Palette[73] =  New Colour(255,  28,  28)
+		Palette[74] =  New Colour(255,  55,  55)
+		Palette[75] =  New Colour(255,  82,  82)
+		Palette[76] =  New Colour(255, 110, 110)
+		Palette[77] =  New Colour(255, 136, 136)
+		Palette[78] =  New Colour(255, 163, 163)
+		Palette[79] =  New Colour(255, 190, 190)
+		Palette[80] =  New Colour( 78,  36,   0)
+		Palette[81] =  New Colour( 87,  40,   0)
+		Palette[82] =  New Colour(111,  52,   0)
+		Palette[83] =  New Colour(134,  63,   0)
+		Palette[84] =  New Colour(158,  74,   0)
+		Palette[85] =  New Colour(182,  90,   0)
+		Palette[86] =  New Colour(206, 101,   0)
+		Palette[87] =  New Colour(230, 113,   0)
+		Palette[88] =  New Colour(255, 126,   0)
+		Palette[89] =  New Colour(255, 140,  28)
+		Palette[90] =  New Colour(255, 153,  54)
+		Palette[91] =  New Colour(255, 167,  81)
+		Palette[92] =  New Colour(255, 177, 108)
+		Palette[93] =  New Colour(255, 191, 134)
+		Palette[94] =  New Colour(255, 205, 160)
+		Palette[95] =  New Colour(255, 220, 191)
+		Palette[96] =  New Colour( 77,  72,   0)
+		Palette[97] =  New Colour( 88,  82,   0)
+		Palette[98] =  New Colour(112, 105,   0)
+		Palette[99] =  New Colour(135, 129,   0)
+		Palette[100] = New Colour(158, 151,   0)
+		Palette[101] = New Colour(182, 174,   0)
+		Palette[102] = New Colour(206, 197,   0)
+		Palette[103] = New Colour(230, 226,   0)
+		Palette[104] = New Colour(255, 255,   0)
+		Palette[105] = New Colour(255, 252,  28)
+		Palette[106] = New Colour(255, 248,  55)
+		Palette[107] = New Colour(255, 249,  82)
+		Palette[108] = New Colour(255, 246, 109)
+		Palette[109] = New Colour(255, 248, 135)
+		Palette[110] = New Colour(255, 248, 162)
+		Palette[111] = New Colour(255, 251, 190)
+		Palette[112] = New Colour(  0,  77,   0)
+		Palette[113] = New Colour(  0,  99,   0)
+		Palette[114] = New Colour(  0, 121,   0)
+		Palette[115] = New Colour(  1, 143,   0)
+		Palette[116] = New Colour(  1, 165,   0)
+		Palette[117] = New Colour(  1, 187,   0)
+		Palette[118] = New Colour(  1, 209,   0)
+		Palette[119] = New Colour(  1, 232,   0)
+		Palette[120] = New Colour(  0, 255,   0)
+		Palette[121] = New Colour( 30, 255,  28)
+		Palette[122] = New Colour( 57, 255,  55)
+		Palette[123] = New Colour( 84, 255,  82)
+		Palette[124] = New Colour(114, 255, 109)
+		Palette[125] = New Colour(139, 255, 135)
+		Palette[126] = New Colour(165, 255, 162)
+		Palette[127] = New Colour(192, 255, 191)
+		Palette[128] = New Colour(  0,  64,  64)
+		Palette[129] = New Colour(  0,  88,  88)
+		Palette[130] = New Colour(  0, 112, 112)
+		Palette[131] = New Colour(  0, 135, 135)
+		Palette[132] = New Colour(  0, 158, 158)
+		Palette[133] = New Colour(  0, 182, 182)
+		Palette[134] = New Colour(  0, 206, 206)
+		Palette[135] = New Colour(  0, 230, 230)
+		Palette[136] = New Colour(  0, 255, 255)
+		Palette[137] = New Colour( 88, 255, 248)
+		Palette[138] = New Colour(118, 255, 249)
+		Palette[139] = New Colour(136, 255, 253)
+		Palette[140] = New Colour(158, 255, 251)
+		Palette[141] = New Colour(185, 255, 252)
+		Palette[142] = New Colour(203, 255, 253)
+		Palette[143] = New Colour(218, 255, 255)
+		Palette[144] = New Colour(  0,  32,  64)
+		Palette[145] = New Colour(  0,  44,  88)
+		Palette[146] = New Colour(  0,  56, 112)
+		Palette[147] = New Colour(  0,  69, 135)
+		Palette[148] = New Colour(  0,  81, 159)
+		Palette[149] = New Colour(  0,  92, 182)
+		Palette[150] = New Colour(  0, 105, 206)
+		Palette[151] = New Colour(  0, 117, 230)
+		Palette[152] = New Colour(  0, 129, 255)
+		Palette[153] = New Colour( 28, 143, 255)
+		Palette[154] = New Colour( 55, 157, 255)
+		Palette[155] = New Colour( 82, 170, 255)
+		Palette[156] = New Colour(110, 187, 255)
+		Palette[157] = New Colour(136, 200, 255)
+		Palette[158] = New Colour(163, 212, 255)
+		Palette[159] = New Colour(190, 225, 255)
+		Palette[160] = New Colour(  0,   3,  78)
+		Palette[161] = New Colour(  0,   3, 100)
+		Palette[162] = New Colour(  0,   4, 122)
+		Palette[163] = New Colour(  0,   5, 143)
+		Palette[164] = New Colour(  0,   6, 165)
+		Palette[165] = New Colour(  0,   2, 188)
+		Palette[166] = New Colour(  0,   3, 210)
+		Palette[167] = New Colour(  0,   3, 232)
+		Palette[168] = New Colour(  0,   0, 255)
+		Palette[169] = New Colour( 28,  37, 255)
+		Palette[170] = New Colour( 55,  63, 255)
+		Palette[171] = New Colour( 82,  93, 255)
+		Palette[172] = New Colour(110, 120, 255)
+		Palette[173] = New Colour(136, 147, 255)
+		Palette[174] = New Colour(163, 171, 255)
+		Palette[175] = New Colour(190, 198, 255)
+		Palette[176] = New Colour( 39,   0,  78)
+		Palette[177] = New Colour( 51,   0, 103)
+		Palette[178] = New Colour( 64,   0, 128)
+		Palette[179] = New Colour( 77,   0, 153)
+		Palette[180] = New Colour( 89,   0, 178)
+		Palette[181] = New Colour(102,   0, 203)
+		Palette[182] = New Colour(115,   0, 229)
+		Palette[183] = New Colour(128,   0, 255)
+		Palette[184] = New Colour(122,   0, 255)
+		Palette[185] = New Colour(141,  28, 255)
+		Palette[186] = New Colour(150,  55, 255)
+		Palette[187] = New Colour(164,  82, 255)
+		Palette[188] = New Colour(175, 108, 255)
+		Palette[189] = New Colour(189, 134, 255)
+		Palette[190] = New Colour(202, 161, 255)
+		Palette[191] = New Colour(217, 188, 255)
+		Palette[192] = New Colour( 75,   0,  76)
+		Palette[193] = New Colour( 94,   0,  98)
+		Palette[194] = New Colour(117,   0, 121)
+		Palette[195] = New Colour(137,   0, 142)
+		Palette[196] = New Colour(158,   0, 164)
+		Palette[197] = New Colour(181,   0, 187)
+		Palette[198] = New Colour(202,   0, 209)
+		Palette[199] = New Colour(224,   0, 232)
+		Palette[200] = New Colour(241,   0, 255)
+		Palette[201] = New Colour(243,  28, 255)
+		Palette[202] = New Colour(249,  55, 255)
+		Palette[203] = New Colour(250,  82, 255)
+		Palette[204] = New Colour(251, 109, 255)
+		Palette[205] = New Colour(252, 135, 255)
+		Palette[206] = New Colour(255, 162, 255)
+		Palette[207] = New Colour(255, 190, 255)
+		Palette[208] = New Colour( 33,   0,   0)
+		Palette[209] = New Colour( 46,   3,   2)
+		Palette[210] = New Colour( 57,   7,   6)
+		Palette[211] = New Colour( 72,  14,  11)
+		Palette[212] = New Colour( 85,  23,  18)
+		Palette[213] = New Colour( 99,  33,  26)
+		Palette[214] = New Colour(112,  43,  36)
+		Palette[215] = New Colour(125,  56,  46)
+		Palette[216] = New Colour(135,  70,  59)
+		Palette[217] = New Colour(152,  89,  76)
+		Palette[218] = New Colour(169, 109,  94)
+		Palette[219] = New Colour(186, 130, 116)
+		Palette[220] = New Colour(203, 153, 138)
+		Palette[221] = New Colour(220, 178, 163)
+		Palette[222] = New Colour(237, 204, 190)
+		Palette[223] = New Colour(255, 233, 222)
+		Palette[224] = New Colour(  0,   0,   0)
+		Palette[225] = New Colour(  0,   0,   0)
+		Palette[226] = New Colour(  0,   0,   0)
+		Palette[227] = New Colour(  0,   0,   0)
+		Palette[228] = New Colour(  0,   0,   0)
+		Palette[229] = New Colour(  0,   0,   0)
+		Palette[230] = New Colour(  0,   0,   0)
+		Palette[231] = New Colour(  0,   0,   0)
+		Palette[232] = New Colour(  0,   0,   0)
+		Palette[233] = New Colour(  0,   0,   0)
+		Palette[234] = New Colour(  0,   0,   0)
+		Palette[235] = New Colour(  0,   0,   0)
+		Palette[236] = New Colour(  0,   0,   0)
+		Palette[237] = New Colour(  0,   0,   0)
+		Palette[238] = New Colour(  0,   0,   0)
+		Palette[239] = New Colour(  0,   0,   0)
+		Palette[240] = New Colour(  0,   0,   0)
+		Palette[241] = New Colour(  0,   0,   0)
+		Palette[242] = New Colour(  0,   0,   0)
+		Palette[243] = New Colour(  0,   0,   0)
+		Palette[244] = New Colour(  0,   0,   0)
+		Palette[245] = New Colour(  0,   0,   0)
+		Palette[246] = New Colour(  0,   0,   0)
+		Palette[247] = New Colour(  0,   0,   0)
+		Palette[248] = New Colour(  0,   0,   0)
+		Palette[249] = New Colour(  0,   0,   0)
+		Palette[250] = New Colour(  0,   0,   0)
+		Palette[251] = New Colour(  0,   0,   0)
+		Palette[252] = New Colour(  0,   0,   0)
+		Palette[253] = New Colour(  0,   0,   0)
+		Palette[254] = New Colour(  0,   0,   0)
+		Palette[255] = New Colour(  0,   0,   0)
+
+		Return Palette
+	End Method
+
+	Method Update: Void ()
+		Local paletteX1: Int = Self.BaseX
+		Local paletteY1: Int = Self.BaseY + 32
+		Local paletteX2: Int = Self.BaseX + 64
+		Local paletteY2: Int = Self.BaseY + 32 + (Self.ColourWidth * Self.ColourHeight)
+
+		If TouchX() >= paletteX1 And TouchX() <= paletteX2 And TouchY() > paletteY1 And TouchY() <= paletteY2
+			Local colX: Int = Floor((TouchX() - paletteX1) / ColourWidth)
+			Local colY: Int = Floor((TouchY() - paletteY1) / ColourHeight)
+
+			If MouseDown(MOUSE_LEFT)
+				Self.FGColour = colX * 16 + colY
+			Else If MouseDown(MOUSE_RIGHT)
+				Self.BGColour = colX * 16 + colY
+			End If
+
+		End If
+	End Method
+
+	Method Draw: Void ()
+		Local BG: Colour = Self.Palette[Self.BGColour]
+		Local FG: Colour = Self.Palette[Self.FGColour]
+
+		SetColor(BG.R, BG.G, BG.B)
+		DrawRect(Self.BaseX, Self.BaseY, 64, 30)
+		SetColor(FG.R, FG.G, FG.B)
+		DrawRect(Self.BaseX + 16, Self.BaseY + 8, 32, 15)
+
+
+		Local c: Int
+		Local pal: Colour
+
+		For Local x: Int = 0 To 3
+			For Local y: Int = 0 To 15
+				c = x * 16 + y
+				pal = Self.Palette[c]
+
+				If c = Self.FGColour
+					SetColor(160, 160, 160)
+					DrawRect(Self.BaseX + (x * Self.ColourWidth) - 2 + 2, Self.BaseY + 32 + (y * Self.ColourHeight) - 2, Self.ColourWidth + 2, Self.ColourHeight + 2)
+
+					SetColor(pal.R, pal.G, pal.B)
+					DrawRect(Self.BaseX + (x * Self.ColourWidth) + 2, Self.BaseY + 32 + (y * Self.ColourHeight), Self.ColourWidth - 2, Self.ColourHeight - 2)
+				Else
+					SetColor(pal.R, pal.G, pal.B)
+					DrawRect(Self.BaseX + (x * Self.ColourWidth) + 2, Self.BaseY + 32 + (y * Self.ColourHeight), Self.ColourWidth, Self.ColourHeight)
+				End If
+			Next
+		Next
+
+		SetColor(255, 255, 255)
+	End Method
+End Class
+
+
+
+Class Colour
+	Field R: Int
+	Field G: Int
+	Field B: Int
+
+	Method New (R: Int, G: Int, B: Int)
+		Self.R = R
+		Self.G = G
+		Self.B = B
+	End Method
+
+	Method FromRGB: Colour (R: Int, G: Int, B: Int)
+		Return New Colour(R, G, B)
+	End Method
+End Class
