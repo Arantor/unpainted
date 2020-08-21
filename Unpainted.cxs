@@ -59,7 +59,7 @@ Class UnpaintedApp Extends App
 		
 		Self.Screen = Gui.CreateScreen()
 		
-		Self.Toolbox = New Toolbox(Screen, 576, 32)
+		Self.Toolbox = New Toolbox(Screen, 576, 0)
 
 		Self.PaintMode = New PaintingMode
 		Self.PaintMode.Set(PaintingMode.Color)
