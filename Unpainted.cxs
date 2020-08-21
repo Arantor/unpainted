@@ -3,6 +3,11 @@
 #GLFW_APP_LABEL="Unpainted"
 #GLFW_APP_PUBLISHER="Daunt By Name, Dauntless By Nature"
 
+#GLFW_WINDOW_WIDTH=640
+#GLFW_WINDOW_HEIGHT=512
+#GLFW_WINDOW_RESIZABLE=True
+#GLFW_WINDOW_DECORATED=True
+
 Strict
 
 Import mojo
@@ -56,6 +61,9 @@ Class UnpaintedApp Extends App
 
 	Method OnCreate: Int ()
 		SetUpdateRate(60)
+		
+		Local size: DisplayMode = DesktopMode()
+		SetDeviceWindowSizeLimits(640, 512, size.Width, size.Height)
 		
 		Self.Dialogs = New StringMap<Int>
 		
@@ -112,6 +120,16 @@ Class UnpaintedApp Extends App
 		
 		Self.Palette.Draw()
 		
+		Return 0
+	End Method
+	
+	Method OnResize: Int ()
+		Print DeviceWidth()
+		Self.Toolbox.ResizeScreen(DeviceWidth(), DeviceHeight())
+		Self.Palette.BaseX = DeviceWidth() - 64
+
+		Self.Screen.W = DeviceWidth()
+		Self.Screen.H = DeviceHeight()
 		Return 0
 	End Method
 End Class

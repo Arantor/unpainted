@@ -237,6 +237,26 @@ Class Toolbox
 		Return Self.BaseY + YPos * 32
 	End Method
 
+	Method ResizeScreen: Void (NewX: Int, NewY: Int)
+		Self.BaseX = NewX - 64
+
+		DottedFreehand.X = ToolX(0)
+		ContinuousFreehand.X = ToolX(1)
+		LineTool.X = ToolX(0)
+		CurveTool.X = ToolX(1)
+		FloodFill.X = ToolX(0)
+		AirbrushTool.X = ToolX(1)
+		RectangleTool.X = ToolX(0)
+		CircleTool.X = ToolX(1)
+		EllipseTool.X = ToolX(0)
+		PolygonTool.X = ToolX(1)
+		BrushSelector.X = ToolX(0)
+		TextTool.X = ToolX(1)
+		GridTool.X = ToolX(0)
+		SymmetryTool.X = ToolX(1)
+		PerspectiveTool.X = ToolX(0)
+	End Method
+
 	' Simple case: a basic non-toggle button where the toggle state is next to it.
 	Method ToolbarButton2: Gui_2StateButton(XCoord: Int, YCoord: Int, XBase: Int, YBase: Int)
 		Local Width: Int = 30
