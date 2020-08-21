@@ -263,6 +263,18 @@ Class Toolbox
 		If Unpainted.Unpainted.DialogsShown()
 			Return
 		End If
+
+		' Some things have a right click option.
+		If MouseDown(MOUSE_RIGHT)
+			If Gui.Over = LineTool
+				LineTool.Pressed_ActiveState()
+				Unpainted.Unpainted.SpacingMode.ShowDialog()
+			End If
+			If Gui.Over = CurveTool
+				CurveTool.Pressed_ActiveState()
+				Unpainted.Unpainted.SpacingMode.ShowDialog()
+			End If
+		End If
 	End Method
 End Class
 
