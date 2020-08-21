@@ -25,6 +25,7 @@ Class Toolbox
 	Field TextTool: Gui_2StateButton
 	Field GridTool: Gui_2StateButton
 	Field SymmetryTool: Gui_2StateButton
+	Field PerspectiveTool: Gui_2StateButton
 	Field MagnifyTool: Gui_2StateButton
 
 	Method New (destination: Gui, BaseX: Int, BaseY: Int)
@@ -73,6 +74,9 @@ Class Toolbox
 
 		SymmetryTool = Self.ToolbarButton2Toggle(1, 6, 865, 110)
 		SymmetryTool.Tooltip = "Symmetry Tool"
+
+		PerspectiveTool = Self.ToolbarButton2Toggle(0, 7, 865, 140)
+		PerspectiveTool.Tooltip = "Perspective Tool"
 
 		' And tie up which buttons reset other buttons.
 		' You might ask why we're doing this by hand - answer is that some buttons aren't reset by others.
