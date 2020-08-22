@@ -19,6 +19,7 @@ Import UAbout
 Import UMenu
 Import UPalette
 Import USpacing
+Import UStatusBar
 Import UToolbox
 
 Global Unpainted: UnpaintedApp
@@ -32,6 +33,7 @@ Class UnpaintedApp Extends App
 	Field Screen: Gui
 	Field Menu: UnpaintedMenu
 	Field Toolbox: Toolbox
+	Field StatusBar: StatusBar
 	Field Palette: Palette
 	Field PaintMode: PaintingMode
 	Field SpacingMode: SpacingMode
@@ -69,9 +71,11 @@ Class UnpaintedApp Extends App
 		
 		Self.Screen = Gui.CreateScreen()
 		
-		Self.Toolbox = New Toolbox(Screen, 576, 0)
+		Self.Toolbox = New Toolbox(Screen, DeviceWidth() - Toolbox.Width, 0)
 		
-		Self.Palette = New Palette(576, 320)
+		Self.Palette = New Palette(576, 240)
+		
+		Self.StatusBar = New StatusBar(Screen, 0, DeviceHeight() - 24, DeviceWidth(), 24)
 
 		Self.PaintMode = New PaintingMode
 		Self.PaintMode.Set(PaintingMode.Color)
@@ -96,6 +100,9 @@ Class UnpaintedApp Extends App
 		
 		' Always process the palette for updates.
 		Self.Palette.Update()
+		
+		' Always process the statusbar for updates.
+		Self.StatusBar.Update()
 
 		' Dispatch to each thing that might be open for updates.
 		For Local Dialog:String = EachIn Self.Dialogs.Keys()
@@ -116,6 +123,7 @@ Class UnpaintedApp Extends App
 	Method OnRender: Int ()
 		Cls(0, 0, 0)
 		SetColor(255, 255, 255)
+		Self.StatusBar.Draw()
 		Gui.Draw()
 		
 		Self.Palette.Draw()
@@ -126,6 +134,7 @@ Class UnpaintedApp Extends App
 	Method OnResize: Int ()
 		Print DeviceWidth()
 		Self.Toolbox.ResizeScreen(DeviceWidth(), DeviceHeight())
+		Self.StatusBar.ResizeScreen(0, DeviceHeight() - 24, DeviceWidth(), 24)
 		Self.Palette.BaseX = DeviceWidth() - 64
 
 		Self.Screen.W = DeviceWidth()
@@ -159,6 +168,35 @@ Class PaintingMode
 				PaintMode = newmode
 			Default
 				Throw New InvalidPaintModeException
+		End Select
+	End Method
+	
+	Method GetString: String ()
+		Select PaintMode
+			Case Matte
+				Return "Matte"
+			Case Color
+				Return "Colour"
+			Case Replace
+				Return "Replace"
+			Case Smear
+				Return "Smear"
+			Case Shade
+				Return "Shade"
+			Case Blend
+				Return "Blend"
+			Case Cycle
+				Return "Cycle"
+			Case Smooth
+				Return "Smooth"
+			Case Mix
+				Return "Mix"
+			Case HBrite
+				Return "HBrite"
+			Case RubThru
+				Return "RubThru"
+			Default
+				Return ""
 		End Select
 	End Method
 End Class

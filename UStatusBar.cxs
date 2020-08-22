@@ -1,0 +1,67 @@
+Strict
+
+Import Unpainted
+Import mojo
+Import guiBasic
+
+Class StatusBar
+
+	Field BaseX: Int
+	Field BaseY: Int
+	Field W: Int
+	Field H: Int
+
+	Field YCoord: Int
+
+	Field Coords: Gui
+
+	Method New (destination: Gui, BaseX: Int, BaseY: Int, W: Int, H: Int)
+		Self.ResizeScreen(BaseX, BaseY, W, H)
+	End Method
+
+	Method Update: Void ()
+		'Self.Coords.Text = MouseX() + ", " + MouseY()
+	End Method
+
+	Method Draw: Void ()
+		Local AtlasX: Int = 480
+		Local AtlasY: Int = 20
+
+		Gui.Draw3x3(Self.BaseX, Self.BaseY, Self.W, Self.H, AtlasX, AtlasY, 30, 30, 10)
+
+		Gui.DrawAlignedText(Gui.NormalFont, 20, YCoord, Unpainted.Unpainted.PaintMode.GetString())
+
+		Gui.DrawAlignedText(Gui.NormalFont, 100, YCoord, Self.GetCoords(), 0)
+	End Method
+
+	Method GetCoords: String ()
+		' Default Coords from bottom left
+
+		' Don't show mouse over the menu bar.
+		If MouseY() < 24 Or MouseY() > Self.YCoord
+			Return ""
+		End If
+
+		If Gui.Over And Gui.Over.Type = "MenuItem"
+			Return ""
+		End If
+
+		If MouseX() >= DeviceWidth() - 96
+			Return ""
+		End If
+
+		Local X: Int = MouseX()
+		Local Y: Int = Self.YCoord - MouseY()
+
+		Return X + ", " + Y
+	End Method
+
+	Method ResizeScreen: Void (NewX: Int, NewY: Int, NewW: Int, NewH: Int)
+		Self.BaseX = NewX
+		Self.BaseY = NewY
+		Self.W = NewW
+		Self.H = NewH
+
+		Self.YCoord = Self.BaseY + ( (Self.H - Gui.NormalFont.GetTxtHeight("Testing123")) / 2.0)
+	End Method
+End Class
