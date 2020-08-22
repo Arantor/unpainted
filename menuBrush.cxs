@@ -12,6 +12,7 @@ Class BrushMenu
 	Field Brush_Copy: Gui
 	Field Brush_Paste: Gui
 	Field Brush_Restore: Gui
+	Field Brush_Info: Gui
 	Field Brush_Spare: Gui
 	Field Brush_Spare_BrushToSpare: Gui
 	Field Brush_Spare_BrushToFromSpare: Gui
@@ -26,8 +27,13 @@ Class BrushMenu
 	Field Brush_Flip_Horiz: Gui
 	Field Brush_Flip_Vert: Gui
 	Field Brush_Edge: Gui
+	Field Brush_Edge_Crop: Gui
 	Field Brush_Edge_Outline: Gui
-	Field Brush_Edge_Trim: Gui
+	Field Brush_Edge_Outline_Simple: Gui
+	Field Brush_Edge_Outline_Squared: Gui
+	Field Brush_Edge_Outline_Shadow: Gui
+	Field Brush_Edge_Outline_3D: Gui
+	Field Brush_Edge_Outline_Trim: Gui
 	Field Brush_Rotate: Gui
 	Field Brush_Rotate_90Deg: Gui
 	Field Brush_Rotate_AnyAngle: Gui
@@ -50,6 +56,8 @@ Class BrushMenu
 		Brush_Paste = Gui.CreateMenuItemInactive("Paste", Brush) ' Amiga-V
 		Brush_Restore = Gui.CreateMenuItemInactive("Restore", Brush) ' B
 
+		Brush_Info = Gui.CreateMenuItemInactive("Info...", Brush)
+
 		Brush_Spare = Gui.CreateMenuItemInactive("Spare", Brush)
 		Brush_Spare_BrushToSpare = Gui.CreateMenuItemInactive("Brush->Spare", Brush_Spare) ' Alt-n
 		Brush_Spare_BrushToFromSpare = Gui.CreateMenuItemInactive("Brush<->Spare", Brush_Spare) ' Alt-b
@@ -67,8 +75,16 @@ Class BrushMenu
 		Brush_Flip_Vert = Gui.CreateMenuItemInactive("Vert", Brush_Flip) ' y
 
 		Brush_Edge = Gui.CreateMenuItemInactive("Edge", Brush)
-		Brush_Edge_Outline = Gui.CreateMenuItemInactive("Outline", Brush_Edge) ' o
-		Brush_Edge_Trim = Gui.CreateMenuItemInactive("Trim", Brush_Edge) ' O
+		Brush_Edge_Crop = Gui.CreateMenuItemInactive("Crop", Brush_Edge)
+		Brush_Edge_Outline = Gui.CreateMenuItemInactive("Outline", Brush_Edge)
+		Brush_Edge_Outline_Simple = Gui.CreateMenuItemInactive("Simple Outline", Brush_Edge_Outline) ' o
+		Brush_Edge_Outline_Squared = Gui.CreateMenuItemInactive("Squared Outline", Brush_Edge_Outline)
+		Brush_Edge_Outline_Shadow = Gui.CreateMenuItemInactive("Shadow Outline", Brush_Edge_Outline)
+		Brush_Edge_Outline_3D = Gui.CreateMenuItemInactive("3D Outline", Brush_Edge_Outline)
+
+		Gui.CreateMenuSeparator(Brush_Edge_Outline)
+
+		Brush_Edge_Outline_Trim = Gui.CreateMenuItemInactive("Trim", Brush_Edge_Outline) ' O
 
 		Brush_Rotate = Gui.CreateMenuItemInactive("Rotate", Brush)
 		Brush_Rotate_90Deg = Gui.CreateMenuItemInactive("90 Degrees", Brush_Rotate) ' z
