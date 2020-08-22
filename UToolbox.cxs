@@ -6,6 +6,7 @@ Import guiBasic
 Import UToolboxButtons
 
 Class Toolbox
+	Const Width: Int = 96
 
 	Field BaseX: Int
 	Field BaseY: Int
@@ -27,6 +28,7 @@ Class Toolbox
 	Field SymmetryTool: Gui_2StateButton
 	Field PerspectiveTool: Gui_2StateButton
 	Field MagnifyTool: Gui_2StateButton
+	Field ZoomTool: Gui_1StateButton
 
 	Method New (destination: Gui, BaseX: Int, BaseY: Int)
 		Self.BaseX = BaseX
@@ -51,32 +53,38 @@ Class Toolbox
 		AirbrushTool = Self.ToolbarButton2(1, 2, 760, 170)
 		AirbrushTool.Tooltip = "Airbrush"
 
-		RectangleTool = Self.ToolbarButton3(0, 3, 760, 200)
+		RectangleTool = Self.ToolbarButton3(2, 0, 760, 200)
 		RectangleTool.Tooltip = "Top left: Unfilled Rectangle~nBottom right: Filled Rectangle"
 
-		CircleTool = Self.ToolbarButton3(1, 3, 760, 230)
+		CircleTool = Self.ToolbarButton3(2, 1, 760, 230)
 		CircleTool.Tooltip = "Top left: Unfilled Circle~nBottom right: Filled Circle"
 
-		EllipseTool = Self.ToolbarButton3(0, 4, 760, 260)
+		EllipseTool = Self.ToolbarButton3(2, 2, 760, 260)
 		EllipseTool.Tooltip = "Top left: Unfilled Ellipse~nBottom right: Filled Ellipse"
 
-		PolygonTool = Self.ToolbarButton3(1, 4, 760, 290)
+		PolygonTool = Self.ToolbarButton3(2, 3, 760, 290)
 		PolygonTool.Tooltip = "Top left: Unfilled Polygon~nBottom right: Filled Polygon"
 
-		BrushSelector = Self.ToolbarButton2(0, 5, 865, 20)
+		BrushSelector = Self.ToolbarButton2(0, 3, 865, 20)
 		BrushSelector.Tooltip = "Brush Selector"
 
-		TextTool = Self.ToolbarButton2(1, 5, 865, 50)
+		TextTool = Self.ToolbarButton2(1, 3, 865, 50)
 		TextTool.Tooltip = "Text Tool"
 
-		GridTool = Self.ToolbarButton2Toggle(0, 6, 865, 80)
+		GridTool = Self.ToolbarButton2Toggle(0, 4, 865, 80)
 		GridTool.Tooltip = "Grid Tool"
 
-		SymmetryTool = Self.ToolbarButton2Toggle(1, 6, 865, 110)
+		SymmetryTool = Self.ToolbarButton2Toggle(1, 4, 865, 110)
 		SymmetryTool.Tooltip = "Symmetry Tool"
 
-		PerspectiveTool = Self.ToolbarButton2Toggle(0, 7, 865, 140)
+		PerspectiveTool = Self.ToolbarButton2Toggle(2, 4, 865, 140)
 		PerspectiveTool.Tooltip = "Perspective Tool"
+
+		MagnifyTool = Self.ToolbarButton2Toggle(0, 5, 865, 170)
+		MagnifyTool.Tooltip = "Magnify Tool"
+
+		ZoomTool = Self.ToolbarButton1(1, 5, 865, 200)
+		ZoomTool.Tooltip = "Left click: zoom in~nRight click: zoom out"
 
 		' And tie up which buttons reset other buttons.
 		' You might ask why we're doing this by hand - answer is that some buttons aren't reset by others.
@@ -238,7 +246,7 @@ Class Toolbox
 	End Method
 
 	Method ResizeScreen: Void (NewX: Int, NewY: Int)
-		Self.BaseX = NewX - 64
+		Self.BaseX = NewX - 96
 
 		DottedFreehand.X = ToolX(0)
 		ContinuousFreehand.X = ToolX(1)
@@ -246,15 +254,23 @@ Class Toolbox
 		CurveTool.X = ToolX(1)
 		FloodFill.X = ToolX(0)
 		AirbrushTool.X = ToolX(1)
-		RectangleTool.X = ToolX(0)
-		CircleTool.X = ToolX(1)
-		EllipseTool.X = ToolX(0)
-		PolygonTool.X = ToolX(1)
+		RectangleTool.X = ToolX(2)
+		CircleTool.X = ToolX(2)
+		EllipseTool.X = ToolX(2)
+		PolygonTool.X = ToolX(2)
 		BrushSelector.X = ToolX(0)
 		TextTool.X = ToolX(1)
 		GridTool.X = ToolX(0)
 		SymmetryTool.X = ToolX(1)
-		PerspectiveTool.X = ToolX(0)
+		PerspectiveTool.X = ToolX(2)
+		MagnifyTool.X = ToolX(0)
+		ZoomTool.X = ToolX(1)
+	End Method
+
+	Method ToolbarButton1: Gui_1StateButton(XCoord: Int, YCoord: Int, XBase: Int, YBase: Int)
+		Local Width: Int = 30
+		Local Height: Int = 30
+		Return New Gui_1StateButton(ToolX(XCoord), ToolY(YCoord), Width, Height, Gui.Atlas, Self.DrawTarget, XBase, YBase, Width, Height)
 	End Method
 
 	' Simple case: a basic non-toggle button where the toggle state is next to it.
@@ -284,8 +300,14 @@ Class Toolbox
 			Return
 		End If
 
+		If MouseHit(MOUSE_LEFT)
+			If Gui.Over = ZoomTool
+				Print "Zoom in"
+			End If
+		End If
+
 		' Some things have a right click option.
-		If MouseDown(MOUSE_RIGHT)
+		If MouseHit(MOUSE_RIGHT)
 			If Gui.Over = LineTool
 				LineTool.Pressed_ActiveState()
 				Unpainted.Unpainted.SpacingMode.ShowDialog()
@@ -293,6 +315,10 @@ Class Toolbox
 			If Gui.Over = CurveTool
 				CurveTool.Pressed_ActiveState()
 				Unpainted.Unpainted.SpacingMode.ShowDialog()
+			End If
+
+			If Gui.Over = ZoomTool
+				Print "Zoom out"
 			End If
 		End If
 	End Method

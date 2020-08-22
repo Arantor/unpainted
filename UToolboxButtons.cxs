@@ -25,6 +25,55 @@ Class Gui_MultiStateButton Extends Gui
 	End Method
 End Class
 
+' A button that is really just a one-hit-then-reset button.
+Class Gui_1StateButton Extends Gui_MultiStateButton
+	Field ButtonImgX_State1: Int
+	Field ButtonImgY_State1: Int
+	
+	Method New (X: Int, Y: Int, W: Int, H: Int, Img: Image, Parent: Gui, ImgX_State1: Int = 0, ImgY_State1: Int = 0, ImgW: Int = 0, ImgH: Int = 0)
+		Self.Type = "ImgButton"
+		Self.X = X
+		Self.Y = Y
+		Self.W = W
+		Self.H = H
+		Self.ButtonImg = Img
+
+		Self.ButtonImgX_State1 = ImgX_State1
+		Self.ButtonImgY_State1 = ImgY_State1
+		
+		Self.ButtonImgW = ImgW
+		Self.ButtonImgH = ImgH
+
+		' Set the initial state to 0.
+		Self.Unpressed()
+
+		Self.Parent = Parent
+		Self.Parent.Children.AddLast(Self)
+		Self.Children = New List<Gui>
+
+		Self.ResetOnSelect = New List<Gui_MultiStateButton>
+		
+		ZOrder(Self.Parent)
+	End Method
+
+	Method Pressed_ActiveState: Void ()
+
+	End Method
+
+	Method Unpressed: Void ()
+		Self.Value = 0
+		Self.ButtonImgX = Self.ButtonImgX_State1
+		Self.ButtonImgY = Self.ButtonImgY_State1
+	End Method
+
+	Method Update2()
+		' Don't process if we have a dialog open.
+		If Unpainted.Unpainted.DialogsShown()
+			Return
+		End If
+	End Method
+End Class
+
 ' The main toolbox type: the selected + on/off button.
 Class Gui_2StateButton Extends Gui_MultiStateButton
 	Field ButtonImgX_State1: Int
