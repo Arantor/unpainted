@@ -317,6 +317,11 @@ Class Toolbox
 				Unpainted.Unpainted.SpacingMode.ShowDialog()
 			End If
 
+			If Gui.Over = GridTool
+				GridTool.Pressed_ActiveState()
+				Unpainted.Unpainted.GriddingMode.ShowDialog()
+			End If
+
 			If Gui.Over = ZoomTool
 				Print "Zoom out"
 			End If

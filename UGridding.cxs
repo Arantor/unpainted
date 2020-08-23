@@ -1,0 +1,94 @@
+Strict
+
+Import guiBasic
+Import Unpainted
+
+
+Class GriddingMode
+	Const GriddingDialog: String = "Gridding"
+
+	Field Dialog: Gui
+
+	Field SpacingX: Int = 10
+	Field SpacingY: Int = 10
+
+	Field AdjustX: Int = 0
+	Field AdjustY: Int = 0
+
+	Field Text_SpacingX: Gui
+	Field Text_SpacingY: Gui
+	Field Btn_SpacingFromBrush: Gui
+
+	Field Text_AdjustX: Gui
+	Field Text_AdjustY: Gui
+	Field Btn_Adjust: Gui
+
+	Field Button_OK: Gui
+	Field Button_Cancel: Gui
+
+	Method New (destination: Gui)
+		Self.Dialog = Gui.CreateWindow(32, 32, 220, 250, "Gridding", destination, 2, 0, 0, 0, 0, 1, 0)
+		Self.HideDialog()
+
+		Self.Dialog.MaximiseButton.Visible = 0
+		Self.Dialog.MinimiseButton.Visible = 0
+		Self.Dialog.CloseButton.Visible = 0
+
+		Gui.CreateLabel(100, 10, "Horiz", Self.Dialog)
+		Gui.CreateLabel(150, 10, "Vert", Self.Dialog)
+
+		Local spacing: Gui = Gui.CreateLabel(15, 40, "Spacing", Self.Dialog)
+		spacing.Tooltip = "Space between pixels on the grid"
+
+		Text_SpacingX = Gui.CreateTextField(100, 40, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+		Text_SpacingY = Gui.CreateTextField(150, 40, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+
+		Btn_SpacingFromBrush = Gui.CreateButton(100, 65, 90, 20, "From brush", Self.Dialog, 0)
+
+		Local adjust: Gui = Gui.CreateLabel(15, 100, "Adjust", Self.Dialog)
+		adjust.Tooltip = "Adjust the origin of the grid"
+
+		Text_AdjustX = Gui.CreateTextField(100, 100, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+		Text_AdjustY = Gui.CreateTextField(150, 100, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+
+		Btn_Adjust = Gui.CreateButton(110, 125, 70, 20, "Adjust", Self.Dialog, 0)
+
+		Button_OK = Gui.CreateButton(30, 170, 60, 25, "OK", Self.Dialog, 1)
+		Button_Cancel = Gui.CreateButton(118, 170, 60, 25, "Cancel", Self.Dialog, 0)
+	End Method
+
+	Method ShowDialog: Void ()
+		Self.Dialog.Visible = 1
+
+		' Notify someone that we're opening a dialog.
+		Unpainted.Unpainted.ShowDialog(GriddingMode.GriddingDialog)
+
+		' Reset all the textboxes from the values we know.
+		Text_SpacingX.Text = Self.SpacingX
+		Text_SpacingY.Text = Self.SpacingY
+		Text_AdjustX.Text = Self.AdjustX
+		Text_AdjustY.Text = Self.AdjustY
+
+		Self.Update()
+	End Method
+
+	Method HideDialog: Void ()
+		Self.Dialog.Visible = 0
+
+		' Notify someone that we're closing a dialog.
+		Unpainted.Unpainted.HideDialog(GriddingMode.GriddingDialog)
+	End Method
+
+	Method Update: Void ()
+		' If we're not showing the dialog, there's no work to do.
+		If Not Self.Dialog.Visible Then Return
+
+		If Button_Cancel.IsClicked
+			Self.HideDialog()
+		End If
+
+		If Button_OK.IsClicked
+			Self.HideDialog()
+		End If
+	End Method
+End Class

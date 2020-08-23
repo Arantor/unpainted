@@ -45,13 +45,17 @@ Class PrefsMenu
 		Prefs_Toolbox_Spacing = Gui.CreateMenuItem("Spacing...", Prefs_Toolbox) ' V
 		Prefs_Toolbox_Fonts = Gui.CreateMenuItemInactive("Fonts...", Prefs_Toolbox) ' T
 		Prefs_Toolbox_Airbrush = Gui.CreateMenuItemInactive("Airbrush...", Prefs_Toolbox) ' Alt-A
-		Prefs_Toolbox_Grid = Gui.CreateMenuItemInactive("Grid...", Prefs_Toolbox)
+		Prefs_Toolbox_Grid = Gui.CreateMenuItem("Grid...", Prefs_Toolbox)
 		Prefs_Toolbox_Symmetry = Gui.CreateMenuItemInactive("Symmetry...", Prefs_Toolbox)
 	End Method
 
 	Method Update: Void ()
 		If Unpainted.Unpainted.DialogsShown()
 			Return
+		End If
+
+		If Prefs_Toolbox_Grid.IsClicked
+			Unpainted.Unpainted.GriddingMode.ShowDialog()
 		End If
 		
 		If Prefs_Toolbox_Spacing.IsClicked

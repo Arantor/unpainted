@@ -16,6 +16,7 @@ Import guiBasic
 Import "data/Atlas.png"
 
 Import UAbout
+Import UGridding
 Import UMenu
 Import UPalette
 Import USpacing
@@ -37,6 +38,7 @@ Class UnpaintedApp Extends App
 	Field Palette: Palette
 	Field PaintMode: PaintingMode
 	Field SpacingMode: SpacingMode
+	Field GriddingMode: GriddingMode
 	Field Edited: Bool
 	
 	Field AboutDialog: AboutDialog
@@ -81,6 +83,7 @@ Class UnpaintedApp Extends App
 		Self.PaintMode.Set(PaintingMode.Color)
 		
 		Self.SpacingMode = New SpacingMode(Screen)
+		Self.GriddingMode = New GriddingMode(Screen)
 		
 		Self.Menu = New UnpaintedMenu(Screen)
 		
@@ -111,6 +114,8 @@ Class UnpaintedApp Extends App
 					Self.SpacingMode.Update()
 				Case AboutDialog.AboutPopup
 					Self.AboutDialog.Update()
+				Case GriddingMode.GriddingDialog
+					Self.GriddingMode.Update()
 			End
 		Next
 
