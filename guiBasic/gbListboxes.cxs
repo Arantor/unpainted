@@ -17,7 +17,7 @@ Class Gui_Listbox Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		
 		Local AtlasX = 440
 		Local AtlasY = 20
@@ -31,7 +31,7 @@ Class Gui_Listbox Extends Gui
 
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		'UpdateCanvas
 		CanvasX = RealX + 1
 		CanvasY = RealY + 1
@@ -92,7 +92,7 @@ Class Gui_ListboxItem Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 440
 		Local AtlasY = 20
 		
@@ -138,7 +138,7 @@ Class Gui_ListboxItem Extends Gui
 		
 	End Method
 
-	Method Update2()
+	Method Update2: Void ()
 		'Update XYWH
 		Self.X = 0
 		Self.W = Parent.W - 2

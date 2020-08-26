@@ -44,7 +44,7 @@ Class Gui_FileOperation Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		'Update label
 		Gui.FileOperations.File_Label.X = 0
 		If Gui.FileOperations.File_Label.W > 345 Then Gui.FileOperations.File_Label.X = -1 * (Gui.FileOperations.File_Label.W - 345)

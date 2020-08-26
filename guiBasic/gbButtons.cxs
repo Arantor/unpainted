@@ -20,7 +20,7 @@ Class Gui_Button Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local TempStyle = Style
 		If TempStyle < 0 Then TempStyle = 0
 		If TempStyle > 0 Then TempStyle = 1
@@ -49,7 +49,7 @@ Class Gui_Button Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 
 	End Method
 	
@@ -84,7 +84,7 @@ Class Gui_ImgButton Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = ButtonImgX
 		Local AtlasY = ButtonImgY
 			
@@ -125,7 +125,7 @@ Class Gui_ImgButton Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 
 	End Method
 	
@@ -151,7 +151,7 @@ Class Gui_Tickbox Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		If IsCell=1 Then SetScissorWithinSelf(0,0,W,H)
 		Local AtlasX = 140
 		Local AtlasY
@@ -174,7 +174,7 @@ Class Gui_Tickbox Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		If Gui.Clicked = Self Then
 			If Value = 0 Then
 				Value = 1
@@ -221,7 +221,7 @@ Class Gui_Radio Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 140
 		Local AtlasY
 		If IsSelected < 1 Then AtlasY = 210
@@ -244,7 +244,7 @@ Class Gui_Radio Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		If Gui.Clicked = Self Then
 			If IsSelected < 1 Then
 				For Local i:Gui = Eachin Parent.Children
@@ -283,7 +283,7 @@ Class Gui_SlideButton Extends Gui
 		ZOrder(Self.Parent)
 	End Method
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 560
 		Local AtlasY = 20
 		If RealActive = 0 Then AtlasX = 620
@@ -310,7 +310,7 @@ Class Gui_SlideButton Extends Gui
 		SetAlpha(OldAlpha)
 	End Method
 	
-	Method Update2()
+	Method Update2: Void ()
 		If Value > 1 Then Value = 1
 		If Value < 0 Then Value = 0
 		
@@ -350,7 +350,7 @@ Class Gui_SlideButtonButton Extends Gui
 		Self.Children = New List<Gui>		
 	End Method
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 560
 		Local AtlasY = 50
 
@@ -362,7 +362,7 @@ Class Gui_SlideButtonButton Extends Gui
 	End Method
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 	
 		
 		If Gui.Down = Self And TouchY() < RealY + Gui.TitleBarHeight And Moving = 0 Then

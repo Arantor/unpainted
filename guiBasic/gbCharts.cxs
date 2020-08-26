@@ -22,7 +22,7 @@ Class Gui_Chart Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		'BG
 		SetColor(150, 150, 150)
 		DrawRect(RealX, RealY, W, H)
@@ -105,7 +105,7 @@ Class Gui_Chart Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		
 		
 	End Method

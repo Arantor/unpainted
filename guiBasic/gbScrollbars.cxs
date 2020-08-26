@@ -48,7 +48,7 @@ Class Gui_VScrollbar Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 400
 		Local AtlasY = 250
 	
@@ -63,7 +63,7 @@ Class Gui_VScrollbar Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		'If User Change
 		If Int(FloatValue) <> Value Then FloatValue = Value
 		
@@ -190,7 +190,7 @@ Class Gui_HScrollbar Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 400
 		Local AtlasY = 180
 	
@@ -204,7 +204,7 @@ Class Gui_HScrollbar Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		'If User Change
 		If Int(FloatValue) <> Value Then FloatValue = Value
 		
@@ -287,7 +287,7 @@ Class Gui_ScrollbarButton Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 270
 		Local AtlasY = 180
 		
@@ -312,7 +312,7 @@ Class Gui_ScrollbarButton Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		Local Amt = Parent.Stp
 		If Amt = 0 Then Amt = 1
 		
@@ -361,7 +361,7 @@ Class Gui_ScrollbarSlider Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 400
 		Local AtlasY = 210
 		

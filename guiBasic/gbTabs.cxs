@@ -19,7 +19,7 @@ Class Gui_Tab Extends Gui
 		ZOrder(Self.Parent)
 	End Method
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 560
 		Local AtlasY = 90
 		
@@ -54,7 +54,7 @@ Class Gui_Tab Extends Gui
 	End Method
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		'X,Y,W,H (Xin parent update)
 		
 		'UpdateCanvas

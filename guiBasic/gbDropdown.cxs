@@ -19,7 +19,7 @@ Class Gui_DropDown Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		If IsCell=1 Then SetScissorWithinSelf(0,0,W,H)
 		Local AtlasX = 390
 		Local AtlasY = 20
@@ -44,7 +44,7 @@ Class Gui_DropDown Extends Gui
 		If Self.IsCell = 1 Then DrawImageRect(Gui.Atlas, RealX + W - H + 5, RealY + 5, AtlasX + 20, AtlasY, 30, 30, 0, (H - 10) / 30.0, (H - 10) / 30.0)
 	End Method
 
-	Method Update2()
+	Method Update2: Void ()
 		If Gui.Clicked = Self Then
 			If Minimised = 1 Then
 				Minimised = 0
@@ -102,7 +102,7 @@ Class Gui_DropDownItem Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 440
 		Local AtlasY = 20
 		
@@ -132,7 +132,7 @@ Class Gui_DropDownItem Extends Gui
 		
 	End Method
 
-	Method Update2()
+	Method Update2: Void ()
 		Local WW = NormalFont.GetTxtWidth(Text) + 4
 		If W < WW Then
 			W = WW

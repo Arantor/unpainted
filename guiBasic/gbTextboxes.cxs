@@ -21,7 +21,7 @@ Class Gui_TextField Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		If IsCell=1 Then SetScissorWithinSelf(0,0,W,H)
 		Local AtlasX = 350
 		Local AtlasY = 20
@@ -86,7 +86,7 @@ Class Gui_TextField Extends Gui
 	End Method
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		'Max Length
 		
 		If MaxLength > 0 And Text.Length > MaxLength Then Text = Text[ .. MaxLength]
@@ -277,7 +277,7 @@ Class Gui_TextBox Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 350
 		Local AtlasY = 20
 		If Gui.Over = Self Then AtlasY = 50
@@ -347,7 +347,7 @@ Class Gui_TextBox Extends Gui
 	End Method
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		'Input
 		If ActiveTextbox = Self Then GetBoxText()
 		

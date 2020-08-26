@@ -68,7 +68,7 @@ Class Gui_MsgBox Extends Gui
 	End Function
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local OldAlpha:Float = GetAlpha()
 		SetColor(0, 0, 0)
 		'SetScissor(0, 0, DeviceWidth(), DeviceHeight())
@@ -80,7 +80,7 @@ Class Gui_MsgBox Extends Gui
 	End Method
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		
 	If OnFocus <> Null Then
 		If OnFocus.Parent <> GuiMessageBox.Window Then

@@ -1,10 +1,12 @@
+Strict
+
 Import guiBasic
 
 Class Gui_Label Extends Gui
 	
-	Field OldAlign, OldBoarder
+	Field OldAlign: Int, OldBoarder: Int
 	
-	Method New(X, Y, Text:String, Parent:Gui, Align = 0, Boarder = 0, FLOPS = 0)
+	Method New(X: Int, Y: Int, Text: String, Parent: Gui, Align: Int = 0, Boarder: Int = 0, FLOPS: Int = 0)
 		Self.Type = "Label"
 		Self.X = X
 		Self.Y = Y
@@ -29,7 +31,7 @@ Class Gui_Label Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void()
 		
 		If Self.IsFlops = 1 Then
 			SetScissor(Gui.FileOperations.File_Window.RealX + 5, Gui.FileOperations.File_Window.RealY + TitleBarHeight + 5, 390, 40)
@@ -60,10 +62,10 @@ Class Gui_Label Extends Gui
 			SetColor(255, 255, 255)
 		End If
 
-		Local TextX = RealX + (Boarder * 2)
-		Local TextY = RealY + (Boarder * 2)
+		Local TextX: Int = RealX + (Boarder * 2)
+		Local TextY: Int = RealY + (Boarder * 2)
 		
-		Local OldAlpha:Float = GetAlpha()
+		Local OldAlpha: Float = GetAlpha()
 
 		If Self.RealActive = 0 Then SetAlpha(GetAlpha() -0.6)
 		
@@ -74,7 +76,7 @@ Class Gui_Label Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void()
 		W = NormalFont.GetTxtWidth(Text)
 		H = NormalFont.GetTxtHeight(Text)
 		If Boarder > 0 Then
@@ -103,9 +105,9 @@ End Class
 
 Class Gui_TitleLabel Extends Gui
 	
-	Field OldAlign, OldBoarder
+	Field OldAlign: Int, OldBoarder: Int
 	
-	Method New(X, Y, Text:String, Parent:Gui, Align = 0, Boarder = 0, FLOPS = 0)
+	Method New(X: Int, Y: Int, Text: String, Parent: Gui, Align: Int = 0, Boarder: Int = 0, FLOPS: Int = 0)
 		Self.Type = "Label"
 		Self.X = X
 		Self.Y = Y
@@ -130,7 +132,7 @@ Class Gui_TitleLabel Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void()
 		
 		If Self.IsFlops = 1 Then
 			SetScissor(Gui.FileOperations.File_Window.RealX + 5, Gui.FileOperations.File_Window.RealY + TitleBarHeight + 5, 390, 40)
@@ -161,10 +163,10 @@ Class Gui_TitleLabel Extends Gui
 			SetColor(255, 255, 255)
 		End If
 
-		Local TextX = RealX + (Boarder * 2)
-		Local TextY = RealY + (Boarder * 2)
+		Local TextX: Int = RealX + (Boarder * 2)
+		Local TextY: Int = RealY + (Boarder * 2)
 		
-		Local OldAlpha:Float = GetAlpha()
+		Local OldAlpha: Float = GetAlpha()
 
 		If Self.RealActive = 0 Then SetAlpha(GetAlpha() -0.6)
 		
@@ -175,7 +177,7 @@ Class Gui_TitleLabel Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void()
 		W = TitleFont.GetTxtWidth(Text)
 		H = TitleFont.GetTxtHeight(Text)
 		If Boarder > 0 Then

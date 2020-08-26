@@ -32,7 +32,7 @@ Class Gui_Table Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		'Boarder
 		SetColor(150, 150, 150)
 		DrawRect(RealX, RealY, W, H)
@@ -56,7 +56,7 @@ Class Gui_Table Extends Gui
 	End Method
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		
 		'UpdateCanvas
 		CanvasX = RealX + 1
@@ -145,7 +145,7 @@ Class Table_Cell Extends Gui
 	End Method
 	
 		
-	Method Update2()
+	Method Update2: Void ()
 		
 		Self.W = Parent.CellWidth
 		Self.H = Parent.CellHeight
@@ -193,7 +193,7 @@ Class Table_Cell Extends Gui
 		
 	End Method
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		SetScissorWithinSelf(0,0,W,H)
 		If IsHeader = 1 Then
 			SetColor(170, 170, 170)

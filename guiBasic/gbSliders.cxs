@@ -24,7 +24,7 @@ Class Gui_Slider Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 600
 		Local AtlasY = 215
 	
@@ -50,7 +50,7 @@ Class Gui_Slider Extends Gui
 	End Method
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		'If User Change
 		If Int(FloatValue) <> Value Then FloatValue = Value
 		
@@ -111,7 +111,7 @@ Class Gui_SliderButton Extends Gui
 	End Method
 	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		Local AtlasX = 605
 		Local AtlasY = 180
 		If Gui.Over = Self Then AtlasX = 635
@@ -122,7 +122,7 @@ Class Gui_SliderButton Extends Gui
 	End Method
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		If Gui.Down = Self And Moving = 0 Then
 			Moving = 1
 			MovingY = TouchY() -RealY

@@ -770,11 +770,11 @@ Class Gui
 	End Function
 	'Empty Methods
 	
-	Method Draw2()
+	Method Draw2: Void()
 		'Used to draw the individual Item
 	End Method
 	
-	Method Update2()
+	Method Update2: Void()
 		'Used to Update individual Item
 	End Method
 	

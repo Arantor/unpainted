@@ -28,7 +28,7 @@ Class Gui_Screen Extends Gui
 		
 	End Method	
 	
-	Method Draw2()
+	Method Draw2: Void ()
 		'Canvas
 		If Canvas <> Null Then
 			SetScissorWithinSelf( (CanvasX - RealX), (CanvasY - RealY), CanvasW, CanvasH)
@@ -52,7 +52,7 @@ Class Gui_Screen Extends Gui
 	End Method
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		'X = 0
 		'Y = 0
 		'W = DeviceWidth()

@@ -54,7 +54,7 @@ Class Gui_Window Extends Gui
 	
 	
 	
-	Method Draw2()
+	Method Draw2: void ()
 		'Shadows
 		If Gui.Shadows = 1 Then
 			'Parent.SetScissorWithinSelf(Parent.CanvasX, Parent.CanvasY, Parent.CanvasW, Parent.CanvasH)
@@ -179,7 +179,7 @@ Class Gui_Window Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		'Update Canvas Position - (Real coords)
 		CanvasX = RealX + 6
 		CanvasW = W - 12
