@@ -69,6 +69,8 @@ Class UnpaintedApp Extends App
 		Local size: DisplayMode = DesktopMode()
 		SetDeviceWindowSizeLimits(640, 512, size.Width, size.Height)
 		
+		HideMouse()
+		
 		Self.Dialogs = New StringMap<Int>
 		
 		Self.Screen = Gui.CreateScreen()
@@ -133,6 +135,8 @@ Class UnpaintedApp Extends App
 		
 		Self.Palette.Draw()
 		
+		Self.MouseDraw()
+		
 		Return 0
 	End Method
 	
@@ -145,6 +149,34 @@ Class UnpaintedApp Extends App
 		Self.Screen.W = DeviceWidth()
 		Self.Screen.H = DeviceHeight()
 		Return 0
+	End Method
+	
+	Method MouseDraw: Void ()
+		Local cursor: Int = 0
+
+		' If we're over the menu or a modal or anything in a modal, draw a mouse pointer.
+		' IOW: the canvas is not a Gui element, and if we're over any Gui element, no crosshair.
+		If Gui.Over
+			cursor = 1
+		End If
+		
+		If MouseX() > DeviceWidth() - Self.Toolbox.Width
+			cursor = 1
+		End If
+		
+		If MouseY() < 24 Or MouseY() > DeviceHeight() - 24
+			cursor = 1
+		End If
+		
+		If cursor = 0
+			' The crosshair.
+			DrawImageRect(Gui.Atlas, MouseX() - 15, MouseY() - 15, 330, 320, 30, 30, 0, 1, 1)
+		End If
+		
+		If cursor = 1
+			' The pointer.
+			DrawImageRect(Gui.Atlas, MouseX() - 1, MouseY() - 1, 360, 320, 30, 30, 0, 1, 1)
+		End If
 	End Method
 End Class
 
