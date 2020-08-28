@@ -144,6 +144,7 @@ Class Gui
 	Global Clicked:Gui, ClickedTime, ClickedLast:Gui
 	Global DoubleClicked:Gui
 	Field IsClicked, IsDoubleClicked, IsOver, IsDown
+	Global MouseScroll: Int = 0
 	
 	'Main Drawing Functions
 
@@ -272,7 +273,7 @@ Class Gui
 	'Main Update Function
 	
 	Function Update()
-		
+		Gui.MouseScroll = MouseZ()
 		
 		If GuiLoaded = 0 Then CheckLoaded()
 		If CurrentScreen = Null Then Return 0

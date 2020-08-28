@@ -127,8 +127,17 @@ Class Gui_VScrollbar Extends Gui
 			Value = Int(FloatValue)
 			Gui.Down = Null
 		End If
-		
-		
+
+		If Not Gui.Down And Gui.Over = Self And Gui.MouseScroll Then
+			' If it's stepped, increment in steps. -1 is scroll down, 1 is scroll up.
+			If Stp > 0
+				FloatValue -= Gui.MouseScroll * Stp
+			Else
+				FloatValue -= Gui.MouseScroll * ((Maximum - Minimum) * 0.1)
+			End If
+			If FloatValue > Maximum Then FloatValue = Maximum
+			If FloatValue < Minimum Then FloatValue = Minimum
+		End If
 		
 		
 		
