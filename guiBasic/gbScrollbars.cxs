@@ -376,7 +376,7 @@ Class Gui_ScrollbarSlider Extends Gui
 	
 	
 	
-	Method Update2()
+	Method Update2: Void ()
 		If Gui.Down = Self And Moving = 0 Then
 			Moving = 1
 			MovingY = TouchY() -RealY
