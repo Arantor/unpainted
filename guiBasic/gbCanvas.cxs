@@ -1,14 +1,16 @@
+Strict
+
 Import guiBasic
 
 Class guiBasic_Canvas
 	Field Parent:Gui
-	Field X, Y, W, H, Visible, Active
+	Field X: Int, Y: Int, W: Int, H: Int, Visible: Int, Active: Int
 
-	Method Draw()
+	Method Draw: Void ()
 		
 	End Method
 	
-	Method Update()
+	Method Update: Void ()
 		
 	End Method
 	

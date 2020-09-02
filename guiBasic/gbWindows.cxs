@@ -1,8 +1,10 @@
+Strict
+
 Import guiBasic
 
 Class Gui_Window Extends Gui
 	
-	Method New(X, Y, W, H, Title:String, Parent:Gui, Order = 1, Closeable = 1, Minimisable = 1, Maximisable = 1, Sizeable = 1, Moveable = 1, Statusbar = 1)
+	Method New(X: Int, Y: Int, W: Int, H: Int, Title:String, Parent:Gui, Order: Int = 1, Closeable: Int = 1, Minimisable: Int = 1, Maximisable: Int = 1, Sizeable: Int = 1, Moveable: Int = 1, Statusbar: Int = 1)
 		Self.Type = "Window"
 		Self.X = X
 		Self.Y = Y
@@ -54,13 +56,13 @@ Class Gui_Window Extends Gui
 	
 	
 	
-	Method Draw2: void ()
+	Method Draw2: Void ()
 		'Shadows
 		If Gui.Shadows = 1 Then
 			'Parent.SetScissorWithinSelf(Parent.CanvasX, Parent.CanvasY, Parent.CanvasW, Parent.CanvasH)
 			SetScissor(Parent.DrawingX, Parent.DrawingY, Parent.DrawingW, Parent.DrawingH)
 			'SetScissor(DrawingX - ShadowOffset, DrawingY - ShadowOffset, DrawingW + ShadowOffset + ShadowOffset, DrawingH + ShadowOffset + ShadowOffset)
-			Local OldAlpha:Float = GetAlpha()
+			Local OldAlpha: Float = GetAlpha()
 			Gui.Draw3x3(DrawingX - ShadowOffset, DrawingY - ShadowOffset, DrawingW + ShadowOffset + ShadowOffset, DrawingH + ShadowOffset + ShadowOffset, 710, 270, 40, 40, 10)
 			SetAlpha(OldAlpha)
 			
@@ -68,16 +70,16 @@ Class Gui_Window Extends Gui
 		EndIf
 		
 		
-		Local MiddleHeight = H
-		Local MiddleY = RealY
-		Local AtlasY = 20
+		Local MiddleHeight: Int = H
+		Local MiddleY: Int = RealY
+		Local AtlasY: Int = 20
 		If CurrentWindow = Self Then AtlasY = 120
 		If RealActive = 0 Then AtlasY = 220
 
 		'Titlebar
 		If Text <> "" Then
-			Local ImgX = 20
-			Local ImgY = AtlasY
+			Local ImgX: Int = 20
+			Local ImgY: Int = AtlasY
 			'Top 3
 			DrawImageRect(Atlas, RealX, RealY, ImgX, ImgY, 10, 10, 0, 1, 1)
 			DrawImageRect(Atlas, RealX + 10, RealY, ImgX + 10, ImgY, 100 - (20), 10, 0, (W - 20.0) / 80.0, 1)
@@ -87,10 +89,10 @@ Class Gui_Window Extends Gui
 			DrawImageRect(Atlas, RealX + 10, RealY + 10, ImgX + 10, ImgY + 10, 100 - (20), 30 - (10), 0, (W - (20.0)) / (100 - (20.0)), (TitleBarHeight - (10.0)) / (30 - (10.0)))
 			DrawImageRect(Atlas, RealX + W - 10, RealY + 10, ImgX + 100 - 10, ImgY + 10, 10, 30 - (10), 0, 1, (TitleBarHeight - (10)) / (30 - (10.0)))
 			'Title Text
-			Local TextX = RealX + 5
-			Local TextY = RealY + ( (TitleBarHeight - TitleFont.GetTxtHeight(Text)) / 2.0)
+			Local TextX: Int = RealX + 5
+			Local TextY: Int = RealY + ( (TitleBarHeight - TitleFont.GetTxtHeight(Text)) / 2.0)
 			
-			Local OldAlpha:Float = GetAlpha()
+			Local OldAlpha: Float = GetAlpha()
 			If Self.RealActive = 0 Then SetAlpha(GetAlpha() -0.6)
 			If Icon <> Null Then
 				TextX = TextX + 5 + (Gui.TitleBarHeight - 10.0)
@@ -111,12 +113,12 @@ Class Gui_Window Extends Gui
 		
 		'Bottom
 		If Self.Statusbar = 1 Then
-			Local YY = RealY + H - NormalFont.GetTxtHeight(StatusText) - 4
-			Local HH = NormalFont.GetTxtHeight(StatusText) + 4
-			Local ImgX = 20
-			Local ImgY = AtlasY + 75
-			Local ImgW = 100
-			Local ImgH = 15
+			Local YY: Int = RealY + H - NormalFont.GetTxtHeight(StatusText) - 4
+			Local HH: Int = NormalFont.GetTxtHeight(StatusText) + 4
+			Local ImgX: Int = 20
+			Local ImgY: Int = AtlasY + 75
+			Local ImgW: Int = 100
+			Local ImgH: Int = 15
 			
 			'Middle 3
 			DrawImageRect(Atlas, RealX, YY, ImgX, ImgY + 5, 5, ImgH - (5), 0, 1, (HH - (5.0)) / (ImgH - (5.0)))
@@ -128,8 +130,8 @@ Class Gui_Window Extends Gui
 			DrawImageRect(Atlas, RealX + 5, YY + HH - 5, ImgX + 5, ImgY + ImgH, ImgW - (10), 5, 0, (W - (10.0)) / (ImgW - (10.0)), 1)
 			DrawImageRect(Atlas, RealX + W - 5, YY + HH - 5, ImgX + ImgW - 5, ImgY + ImgH, 5, 5, 0, 1, 1)
 			'Status Text
-			Local TextX = RealX + 5
-			Local TextY = RealY + H - NormalFont.GetTxtHeight(StatusText) - 2
+			Local TextX: Int = RealX + 5
+			Local TextY: Int = RealY + H - NormalFont.GetTxtHeight(StatusText) - 2
 			Local OldAlpha:Float = GetAlpha()
 			If Self.RealActive = 0 Then SetAlpha(GetAlpha() -0.6)
 			NormalFont.DrawText(StatusText, TextX, TextY)
@@ -155,17 +157,17 @@ Class Gui_Window Extends Gui
 		
 		'MenuBar
 		If HasMenu = 1 Then
-			Local HH = NormalFont.GetTxtHeight("Testing123") + 4
-			Local YY = TitleBarHeight + 1
+			Local HH: Int = NormalFont.GetTxtHeight("Testing123") + 4
+			Local YY: Int = TitleBarHeight + 1
 			If Text = "" Then YY = 6
 			If CanvasH < 0 And HasTabs = 0 Then HH = NormalFont.GetTxtHeight("Testing123") + 5 + CanvasH
 			Gui.Draw3x3(RealX + 6, RealY + YY, W - 12, HH, 480, 20, 30, 30, 5)
 		End If
 		'TabBar
 		If HasTabs = 1 Then
-			Local HH = NormalFont.GetTxtHeight("Testing123") + 10
-			Local YY = TitleBarHeight + 1
-			If Text ="" Then YY = 5
+			Local HH: Int = NormalFont.GetTxtHeight("Testing123") + 10
+			Local YY: Int = TitleBarHeight + 1
+			If Text = "" Then YY = 5
 			If HasMenu Then YY = YY + NormalFont.GetTxtHeight("Testing123") + 5
 			If CanvasH < 0 Then HH = NormalFont.GetTxtHeight("Testing123") + 12 + CanvasH
 			Gui.Draw3x3(RealX + 6, RealY + YY, W - 12, HH, 620, 120, 60, 30, 10)
@@ -218,7 +220,7 @@ Class Gui_Window Extends Gui
 		EndIf
 		
 		'Moving
-		Local HH = Self.H
+		Local HH: Int = Self.H
 		If Minimised Then HH = TitleBarHeight
 		If Moveable = 1 And Text <> "" Then
 			If Gui.Down = Self And TouchY() < RealY + Gui.TitleBarHeight And Moving = 0 Then
@@ -356,7 +358,7 @@ Class Gui_Window Extends Gui
 	
 		
 		'Minimum W And H
-		Local MH = 1
+		Local MH: Int = 1
 		If HasMenu Then MH = NormalFont.GetTxtHeight("Testing123")
 		If HasTabs Then MH = MH + 7
 		If Text <> "" And Statusbar = 1 And H < 64 + MH Then H = 64 + MH
@@ -380,9 +382,9 @@ Class Gui_Window Extends Gui
 		
 		
 		
-		Local ButtonWidth = (Gui.TitleBarHeight - 10)
-		Local ButtonY = 5
-		Local ButtonX = W - 5 - ButtonWidth
+		Local ButtonWidth: Int = (Gui.TitleBarHeight - 10)
+		Local ButtonY: Int = 5
+		Local ButtonX: Int = W - 5 - ButtonWidth
 		If Closeable = 1 Then
 			CloseButton.Active = 1
 			CloseButton.X = ButtonX
@@ -567,7 +569,7 @@ Class Gui_Window Extends Gui
 		
 		'Menu X
 		If HasMenu = 1 Then
-			Local XX = 0
+			Local XX: Int = 0
 			For Local i:Gui = EachIn Children
 				If i.Type = "Menu" Then
 					If i.RealVisible Then
@@ -580,7 +582,7 @@ Class Gui_Window Extends Gui
 
 		'TabX
 		If HasTabs = 1 Then
-			Local XX = 5
+			Local XX: Int = 5
 			For Local i:Gui = EachIn Children
 				If i.Type = "Tab" Then
 					If i.RealVisible Then

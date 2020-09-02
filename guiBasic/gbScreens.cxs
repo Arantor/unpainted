@@ -1,3 +1,5 @@
+Strict
+
 Import guiBasic
 
 Class Gui_Screen Extends Gui
@@ -38,13 +40,13 @@ Class Gui_Screen Extends Gui
 		
 		'MenuBar
 		If HasMenu = 1 Then
-			Local HH = NormalFont.GetTxtHeight("Testing123") + 4
+			Local HH: Int = NormalFont.GetTxtHeight("Testing123") + 4
 			Gui.Draw3x3(RealX, RealY, W, HH, 480, 20, 30, 30, 5)
 		End If
 		'TabBar
 		If HasTabs = 1 Then
-			Local HH = NormalFont.GetTxtHeight("Testing123") + 10
-			Local YY = 0
+			Local HH: Int = NormalFont.GetTxtHeight("Testing123") + 10
+			Local YY: Int = 0
 			If HasMenu Then YY = YY + NormalFont.GetTxtHeight("Testing123") + 4
 			Gui.Draw3x3(RealX, RealY + YY, W, HH, 620, 120, 60, 30, 10)
 		End If
@@ -60,7 +62,7 @@ Class Gui_Screen Extends Gui
 		
 		'Menu X
 		If HasMenu = 1 Then
-			Local XX = 0
+			Local XX: Int = 0
 			For Local i:Gui = EachIn Children
 				If i.Type = "Menu" Then
 					If i.RealVisible Then
@@ -76,7 +78,7 @@ Class Gui_Screen Extends Gui
 		
 		'TabX
 		If HasTabs = 1 Then
-			Local XX = 5
+			Local XX: Int = 5
 			For Local i:Gui = EachIn Children
 				If i.Type = "Tab" Then
 					If i.RealVisible Then
