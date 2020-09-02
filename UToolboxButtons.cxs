@@ -20,7 +20,7 @@ Class Gui_MultiStateButton Extends Gui
 		Self.Value = 0
 	End Method
 
-	Method Draw2()
+	Method Draw2: Void ()
 		DrawImageRect(ButtonImg, RealX, RealY, ButtonImgX, ButtonImgY, ButtonImgW, ButtonImgH, 0, (W / (ButtonImgW * 1.0)), (H / (ButtonImgH * 1.0)))
 	End Method
 End Class
@@ -66,7 +66,7 @@ Class Gui_1StateButton Extends Gui_MultiStateButton
 		Self.ButtonImgY = Self.ButtonImgY_State1
 	End Method
 
-	Method Update2()
+	Method Update2: Void ()
 		' Don't process if we have a dialog open.
 		If Unpainted.Unpainted.DialogsShown()
 			Return
@@ -125,7 +125,7 @@ Class Gui_2StateButton Extends Gui_MultiStateButton
 		Self.ButtonImgY = Self.ButtonImgY_State1
 	End Method
 
-	Method Update2()
+	Method Update2: Void ()
 		' Don't process if we have a dialog open.
 		If Unpainted.Unpainted.DialogsShown()
 			Return
@@ -206,7 +206,7 @@ Class Gui_3StateButton Extends Gui_MultiStateButton
 		Self.ButtonImgY = Self.ButtonImgY_State1
 	End Method
 
-	Method Update2()
+	Method Update2: Void ()
 		' Don't process if we have a dialog open.
 		If Unpainted.Unpainted.DialogsShown()
 			Return
