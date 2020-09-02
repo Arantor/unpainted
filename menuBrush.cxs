@@ -41,6 +41,9 @@ Class BrushMenu
 	Field Brush_Bend: Gui
 	Field Brush_Bend_Horiz: Gui
 	Field Brush_Bend_Vert: Gui
+	Field Brush_Deform: Gui
+	Field Brush_Deform_Spread: Gui
+	Field Brush_Deform_Twist: Gui
 	Field Brush_Handle: Gui
 	Field Brush_Handle_Rotate: Gui
 	Field Brush_Handle_Place: Gui
@@ -94,6 +97,10 @@ Class BrushMenu
 		Brush_Bend = Gui.CreateMenuItemInactive("Bend", Brush)
 		Brush_Bend_Horiz = Gui.CreateMenuItemInactive("Horiz", Brush_Bend)
 		Brush_Bend_Vert = Gui.CreateMenuItemInactive("Vert", Brush_Bend)
+
+		Brush_Deform = Gui.CreateMenuItemInactive("Deform", Brush)
+		Brush_Deform_Spread = Gui.CreateMenuItemInactive("Spread", Brush_Deform)
+		Brush_Deform_Twist = Gui.CreateMenuItemInactive("Twist", Brush_Deform)
 
 		Brush_Handle = Gui.CreateMenuItemInactive("Handle", Brush)
 		Brush_Handle_Rotate = Gui.CreateMenuItemInactive("Rotate", Brush_Handle) ' Alt-x
