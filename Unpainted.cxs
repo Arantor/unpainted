@@ -16,6 +16,7 @@ Import guiBasic
 Import "data/Atlas.png"
 
 Import UAbout
+Import UBrush
 Import UGridding
 Import UMenu
 Import UPalette
@@ -39,6 +40,7 @@ Class UnpaintedApp Extends App
 	Field PaintMode: PaintingMode
 	Field SpacingMode: SpacingMode
 	Field GriddingMode: GriddingMode
+	Field Brush: Brush
 	Field Edited: Bool
 	
 	Field AboutDialog: AboutDialog
@@ -75,9 +77,9 @@ Class UnpaintedApp Extends App
 		
 		Self.Screen = Gui.CreateScreen()
 		
-		Self.Toolbox = New Toolbox(Screen, DeviceWidth() - Toolbox.Width, 0)
+		Self.Toolbox = New Toolbox(Screen, DeviceWidth() - Toolbox.Width, 32)
 		
-		Self.Palette = New Palette(576, 240)
+		Self.Palette = New Palette(576, 248)
 		
 		Self.StatusBar = New StatusBar(Screen, 0, DeviceHeight() - 24, DeviceWidth(), 24)
 
@@ -92,6 +94,8 @@ Class UnpaintedApp Extends App
 		Self.AboutDialog = New AboutDialog(Screen)
 		
 		Self.Edited = False
+		
+		Self.Brush = New Brush(DeviceWidth() - Self.Toolbox.Width, 24)
 
 		Return 0
 	End Method
@@ -102,6 +106,9 @@ Class UnpaintedApp Extends App
 		
 		' Always process the toolbox for updates.
 		Self.Toolbox.Update()
+		
+		' Always process the brush selector for updates.
+		Self.Brush.Update()
 		
 		' Always process the palette for updates.
 		Self.Palette.Update()
@@ -133,6 +140,7 @@ Class UnpaintedApp Extends App
 		Self.StatusBar.Draw()
 		Gui.Draw()
 		
+		Self.Brush.Draw()
 		Self.Palette.Draw()
 		
 		Self.MouseDraw()
