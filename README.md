@@ -1,6 +1,9 @@
 # Unpainted
 
-Unpainted is a modern take on the classic Electronic Arts app "Deluxe Paint". [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+Unpainted is a modern take on the classic Electronic Arts app "Deluxe Paint".
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Language: Cerberus-X](https://img.shields.io/badge/language-Cerberus--X-f16700)](https://www.cerberus-x.com/community/portal/)
 
 Primarily drawing from the Amiga versions, this is an application designed to
 allow for pixel art and easy-to-use image editing, without depending on
