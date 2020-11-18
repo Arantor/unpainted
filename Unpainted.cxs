@@ -154,7 +154,7 @@ Class UnpaintedApp Extends App
 	End Method
 	
 	Method OnResize: Int ()
-		Print DeviceWidth()
+		Self.Brush.ResizeScreen(DeviceWidth(), DeviceHeight())
 		Self.Toolbox.ResizeScreen(DeviceWidth(), DeviceHeight())
 		Self.StatusBar.ResizeScreen(0, DeviceHeight() - 24, DeviceWidth(), 24)
 		Self.Palette.BaseX = DeviceWidth() - 64
