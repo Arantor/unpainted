@@ -1,0 +1,121 @@
+Strict
+
+Import guiBasic
+Import Unpainted
+
+Class Brush
+	Const Circle1: Int = 1
+	Const Circle2: Int = 2
+	Const Circle3: Int = 3
+	Const Circle4: Int = 4
+	Const Circle5: Int = 5
+	Const Circle6: Int = 6
+	Const Square2: Int = 7
+	Const Square3: Int = 8
+	Const Square4: Int = 9
+	Const Square5: Int = 10
+	Const Square6: Int = 11
+	Const Square7: Int = 12
+	Const Dots3: Int = 13
+	Const Dots5: Int = 14
+	Const Line12: Int = 15
+	Const Line13: Int = 16
+	Const Line21: Int = 17
+	Const Line31: Int = 18
+
+	Field Active: Int = 0
+
+	Field X: Int = 0
+	Field Y: Int = 0
+
+	Field CoordMap: BrushDraw[]
+
+	Method New (X: Int, Y: Int)
+		Self.Active = Self.Circle1
+
+		Self.X = X
+		Self.Y = Y
+
+		Self.CoordMap = []
+		Self.CoordMap = Self.CoordMap.Resize(19)
+
+		Self.CoordMap[Circle1] = New BrushDraw(3, 3, 10, 16)
+		Self.CoordMap[Circle2] = New BrushDraw(12, 3, 19, 16)
+		Self.CoordMap[Circle3] = New BrushDraw(21, 3, 29, 16)
+		Self.CoordMap[Circle4] = New BrushDraw(29, 3, 38, 16)
+		Self.CoordMap[Circle5] = New BrushDraw(38, 3, 49, 16)
+		Self.CoordMap[Circle6] = New BrushDraw(49, 3, 62, 16)
+		Self.CoordMap[Dots3] = New BrushDraw(64, 3, 77, 16)
+		Self.CoordMap[Dots5] = New BrushDraw(78, 3, 91, 16)
+		Self.CoordMap[Square2] = New BrushDraw(3, 16, 10, 29)
+		Self.CoordMap[Square3] = New BrushDraw(12, 16, 19, 29)
+		Self.CoordMap[Square4] = New BrushDraw(21, 16, 29, 29)
+		Self.CoordMap[Square5] = New BrushDraw(29, 16, 38, 29)
+		Self.CoordMap[Square6] = New BrushDraw(38, 16, 49, 29)
+		Self.CoordMap[Square7] = New BrushDraw(49, 16, 62, 29)
+		Self.CoordMap[Line12] = New BrushDraw(63, 16, 70, 29)
+		Self.CoordMap[Line13] = New BrushDraw(71, 16, 78, 29)
+		Self.CoordMap[Line21] = New BrushDraw(78, 16, 86, 29)
+		Self.CoordMap[Line31] = New BrushDraw(86, 16, 93, 29)
+	End Method
+
+	Method Draw: Void ()
+		' Draw the background
+		DrawImageRect(Gui.Atlas, Self.X, Self.Y, 865, 290, 96, 30, 0, 1, 1)
+
+		If Self.Active
+			Self.CoordMap[Self.Active].DrawActive(Self.X, Self.Y)
+		End If
+	End Method
+
+	Method Update: Void ()
+		Local RelX: Int = 0
+		Local RelY: Int = 0
+
+		RelX = MouseX() - Self.X
+		RelY = MouseY() - Self.Y
+
+		' If we haven't clicked this frame or the cursor is out of bounds... don't care.
+		If Not MouseHit(MOUSE_LEFT) Then Return
+
+		If RelX < 0 Then Return
+		If RelY < 0 Then Return
+		If RelY > 30 Then Return
+
+		For Local brush: Int = Self.Circle1 To Self.Line31
+			If Self.CoordMap[brush].IsOver(Self.X, Self.Y)
+				Self.Active = brush
+			End If
+		Next
+	End Method
+
+	Method ResizeScreen: Void (X: Int, Y: Int)
+		Self.X = X - Unpainted.Unpainted.Toolbox.Width
+	End Method
+End Class
+
+Class BrushDraw
+	Field X1: Int
+	Field Y1: Int
+	Field X2: Int
+	Field Y2: Int
+
+	Method New (X1: Int, Y1: Int, X2: Int, Y2: Int)
+		Self.X1 = X1
+		Self.Y1 = Y1
+		Self.X2 = X2
+		Self.Y2 = Y2
+	End Method
+
+	Method DrawActive: Void (OriginX: Int, OriginY: Int)
+		DrawImageRect(Gui.Atlas, OriginX + Self.X1, OriginY + Self.Y1, 865 + Self.X1, 320 + Self.Y1, Self.X2 - Self.X1 + 1, Self.Y2 - Self.Y1 + 1, 0, 1, 1)
+	End Method
+
+	Method IsOver: Bool (OriginX: Int, OriginY: Int)
+		If MouseX() >= OriginX + Self.X1 And MouseX() <= OriginX + Self.X2 And MouseY() >= OriginY + Self.Y1 And MouseY() <= OriginY + Self.Y2
+			Return True
+		End If
+
+		Return False
+	End Method
+End Class
