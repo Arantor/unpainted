@@ -13,6 +13,7 @@ Import menuEffect
 Import menuPrefs
 
 Class UnpaintedMenu
+	Field Height: Int
 	Field PictureMenu: PictureMenu
 	Field BrushMenu: BrushMenu
 	Field ModeMenu: ModeMenu
@@ -29,6 +30,8 @@ Class UnpaintedMenu
 		ColorMenu = New ColorMenu(destination)
 		EffectMenu = New EffectMenu(destination)
 		PrefsMenu = New PrefsMenu(destination)
+
+		Self.Height = Gui.NormalFont.GetTxtHeight("Testing123") + 4
 	End Method
 
 	Method Update: Void ()

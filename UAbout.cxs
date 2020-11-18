@@ -16,7 +16,7 @@ Class AboutDialog
 
 	Method New (destination: Gui)
 		Local X: Int = (DeviceWidth() - Self.Width) / 2
-		Local Y: Int = (DeviceHeight() - Self.Height) / 2
+		Local Y: Int = (DeviceHeight() - Self.Height - (2 * Unpainted.Unpainted.Menu.Height)) / 2
 		Local LogoWidth: Int = 32
 		Local LogoHeight: Int = 32
 		Local Padding: Int = 10
