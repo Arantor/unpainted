@@ -1,0 +1,55 @@
+Strict
+
+Import guiBasic
+Import Unpainted
+
+
+Class SymmetryMode
+	Const SymmetryDialog: String = "Symmetry"
+
+	Field Dialog: Gui
+
+	Field Button_OK: Gui
+	Field Button_Cancel: Gui
+
+	Method New (destination: Gui)
+		Self.Dialog = Gui.CreateWindow(32, 32, 220, 250, "Symmetry", destination, 2, 0, 0, 0, 0, 1, 0)
+		Self.HideDialog()
+
+		Self.Dialog.MaximiseButton.Visible = 0
+		Self.Dialog.MinimiseButton.Visible = 0
+		Self.Dialog.CloseButton.Visible = 0
+
+		Button_OK = Gui.CreateButton(30, 170, 60, 25, "OK", Self.Dialog, 1)
+		Button_Cancel = Gui.CreateButton(118, 170, 60, 25, "Cancel", Self.Dialog, 0)
+	End Method
+
+	Method ShowDialog: Void ()
+		Self.Dialog.Visible = 1
+
+		' Notify someone that we're opening a dialog.
+		Unpainted.Unpainted.ShowDialog(SymmetryMode.SymmetryDialog)
+
+		Self.Update()
+	End Method
+
+	Method HideDialog: Void ()
+		Self.Dialog.Visible = 0
+
+		' Notify someone that we're closing a dialog.
+		Unpainted.Unpainted.HideDialog(SymmetryMode.SymmetryDialog)
+	End Method
+
+	Method Update: Void ()
+		' If we're not showing the dialog, there's no work to do.
+		If Not Self.Dialog.Visible Then Return
+
+		If Button_Cancel.IsClicked
+			Self.HideDialog()
+		End If
+
+		If Button_OK.IsClicked
+			Self.HideDialog()
+		End If
+	End Method
+End Class

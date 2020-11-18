@@ -22,6 +22,7 @@ Import UMenu
 Import UPalette
 Import USpacing
 Import UStatusBar
+Import USymmetry
 Import UToolbox
 
 Global Unpainted: UnpaintedApp
@@ -40,6 +41,7 @@ Class UnpaintedApp Extends App
 	Field PaintMode: PaintingMode
 	Field SpacingMode: SpacingMode
 	Field GriddingMode: GriddingMode
+	Field SymmetryMode: SymmetryMode
 	Field Brush: Brush
 	Field Edited: Bool
 	
@@ -88,6 +90,7 @@ Class UnpaintedApp Extends App
 		
 		Self.SpacingMode = New SpacingMode(Screen)
 		Self.GriddingMode = New GriddingMode(Screen)
+		Self.SymmetryMode = New SymmetryMode(Screen)
 		
 		Self.Menu = New UnpaintedMenu(Screen)
 		
@@ -125,6 +128,8 @@ Class UnpaintedApp Extends App
 					Self.AboutDialog.Update()
 				Case GriddingMode.GriddingDialog
 					Self.GriddingMode.Update()
+				Case SymmetryMode.SymmetryDialog
+					Self.SymmetryMode.Update()
 			End
 		Next
 

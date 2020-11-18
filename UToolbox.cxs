@@ -322,6 +322,11 @@ Class Toolbox
 				Unpainted.Unpainted.GriddingMode.ShowDialog()
 			End If
 
+			If Gui.Over = SymmetryTool
+				SymmetryTool.Pressed_ActiveState()
+				Unpainted.Unpainted.SymmetryMode.ShowDialog()
+			End If
+
 			If Gui.Over = ZoomTool
 				Print "Zoom out"
 			End If
