@@ -45,15 +45,15 @@ Class SpacingMode
 		Radio_Continuous.Tooltip = "Draw lines continuously~nfrom the start to the end."
 
 		Radio_NTotal = Gui.CreateRadio(15, 50, 17, "N Total", Self.Dialog, 1, 0)
-		Text_NTotal = Gui.CreateTextField(150, 48, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+		Text_NTotal = Gui.CreateTextField(150, 48, 40, 20, Self.Dialog, "", True, False, False, 3)
 		Radio_NTotal.Tooltip = "Draw lines of a total of N dots,~nincluding the start and end."
 
 		Radio_EveryN = Gui.CreateRadio(15, 80, 17, "Every Nth Dot", Self.Dialog, 1, 0)
-		Text_EveryN = Gui.CreateTextField(150, 78, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+		Text_EveryN = Gui.CreateTextField(150, 78, 40, 20, Self.Dialog, "", True, False, False, 3)
 		Radio_EveryN.Tooltip = "Draw lines with dots (of your brush)~nevery N pixels between the start and end."
 
 		Radio_Airbrush = Gui.CreateRadio(15, 110, 17, "Airbrush", Self.Dialog, 1, 0)
-		Text_Airbrush = Gui.CreateTextField(150, 108, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+		Text_Airbrush = Gui.CreateTextField(150, 108, 40, 20, Self.Dialog, "", True, False, False, 3)
 		Radio_Airbrush.Tooltip = "Draw lines using the airbrush,~nusing this size of airbrush (pixels)"
 
 		Button_OK = Gui.CreateButton(30, 150, 60, 25, "OK", Self.Dialog, 1)

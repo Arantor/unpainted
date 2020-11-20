@@ -40,16 +40,16 @@ Class GriddingMode
 		Local spacing: Gui = Gui.CreateLabel(15, 40, "Spacing", Self.Dialog)
 		spacing.Tooltip = "Space between pixels on the grid"
 
-		Text_SpacingX = Gui.CreateTextField(100, 40, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
-		Text_SpacingY = Gui.CreateTextField(150, 40, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+		Text_SpacingX = Gui.CreateTextField(100, 40, 40, 20, Self.Dialog, "", True, False, False, 3)
+		Text_SpacingY = Gui.CreateTextField(150, 40, 40, 20, Self.Dialog, "", True, False, False, 3)
 
 		Btn_SpacingFromBrush = Gui.CreateButton(100, 65, 90, 20, "From brush", Self.Dialog, 0)
 
 		Local adjust: Gui = Gui.CreateLabel(15, 100, "Adjust", Self.Dialog)
 		adjust.Tooltip = "Adjust the origin of the grid"
 
-		Text_AdjustX = Gui.CreateTextField(100, 100, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
-		Text_AdjustY = Gui.CreateTextField(150, 100, 40, 20, Self.Dialog, "", 1, 0, 0, 3)
+		Text_AdjustX = Gui.CreateTextField(100, 100, 40, 20, Self.Dialog, "", True, False, False, 3)
+		Text_AdjustY = Gui.CreateTextField(150, 100, 40, 20, Self.Dialog, "", True, False, False, 3)
 
 		Btn_Adjust = Gui.CreateButton(110, 125, 70, 20, "Adjust", Self.Dialog, 0)
 
