@@ -1,7 +1,6 @@
 #GLFW_APP_ICON="Unpainted.ico"
 #GLFW_WINDOW_TITLE="Unpainted"
 #GLFW_APP_LABEL="Unpainted"
-#GLFW_APP_PUBLISHER="Daunt By Name, Dauntless By Nature"
 
 #GLFW_WINDOW_WIDTH=640
 #GLFW_WINDOW_HEIGHT=512
