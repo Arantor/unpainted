@@ -3,7 +3,7 @@ Import guiBasic
 Class Gui_Button Extends Gui
 	
 	
-	Method New(X, Y, W, H, Text:String, Parent:Gui, Style = 0)
+	Method New(X: Int, Y: Int, W: Int, H: Int, Text:String, Parent: Gui, Style: Int = 0)
 		Self.Type = "Button"
 		Self.X = X * Gui.FeScaleX
 		Self.Y = Y * Gui.FeScaleY
@@ -21,11 +21,11 @@ Class Gui_Button Extends Gui
 	
 	
 	Method Draw2: Void ()
-		Local TempStyle = Style
+		Local TempStyle: Int = Style
 		If TempStyle < 0 Then TempStyle = 0
 		If TempStyle > 0 Then TempStyle = 1
-		Local AtlasX = (310 - (TempStyle * 40))
-		Local AtlasY = 20
+		Local AtlasX: Int = (310 - (TempStyle * 40))
+		Local AtlasY: Int = 20
 		
 		If Gui.Over = Self Then AtlasY = 50
 		If Gui.Down = Self Then AtlasY = 80
@@ -33,9 +33,9 @@ Class Gui_Button Extends Gui
 				
 		Gui.Draw3x3(Gui.FeScaleX * RealX, Gui.FeScaleY * RealY, W, H, AtlasX, AtlasY, 30, 30, 10)
 		
-		Local TextX = Gui.FeScaleX * RealX + ( (W - NormalFont.GetTxtWidth(Text)) / 2.0)
-		Local TextY = Gui.FeScaleY * RealY + ( (H - NormalFont.GetTxtHeight(Text)) / 2.0)
-		Local OldAlpha:Float = GetAlpha()
+		Local TextX: Int = Gui.FeScaleX * RealX + ( (W - NormalFont.GetTxtWidth(Text)) / 2.0)
+		Local TextY: Int = Gui.FeScaleY * RealY + ( (H - NormalFont.GetTxtHeight(Text)) / 2.0)
+		Local OldAlpha: Float = GetAlpha()
 		If Self.RealActive = 0 Then SetAlpha(GetAlpha() -0.6)
 		If TempStyle = 0 Then
 			NormalFont.DrawText(Text, TextX, TextY)
@@ -62,7 +62,7 @@ End Class
 
 Class Gui_ImgButton Extends Gui
 
-	Method New(X, Y, W, H, Img:Image, Parent:Gui, ImgX = 0, ImgY = 0, ImgW = 0, ImgH = 0)
+	Method New(X: Int, Y: Int, W: Int, H: Int, Img:Image, Parent:Gui, ImgX: Int = 0, ImgY: Int = 0, ImgW: Int = 0, ImgH: Int = 0)
 		Self.Type = "ImgButton"
 		Self.X = X
 		Self.Y = Y
@@ -85,14 +85,14 @@ Class Gui_ImgButton Extends Gui
 	
 	
 	Method Draw2: Void ()
-		Local AtlasX = ButtonImgX
-		Local AtlasY = ButtonImgY
+		Local AtlasX: Int = ButtonImgX
+		Local AtlasY: Int = ButtonImgY
 			
 		If Gui.Over = Self Then AtlasX = ButtonImgX + ButtonImgW
 		If Gui.Down = Self Then AtlasX = ButtonImgX + (ButtonImgW * 2)
 		If Self.RealActive = 0 And IsResizeButton = 0 Then AtlasX = ButtonImgX + (ButtonImgW * 3)
 		
-		Local OldAlpha:Float = GetAlpha()
+		Local OldAlpha: Float = GetAlpha()
 		If IsResizeButton = 1 And Self.RealActive = 0 Then SetAlpha(GetAlpha() -0.7)
 		
 		If IsMinimiseButton = 0 Then
@@ -136,7 +136,7 @@ End Class
 
 Class Gui_Tickbox Extends Gui
 	
-	Method New(X, Y, H, Text:String, Parent:Gui, Value = 0)
+	Method New(X: Int, Y: Int, H: Int, Text:String, Parent:Gui, Value: Bool = False)
 		Self.Type = "Tickbox"
 		Self.X = X
 		Self.Y = Y
@@ -153,17 +153,17 @@ Class Gui_Tickbox Extends Gui
 	
 	Method Draw2: Void ()
 		If IsCell=1 Then SetScissorWithinSelf(0,0,W,H)
-		Local AtlasX = 140
-		Local AtlasY
-		If Value < 1 Then AtlasY = 280
-		If Value > 0 Then AtlasY = 250
+		Local AtlasX: Int = 140
+		Local AtlasY: Int
+		If Not Value Then AtlasY = 280
+		If Value Then AtlasY = 250
 		If Gui.Over = Self Then AtlasX = 170
 		If Gui.Down = Self Then AtlasX = 200
 		If Self.RealActive = 0 Then AtlasX = 230
 
 		DrawImageRect(Gui.Atlas, RealX, RealY, AtlasX, AtlasY, 30, 30, 0, H / 30.0, H / 30.0)
 	
-		Local TextY = RealY + ( (H - NormalFont.GetTxtHeight(Text)) / 2.0)
+		Local TextY: Int = RealY + ( (H - NormalFont.GetTxtHeight(Text)) / 2.0)
 		Local OldAlpha:Float = GetAlpha()
 		If Self.RealActive = 0 Then SetAlpha(GetAlpha() -0.6)
 		NormalFont.DrawText(Text, RealX + H + 5, TextY)
@@ -176,11 +176,7 @@ Class Gui_Tickbox Extends Gui
 	
 	Method Update2: Void ()
 		If Gui.Clicked = Self Then
-			If Value = 0 Then
-				Value = 1
-			Else
-				Value = 0
-			End If
+			Value = Not Value
 		End If
 		W = H + 5 + (NormalFont.GetTxtWidth(Text))
 		If Text = "" Then W = H
