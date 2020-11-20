@@ -55,7 +55,7 @@ Class Gui
 	Global Animated = -1, AnimatedSpeed:Float = 0, MinimiseButtonTurn = 1
 	Global Shadows = 1, ShadowOffset = 6
 	Global StyleChanged
-	Global OnFocus:Gui, OnFocusMenu:Gui, OldOnFocus:Gui
+	Global OnFocus:Gui, OnFocusMenu:Gui, OldOnFocus:Gui, DrawFocus: Bool = True
 	
 	Field GuiCanvas:Gui_Canvas
 	'MsgBox
@@ -242,7 +242,7 @@ Class Gui
 			SetScissor(0, 0, DeviceWidth(), DeviceHeight())
 		End If
 		
-		If OnFocus = Self Then DrawOnFocus(Self)
+		If OnFocus = Self And Self.DrawFocus Then DrawOnFocus(Self)
 		
 		'Draw The Elements Children
 		If Self.Children.Count > 0 And Self.SeperatedCanvas = 0 Then
@@ -722,6 +722,7 @@ Class Gui
 	End Function
 	Function CreateMenuItem:Gui(Text:String, Parent:Gui, Tickbox = 0, Value = 0)
 		Local N:Gui = New Gui_MenuItem(Text, Parent, Tickbox, Value)
+		N.DrawFocus = False
 		Return N
 	End Function
 	Function CreateMenuSeparator:Gui(Parent:Gui)
