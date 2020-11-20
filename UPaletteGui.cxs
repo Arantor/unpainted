@@ -1,0 +1,90 @@
+Strict
+
+Import guiBasic
+Import UPalette
+
+Class Gui_Palette Extends Gui
+	Field Palette: Colour[]
+	Field FGColour: Int
+	Field BGColour: Int
+
+	Field ColourWidth: Int = 15
+	Field ColourHeight: Int = 13
+
+	Field ColourRows: Int = 16
+	Field ColourColumns: Int = 4
+	
+	Method New (destination: Gui, BaseX: Int, BaseY: Int, Palette: Colour[], BGColour: Int, FGColour: Int)
+		Self.Type = "Palette"
+		Self.X = BaseX
+		Self.Y = BaseY
+		Self.W = 64
+		Self.H = 16 * Self.ColourHeight + 32
+
+		Self.Palette = Palette
+		Self.BGColour = BGColour
+		Self.FGColour = FGColour
+
+		Self.Parent = destination
+		Self.Parent.Children.AddLast(Self)
+		Self.Children = New List<Gui>
+		Self.DrawFocus = False
+		
+		ZOrder(Self.Parent)
+	End Method
+	
+	Method Draw2: Void ()
+		Local BG: Colour = Self.Palette[Self.BGColour]
+		Local FG: Colour = Self.Palette[Self.FGColour]
+
+		SetColor(BG.R, BG.G, BG.B)
+		DrawRect(Self.RealX, Self.RealY, 64, 30)
+		SetColor(FG.R, FG.G, FG.B)
+		DrawRect(Self.RealX + 16, Self.RealY + 8, 32, 15)
+
+
+		Local c: Int
+		Local pal: Colour
+
+		For Local x: Int = 0 To Self.ColourColumns - 1
+			For Local y: Int = 0 To Self.ColourRows - 1
+				c = x * Self.ColourRows + y
+				pal = Self.Palette[c]
+
+				If c = Self.FGColour
+					SetColor(160, 160, 160)
+					DrawRect(Self.RealX + (x * Self.ColourWidth) - 2 + 2, Self.RealY + 32 + (y * Self.ColourHeight) - 2, Self.ColourWidth + 2, Self.ColourHeight + 2)
+
+					SetColor(pal.R, pal.G, pal.B)
+					DrawRect(Self.RealX + (x * Self.ColourWidth) + 2, Self.RealY + 32 + (y * Self.ColourHeight), Self.ColourWidth - 2, Self.ColourHeight - 2)
+				Else
+					SetColor(pal.R, pal.G, pal.B)
+					DrawRect(Self.RealX + (x * Self.ColourWidth) + 2, Self.RealY + 32 + (y * Self.ColourHeight), Self.ColourWidth, Self.ColourHeight)
+				End If
+			Next
+		Next
+
+		SetColor(255, 255, 255)
+	End Method
+	
+	Method Update2: Void ()
+		Local paletteX1: Int = Self.RealX
+		Local paletteY1: Int = Self.RealY + 32
+		Local paletteX2: Int = Self.RealX + (Self.ColourColumns * Self.ColourWidth) - 1
+		Local paletteY2: Int = Self.RealY + 32 + (Self.ColourRows * Self.ColourHeight)
+
+		If TouchX() >= paletteX1 And TouchX() <= paletteX2 And TouchY() > paletteY1 And TouchY() <= paletteY2
+			Local colX: Int = Floor((TouchX() - paletteX1) / Self.ColourWidth)
+			Local colY: Int = Floor((TouchY() - paletteY1) / Self.ColourHeight)
+
+			If MouseDown(MOUSE_LEFT)
+				Self.FGColour = colX * 16 + colY
+				Print Self.FGColour
+			Else If MouseDown(MOUSE_RIGHT)
+				Self.BGColour = colX * 16 + colY
+				Print Self.BGColour
+			End If
+		End If
+
+	End Method
+End Class

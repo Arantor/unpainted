@@ -80,7 +80,7 @@ Class UnpaintedApp Extends App
 		
 		Self.Toolbox = New Toolbox(Screen, DeviceWidth() - Toolbox.Width, 32)
 		
-		Self.Palette = New Palette(576, 248)
+		Self.Palette = New Palette(Screen, DeviceWidth() - 64, 224)
 		
 		Self.StatusBar = New StatusBar(Screen, 0, DeviceHeight() - 24, DeviceWidth(), 24)
 
@@ -156,7 +156,7 @@ Class UnpaintedApp Extends App
 		Self.Brush.ResizeScreen(DeviceWidth(), DeviceHeight())
 		Self.Toolbox.ResizeScreen(DeviceWidth(), DeviceHeight())
 		Self.StatusBar.ResizeScreen(0, DeviceHeight() - 24, DeviceWidth(), 24)
-		Self.Palette.BaseX = DeviceWidth() - 64
+		Self.Palette.ResizeScreen(DeviceWidth(), DeviceHeight())
 
 		Self.Screen.W = DeviceWidth()
 		Self.Screen.H = DeviceHeight()

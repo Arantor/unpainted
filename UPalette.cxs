@@ -3,30 +3,22 @@ Strict
 Import Unpainted
 Import mojo
 Import guiBasic
+Import UPaletteGui
 
 Class Palette
 
-	Field Palette: Colour[]
-	Field FGColour: Int
-	Field BGColour: Int
 	Field BaseX: Int
 	Field BaseY: Int
+	
+	Field Widget: Gui
 
 	Field CurrentBank: Int
 
-	Field ColourWidth: Int = 15
-	Field ColourHeight: Int = 13
-
-	Method New (BaseX: Int, BaseY: Int)
-		Self.Palette = Self.DefaultPalette()
-
-		Self.BGColour = 0
-		Self.FGColour = 1
-
-		Self.CurrentBank = 0
-
+	Method New (destination: Gui, BaseX: Int, BaseY: Int)
 		Self.BaseX = BaseX
 		Self.BaseY = BaseY
+		
+		Self.Widget = New Gui_Palette(destination, Self.BaseX, Self.BaseY, Self.DefaultPalette(), 0, 1)
 
 	End Method
 
@@ -295,60 +287,20 @@ Class Palette
 	End Method
 
 	Method Update: Void ()
-		Local paletteX1: Int = Self.BaseX
-		Local paletteY1: Int = Self.BaseY + 32
-		Local paletteX2: Int = Self.BaseX + 64
-		Local paletteY2: Int = Self.BaseY + 32 + (Self.ColourWidth * Self.ColourHeight)
 
-		If TouchX() >= paletteX1 And TouchX() <= paletteX2 And TouchY() > paletteY1 And TouchY() <= paletteY2
-			Local colX: Int = Floor((TouchX() - paletteX1) / ColourWidth)
-			Local colY: Int = Floor((TouchY() - paletteY1) / ColourHeight)
-
-			If MouseDown(MOUSE_LEFT)
-				Self.FGColour = colX * 16 + colY
-			Else If MouseDown(MOUSE_RIGHT)
-				Self.BGColour = colX * 16 + colY
-			End If
-
-		End If
 	End Method
 
 	Method Draw: Void ()
-		Local BG: Colour = Self.Palette[Self.BGColour]
-		Local FG: Colour = Self.Palette[Self.FGColour]
 
-		SetColor(BG.R, BG.G, BG.B)
-		DrawRect(Self.BaseX, Self.BaseY, 64, 30)
-		SetColor(FG.R, FG.G, FG.B)
-		DrawRect(Self.BaseX + 16, Self.BaseY + 8, 32, 15)
-
-
-		Local c: Int
-		Local pal: Colour
-
-		For Local x: Int = 0 To 3
-			For Local y: Int = 0 To 15
-				c = x * 16 + y
-				pal = Self.Palette[c]
-
-				If c = Self.FGColour
-					SetColor(160, 160, 160)
-					DrawRect(Self.BaseX + (x * Self.ColourWidth) - 2 + 2, Self.BaseY + 32 + (y * Self.ColourHeight) - 2, Self.ColourWidth + 2, Self.ColourHeight + 2)
-
-					SetColor(pal.R, pal.G, pal.B)
-					DrawRect(Self.BaseX + (x * Self.ColourWidth) + 2, Self.BaseY + 32 + (y * Self.ColourHeight), Self.ColourWidth - 2, Self.ColourHeight - 2)
-				Else
-					SetColor(pal.R, pal.G, pal.B)
-					DrawRect(Self.BaseX + (x * Self.ColourWidth) + 2, Self.BaseY + 32 + (y * Self.ColourHeight), Self.ColourWidth, Self.ColourHeight)
-				End If
-			Next
-		Next
-
-		SetColor(255, 255, 255)
+	End Method
+	
+	Method ResizeScreen: Void (X: Int, Y: Int)
+		Self.BaseX = X - 64
+		
+		Self.Widget.X = Self.BaseX
+		Self.Widget.Y = Self.BaseY
 	End Method
 End Class
-
-
 
 Class Colour
 	Field R: Int
