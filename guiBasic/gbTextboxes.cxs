@@ -1,8 +1,10 @@
+Strict
+
 Import guiBasic
 
 Class Gui_TextField Extends Gui
 	
-	Method New(X, Y, W, H, Parent:Gui, Text:String = "", AllowNumbers = 1, AllowLetters = 1, AllowSymbols = 1, MaxLength = 0)
+	Method New(X: Int, Y: Int, W: Int, H: Int, Parent: Gui, Text: String = "", AllowNumbers: Bool = True, AllowLetters: Bool = True, AllowSymbols: Bool = True, MaxLength: Int = 0)
 		Self.Type = "TextField"
 		Self.X = X
 		Self.Y = Y
@@ -23,8 +25,8 @@ Class Gui_TextField Extends Gui
 	
 	Method Draw2: Void ()
 		If IsCell=1 Then SetScissorWithinSelf(0,0,W,H)
-		Local AtlasX = 350
-		Local AtlasY = 20
+		Local AtlasX: Int = 350
+		Local AtlasY: Int = 20
 		If Gui.Over = Self Then AtlasY = 50
 		If Gui.Down = Self Then AtlasY = 80
 		If Gui.ActiveTextbox = Self Then AtlasY = 110
@@ -32,15 +34,15 @@ Class Gui_TextField Extends Gui
 
 		If Self.IsCell = 0 Then Gui.Draw3x3(RealX, RealY, W, H, AtlasX, AtlasY, 30, 30, 10)
 	
-		Local TextY = RealY + ( (H - NormalFont.GetTxtHeight(Text)) / 2.0)
-		Local TextX = (RealX + 5)
+		Local TextY: Int = RealY + ( (H - NormalFont.GetTxtHeight(Text)) / 2.0)
+		Local TextX: Int = (RealX + 5)
 		
 		If Gui.ActiveTextbox = Self Then
 			TextX = TextX - TextFieldOffset
 			'Adjust if curstor is out of box
 			
 			Local BeforeText:String = Text[ .. CursorLocation]
-			Local CurX = RealX + 6 + NormalFont.GetTxtWidth(BeforeText + "Testing123") - NormalFont.GetTxtWidth("Testing123")
+			Local CurX: Int = RealX + 6 + NormalFont.GetTxtWidth(BeforeText + "Testing123") - NormalFont.GetTxtWidth("Testing123")
 			
 			
 			If CurX - TextFieldOffset > (RealX + 5) + W - 17 Then TextFieldOffset = (CurX - ( (RealX + 5) + W - 17))
@@ -51,7 +53,7 @@ Class Gui_TextField Extends Gui
 			
 
 		'Draw Text
-		Local OldAlpha:Float = GetAlpha()
+		Local OldAlpha: Float = GetAlpha()
 		If Self.RealActive = 0 Then SetAlpha(GetAlpha() -0.6)
 		NormalFont.DrawText(Text, TextX, TextY)
 		SetAlpha(OldAlpha)
@@ -60,8 +62,8 @@ Class Gui_TextField Extends Gui
 		'Draw Cursor
 		If Gui.ActiveTextbox = Self Then
 			If CursorOn = 1 Or KeyIsdown = 1 Then
-				Local BeforeText:String = Text[ .. CursorLocation]
-				Local XX = RealX + 6 + NormalFont.GetTxtWidth(BeforeText + "Testing123") - NormalFont.GetTxtWidth("Testing123")
+				Local BeforeText: String = Text[ .. CursorLocation]
+				Local XX: Int = RealX + 6 + NormalFont.GetTxtWidth(BeforeText + "Testing123") - NormalFont.GetTxtWidth("Testing123")
 				'If NormalFont.GetTxtWidth(BeforeText) > W - 10 Then
 				'	XX = XX - (NormalFont.GetTxtWidth(BeforeText) - W) - 6
 				'End If
@@ -79,7 +81,7 @@ Class Gui_TextField Extends Gui
 				Else
 					CursorOn = 1
 				End If
-				CurserTimer = Millisecs() +500
+				CurserTimer = Millisecs() + 500
 			End If
 		End If
 		
@@ -100,7 +102,7 @@ Class Gui_TextField Extends Gui
 				Gui.CursorLocation = Text.Length
 				'TextFieldOffset
 				Local BeforeText:String = Text[ .. CursorLocation]
-				Local CurX = RealX + 6 + NormalFont.GetTxtWidth(BeforeText + "Testing123") - NormalFont.GetTxtWidth("Testing123")
+				Local CurX: Int = RealX + 6 + NormalFont.GetTxtWidth(BeforeText + "Testing123") - NormalFont.GetTxtWidth("Testing123")
 				If CurX > (RealX + 5) + W - 12 Then TextFieldOffset = (CurX - ( (RealX + 5) + W - 12))
 		
 				
@@ -108,15 +110,15 @@ Class Gui_TextField Extends Gui
 			Else
 
 				'Adjust curstor if clicked once active
-				Local Found = 0
-				For Local i = 0 To Text.Length - 1
+				Local Found: Bool = False
+				For Local i: Int = 0 To Text.Length - 1
 					If NormalFont.GetTxtWidth(Text[ .. i] + "NONE") + RealX + 6 - NormalFont.GetTxtWidth("NONE") + 6 - TextFieldOffset > TouchX() Then
 						CursorLocation = (i)
-						Found = 1
+						Found = True
 						Exit
 					End If
 				Next
-				If Found = 0 Then CursorLocation = Text.Length
+				If Found Then CursorLocation = Text.Length
 				
 			End If
 		End If
@@ -126,8 +128,8 @@ Class Gui_TextField Extends Gui
 	End Method
 	
 	
-	Method GetFieldText()
-		Local MaxLength = Self.MaxLength
+	Method GetFieldText: Void ()
+		Local MaxLength: Int = Self.MaxLength
 		If MaxLength < 1 Then MaxLength = 900000
 		'Arrow Adjust
 			If KeyHit(KEY_LEFT) And CursorLocation > 0 Then
@@ -165,9 +167,9 @@ Class Gui_TextField Extends Gui
 		
 		'Error Text
 			'==INPUT==
-			Local BeforeText:String = ActiveTextbox.Text[ .. CursorLocation]
-			Local AfterText:String = ActiveTextbox.Text[CursorLocation ..]
-			Local C = GetChar()
+			Local BeforeText: String = ActiveTextbox.Text[ .. CursorLocation]
+			Local AfterText: String = ActiveTextbox.Text[CursorLocation ..]
+			Local C: Int = GetChar()
 			
 			If C <> 0 And Self.Type = "TextField" And Self.Parent.Type = "TableCell" Then
 				If OnFocus <> Null
@@ -247,7 +249,7 @@ End Class
 
 Class Gui_TextBox Extends Gui
 	
-	Method New(X, Y, W, H, Parent:Gui, Text:String = "", AllowNumbers = 1, AllowLetters = 1, AllowSymbols = 1, Wordwrapped = 0)
+	Method New(X: Int, Y: Int, W: Int, H: Int, Parent: Gui, Text: String = "", AllowNumbers: Bool = True, AllowLetters: Bool = True, AllowSymbols: Bool = True, Wordwrapped: Int = 0)
 		Self.Type = "TextBox"
 		Self.X = X
 		Self.Y = Y
@@ -267,7 +269,7 @@ Class Gui_TextBox Extends Gui
 		
 		'Get TextLines[]
 		If Wordwrapped = 1 Then
-			Local WW = W - 4
+			Local WW: Int = W - 4
 			If VScroll.Visible Then WW = WW - 15
 			WordWrap(WW - 2)
 		Else
@@ -278,8 +280,8 @@ Class Gui_TextBox Extends Gui
 	
 	
 	Method Draw2: Void ()
-		Local AtlasX = 350
-		Local AtlasY = 20
+		Local AtlasX: Int = 350
+		Local AtlasY: Int = 20
 		If Gui.Over = Self Then AtlasY = 50
 		If Gui.Down = Self Then AtlasY = 80
 		If Gui.ActiveTextbox = Self Then AtlasY = 110
@@ -288,22 +290,22 @@ Class Gui_TextBox Extends Gui
 		Gui.Draw3x3(RealX, RealY, W, H, AtlasX, AtlasY, 30, 30, 10)
 
 		
-		Local OldAlpha:Float = GetAlpha()
+		Local OldAlpha: Float = GetAlpha()
 		If Self.RealActive = 0 Then SetAlpha(GetAlpha() -0.6)
 		
 		'Adjust for sliders
-		Local WW = W - 4
-		Local HH = H - 4
+		Local WW: Int = W - 4
+		Local HH: Int = H - 4
 		If VScroll.Visible = 1 Then WW = WW - 16
 		If HScroll.Visible = 1 Then HH = HH - 16
-		Local TextY = RealY + 2
-		Local TextX = RealX + 2
+		Local TextY: Int = RealY + 2
+		Local TextX: Int = RealX + 2
 		TextX = TextX - HScroll.Value
 		TextY = TextY - VScroll.Value
 		SetScissorWithinSelf(1, 1, WW + 4, HH + 4)
 		
 		'DrawText (From TextLines)
-		Local YY
+		Local YY: Int
 		For Local i:String = Eachin TextLines
 			NormalFont.DrawText(i, TextX, TextY + YY)
 			YY = YY + NormalFont.GetTxtHeight("Testing123")
@@ -322,8 +324,8 @@ Class Gui_TextBox Extends Gui
 			If CursorOn = 1 Or KeyIsdown = 1 Then
 			
 				
-				Local CX = RealX - HScroll.Value + NormalFont.GetTxtWidth(TextLines[CursorLine][ .. CursorX] + "Testing123") - NormalFont.GetTxtWidth("Testing123") + 4
-				Local CY = RealY - VScroll.Value + (NormalFont.GetTxtHeight("Testing123") * CursorLine)
+				Local CX: Int = RealX - HScroll.Value + NormalFont.GetTxtWidth(TextLines[CursorLine][ .. CursorX] + "Testing123") - NormalFont.GetTxtWidth("Testing123") + 4
+				Local CY: Int = RealY - VScroll.Value + (NormalFont.GetTxtHeight("Testing123") * CursorLine)
 
 				SetColor(0, 0, 0)
 				SetAlpha(1)
@@ -353,7 +355,7 @@ Class Gui_TextBox Extends Gui
 		
 		'Get TextLines[]
 		If Wordwrapped = 1 Then
-			Local WW = W - 4
+			Local WW: Int = W - 4
 			If VScroll.Visible Then WW = WW - 15
 			WordWrap(WW - 2)
 		Else
@@ -362,19 +364,19 @@ Class Gui_TextBox Extends Gui
 
 		'Update Curser X And Line Based on Location
 		If ActiveTextbox = Self Then
-			Local Count = 0, Found = 0
-			For Local l = 0 To TextLines.Length - 1
+			Local Count: Int = 0, Found: Bool = False
+			For Local l: Int = 0 To TextLines.Length - 1
 				Count = Count + TextLines[l].Length
 				If CursorLocation <= Count Then
 					CursorLine = l
 					CursorX = 0
 					Count = Count - TextLines[l].Length
-					Found = 1
+					Found = True
 					Exit
 				End If
 				Count = Count + 1
 			Next
-			If Found = 0 Then
+			If Found Then
 				CursorLine = TextLines.Length
 				'Error TextLines.Length - 1
 				Count = 0
@@ -394,32 +396,32 @@ Class Gui_TextBox Extends Gui
 			If Wordwrapped < 2 Then
 				
 				'Get Line
-				Local Found = 0
-				For Local l = 0 To TextLines.Length - 1
-					Local YY = RealY + 2 - VScroll.Value + (l * NormalFont.GetTxtHeight("Testing123"))
+				Local Found: Bool = False
+				For Local l: Int = 0 To TextLines.Length - 1
+					Local YY: Int = RealY + 2 - VScroll.Value + (l * NormalFont.GetTxtHeight("Testing123"))
 					
 					If TouchY() >= YY And TouchY() < YY + NormalFont.GetTxtHeight("Testing123") Then
-						Found = 1
+						Found = True
 						CursorLine = l
 					End If
 				Next
-				If Found = 0 Then CursorLine = TextLines.Length - 1
+				If Found Then CursorLine = TextLines.Length - 1
 				
 				'Get Cursor X
-				Found = 0
-				For Local i = 1 To TextLines[CursorLine].Length
-					Local XX = RealX + 2 - HScroll.Value
+				Found = False
+				For Local i: Int = 1 To TextLines[CursorLine].Length
+					Local XX: Int = RealX + 2 - HScroll.Value
 					If TouchX() <= XX + (NormalFont.GetTxtWidth(TextLines[CursorLine][ .. i] + "Testing123")) - NormalFont.GetTxtWidth("Testing123") Then
 						CursorX = (i - 1)
-						Found = 1
+						Found = True
 						Exit
 					End If
 				Next
-				If Found = 0 Then CursorX = TextLines[CursorLine].Length
+				If Not Found Then CursorX = TextLines[CursorLine].Length
 				
 				'Get Location
-				Local Counter = 0
-				For Local l = 0 To CursorLine
+				Local Counter: Int = 0
+				For Local l: Int = 0 To CursorLine
 					Counter = Counter + (TextLines[l].Length)
 				Next
 				CursorLocation = Counter - TextLines[CursorLine][CursorX ..].Length + CursorLine
@@ -429,11 +431,11 @@ Class Gui_TextBox Extends Gui
 		End If 'End If Clicked
 		
 		'UpdateScrollBars
-		Local RenderedText:String, First = 1
-		For Local i:String = Eachin TextLines
-			If First = 1 Then
+		Local RenderedText: String, First: Bool = True
+		For Local i: String = Eachin TextLines
+			If First Then
 				RenderedText = i
-				First = 0
+				First = False
 			Else
 				RenderedText = RenderedText + "~n" + i
 			End If
@@ -495,8 +497,8 @@ Class Gui_TextBox Extends Gui
 		If VScroll.Visible Then HScroll.W = W - 17
 		'HScroll.Minimum = 0
 		'VScroll.Minimum = 0
-		Local WW = W - 4
-		Local HH = H - 4
+		Local WW: Int = W - 4
+		Local HH: Int = H - 4
 		If VScroll.Visible = 1 Then WW = WW - 16
 		If HScroll.Visible = 1 Then HH = HH - 16
 		'HScroll.Maximum = NormalFont.GetTxtWidth(RenderedText) - WW
@@ -505,15 +507,15 @@ Class Gui_TextBox Extends Gui
 	End Method
 	
 	
-	Function ForceUpdateScrollbars()
+	Function ForceUpdateScrollbars: Void ()
 		
 		If ActiveTextbox <> Null Then
-			Local XX = ActiveTextbox.RealY + 2
-			Local YY = ActiveTextbox.RealX + 2
-			Local TextX = XX - ActiveTextbox.HScroll.Value
-			Local TextY = YY - ActiveTextbox.VScroll.Value
-			Local WW = ActiveTextbox.W - 20
-			Local HH = ActiveTextbox.H - 20
+			Local XX: Int = ActiveTextbox.RealY + 2
+			Local YY: Int = ActiveTextbox.RealX + 2
+			Local TextX: Int = XX - ActiveTextbox.HScroll.Value
+			Local TextY: Int = YY - ActiveTextbox.VScroll.Value
+			Local WW: Int = ActiveTextbox.W - 20
+			Local HH: Int = ActiveTextbox.H - 20
 			If ActiveTextbox.VScroll.Visible = 1 Then WW = WW - 16
 			If ActiveTextbox.HScroll.Visible = 1 Then HH = HH - 16
 			
@@ -524,8 +526,8 @@ Class Gui_TextBox Extends Gui
 		
 			
 			'Adjusts The value if the cursor is out of bounds
-			Local CX = NormalFont.GetTxtWidth(ActiveTextbox.TextLines[CursorLine][ .. CursorX] + "Testing123") - NormalFont.GetTxtWidth("Testing123") - 17
-			Local CY = (NormalFont.GetTxtHeight("Testing123") * CursorLine) + 2
+			Local CX: Int = NormalFont.GetTxtWidth(ActiveTextbox.TextLines[CursorLine][ .. CursorX] + "Testing123") - NormalFont.GetTxtWidth("Testing123") - 17
+			Local CY: Int = (NormalFont.GetTxtHeight("Testing123") * CursorLine) + 2
 			
 			If ActiveTextbox.VScroll.Visible = 1 Then
 				If CY < ActiveTextbox.VScroll.Value Then ActiveTextbox.VScroll.Value = ActiveTextbox.VScroll.Value - (ActiveTextbox.VScroll.Value - CY)
@@ -542,19 +544,19 @@ Class Gui_TextBox Extends Gui
 	End Function
 	
 	
-	Method WordWrap(Width)
+	Method WordWrap: Void (Width: Int)
 		WrapOffset = 0
-		Local Text:String = Self.Text.Replace("~n", "~n ")
-		Local Txt:String[] = Text.Split(" ")
+		Local Text: String = Self.Text.Replace("~n", "~n ")
+		Local Txt: String[] = Text.Split(" ")
 	
-		Local LongWordsRemoved:List<String> = New List<String>
+		Local LongWordsRemoved: List<String> = New List<String>
 		
 		'Split Long Words Here
-		For Local i = 0 To Txt.Length - 1
+		For Local i: Int = 0 To Txt.Length - 1
 			If NormalFont.GetTxtWidth(Txt[i].Replace("~n", "")) <= Width Then
 				LongWordsRemoved.AddLast(Txt[i])
 			Else
-				Local TempText:String = Txt[i], Counter = 1
+				Local TempText: String = Txt[i], Counter: Int = 1
 				While TempText.Length > 0
 					If NormalFont.GetTxtWidth(TempText.Replace("~n", "")) < Width Then
 						LongWordsRemoved.AddLast(TempText)
@@ -572,23 +574,23 @@ Class Gui_TextBox Extends Gui
 		Next
 		
 		'Convert LongWords into String
-		Local NoLongWords:String, First = 1
-		For Local i:String = Eachin LongWordsRemoved
-			If First = 1 Then
+		Local NoLongWords: String, First: Bool = True
+		For Local i: String = Eachin LongWordsRemoved
+			If First Then
 				NoLongWords = i
-				First = 0
+				First = False
 			Else
 				NoLongWords = NoLongWords + " " + i
 			End If
 		Next
 		
 		'Wordwrap Spaces and new lines
-		Local StringToSplit:String[] = NoLongWords.Split(" ")
-		Local ReturnLines:List<String> = New List<String>
+		Local StringToSplit: String[] = NoLongWords.Split(" ")
+		Local ReturnLines: List<String> = New List<String>
 		
-		Local WordLine:String = StringToSplit[0]
+		Local WordLine: String = StringToSplit[0]
 		
-		For Local i = 1 To StringToSplit.Length - 1
+		For Local i: Int = 1 To StringToSplit.Length - 1
 			If WordLine.Contains("~n") Then
 				ReturnLines.AddLast(WordLine.Replace("~n", ""))
 				WordLine = ""
@@ -615,12 +617,12 @@ Class Gui_TextBox Extends Gui
 		
 		
 		'Add To TextLines	
-		Local ReturnString:String
-		First = 1
-		For Local i:String = Eachin ReturnLines
-			If First = 1 Then
+		Local ReturnString: String
+		First = True
+		For Local i: String = Eachin ReturnLines
+			If First Then
 				ReturnString = i
-				First = 0
+				First = False
 			Else
 				ReturnString = ReturnString + "~n" + i
 			End If
@@ -630,7 +632,7 @@ Class Gui_TextBox Extends Gui
 		
 	End Method
 	
-	Method GoToLocation(Line, X)
+	Method GoToLocation: Void (Line: Int, X: Int)
 		If Line < 1 Then
 			CursorLine = 0
 			CursorX = X
@@ -651,8 +653,8 @@ Class Gui_TextBox Extends Gui
 		If CursorX < 0 Then CursorX = 0
 		
 		'Get Location
-		Local Counter = 0
-		For Local l = 0 To CursorLine
+		Local Counter: Int = 0
+		For Local l: Int = 0 To CursorLine
 			Counter = Counter + (TextLines[l].Length)
 		Next
 		CursorLocation = Counter - TextLines[CursorLine][CursorX ..].Length + CursorLine
@@ -660,7 +662,7 @@ Class Gui_TextBox Extends Gui
 		ForceUpdateScrollbars()		
 	End Method
 	
-	Method GetBoxText()
+	Method GetBoxText: Void ()
 		
 		'Arrow Adjust
 			If KeyHit(KEY_LEFT) And CursorLocation > 0 Then
@@ -722,9 +724,9 @@ Class Gui_TextBox Extends Gui
 		
 	
 			'==INPUT==
-			Local BeforeText:String = ActiveTextbox.Text[ .. CursorLocation]
-			Local AfterText:String = ActiveTextbox.Text[CursorLocation ..]
-			Local C = GetChar()
+			Local BeforeText: String = ActiveTextbox.Text[ .. CursorLocation]
+			Local AfterText: String = ActiveTextbox.Text[CursorLocation ..]
+			Local C: Int = GetChar()
 			
 			
 			'Escape
