@@ -688,7 +688,7 @@ Class Gui
 		Local N:Gui = New Gui_SlideButton(X, Y, W, H, Text1, Text2, Parent, Value)
 		Return N
 	End Function
-	Function CreateTickbox:Gui(X, Y, H, Text:String, Parent:Gui, StartValue = 0)
+	Function CreateTickbox:Gui(X, Y, H, Text:String, Parent:Gui, StartValue: Bool = False)
 		Local N:Gui = New Gui_Tickbox(X, Y, H, Text, Parent, StartValue)
 		Return N
 	End Function
@@ -753,11 +753,11 @@ Class Gui
 		Local N:Gui = New Gui_TitleLabel(X, Y, Text, Parent, Align, Boarder)
 		Return N
 	End Function
-	Function CreateTextField:Gui(X, Y, W, H, Parent:Gui, Text:String, AllowNumbers = 1, AllowLetters = 1, AllowSymbols = 1, MaxLength = 0)
+	Function CreateTextField:Gui(X, Y, W, H, Parent: Gui, Text: String, AllowNumbers: Bool = True, AllowLetters: Bool = True, AllowSymbols: Bool = True, MaxLength: Int = 0)
 		Local N:Gui = New Gui_TextField(X, Y, W, H, Parent, Text, AllowNumbers, AllowLetters, AllowSymbols, MaxLength)
 		Return N
 	End Function
-	Function CreateTextBox:Gui(X, Y, W, H, Parent:Gui, Text:String, AllowNumbers = 1, AllowLetters = 1, AllowSymbols = 1, Wordwrap = 0)
+	Function CreateTextBox:Gui(X, Y, W, H, Parent:Gui, Text:String, AllowNumbers: Bool = True, AllowLetters: Bool = True, AllowSymbols: Bool = True, Wordwrap: Int = 0)
 		Local N:Gui = New Gui_TextBox(X, Y, W, H, Parent, Text, AllowNumbers, AllowLetters, AllowSymbols, Wordwrap)
 		Return N
 	End Function
@@ -2280,7 +2280,7 @@ Class Gui
 		
 	End Function
 	
-	Function DrawOnFocus(i:Gui)
+	Function DrawOnFocus: Void (i:Gui)
 		SetScissor(i.DrawingX, i.DrawingY, i.DrawingW, i.DrawingH)
 		SetColor(0, 0, 0)
 		
