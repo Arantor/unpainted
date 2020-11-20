@@ -1,3 +1,5 @@
+Strict
+
 Import guiBasic
 
 ' NOTE TO SELF SEPERATED CANVAS (Parent) Does not draw or update via main loop  only through seperated canvas update/draw
@@ -12,19 +14,19 @@ Class Gui_Canvas Extends Gui
 		Self.Children = New List<Gui>
 	End Method
 	
-	Function DrawAllCanvas()
+	Function DrawAllCanvas: Void ()
 		For Local i:Gui_Canvas = EachIn CanvasList
 			If i.Visible Then i.Draw()
 		Next
 	End Function
 	
-	Function UpdateAllCanvas()
+	Function UpdateAllCanvas: Void ()
 		For Local i:Gui_Canvas = EachIn CanvasList
 			If i.Visible Then i.Update()
 		Next
 	End Function
 	
-	Method Draw()
+	Method Draw: Void ()
 		'DropShadow
 		If Gui.Shadows = 1 Then
 			Local OldAlpha:Float = GetAlpha()
@@ -35,17 +37,17 @@ Class Gui_Canvas Extends Gui
 		
 		'Draw The Canvas BG
 		SetColor(255, 255, 255)
-		Local AtlasX = 440
-		Local ATlasY = 20
+		Local AtlasX: Int = 440
+		Local AtlasY: Int = 20
 		If Parent.Type = "Menu" Or Parent.Type = "MenuItem" Then
 			AtlasX = 510
 		EndIf
-		Gui.Draw3x3(CanvasX - 1, CanvasY - 1, CanvasW + 2, CanvasH + 2, AtlasX, ATlasY, 30, 30)
+		Gui.Draw3x3(CanvasX - 1, CanvasY - 1, CanvasW + 2, CanvasH + 2, AtlasX, AtlasY, 30, 30)
 		
 		
 		'Draw The Elements
 		SetScissor(CanvasX, CanvasY, CanvasW, CanvasH)
-		Local YCounter = 0
+		Local YCounter: Int = 0
 		For Local i:Gui = EachIn Parent.Children
 			If i.Visible Then
 				i.RealX = CanvasX
@@ -62,8 +64,8 @@ Class Gui_Canvas Extends Gui
 	
 	
 	
-	Method Update()
-		Local ChildCount
+	Method Update: Void ()
+		Local ChildCount: Int = 0
 		For Local i:Gui = EachIn Parent.Children
 			If i.Visible Then
 				ChildCount = ChildCount + 1
@@ -78,20 +80,14 @@ Class Gui_Canvas Extends Gui
 			End If
 			i.Update2()
 			If i.IsDown Then OnFocus = i
-			
-			
 		Next
-		
-		
+
 		CanvasH = ChildCount * Parent.ChildMaxHeight
-		
-		
-		
 		
 		'Close Canvas - Drop Down
 		If Self.Parent.Type = "DropDown" Then
 			If TouchDown() Then
-				If TouchX() < CanvasX Or TouchX > CanvasX + CanvasW Or TouchY() < CanvasY Or TouchY > CanvasY + CanvasH Then
+				If TouchX() < CanvasX Or TouchX() > CanvasX + CanvasW Or TouchY() < CanvasY Or TouchY() > CanvasY + CanvasH Then
 					If Gui.Over <> Parent Then
 						Parent.Minimised = 1
 						Parent.GuiCanvas.Visible = 0
@@ -103,10 +99,6 @@ Class Gui_Canvas Extends Gui
 				EndIf
 			End If
 		End If
-		
-		
-		
-		
 		
 	End Method
 	
